@@ -1,0 +1,263 @@
+
+<div class="card">
+    <h3>Track all cases screen</h3>
+    <p>Track cases here</p>
+</div>
+<div class="track-cases-container">
+  <h2>📋 Track All Cases</h2>
+
+  <!-- Search & Filter -->
+  <div class="case-filters">
+    <input type="text" id="searchCase" placeholder="Search by case title or ID...">
+    <select id="filterStatus">
+      <option value="">All Status</option>
+      <option value="Open">Open</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Closed">Closed</option>
+    </select>
+  </div>
+
+  <!-- Cases Table -->
+  <div class="cases-table-wrapper">
+    <table class="cases-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Case Title</th>
+          <th>Assigned To</th>
+          <th>Status</th>
+          <th>Date Created</th>
+          <th>Last Updated</th>
+        </tr>
+      </thead>
+      <tbody id="casesList">
+        <!-- Example cases -->
+        <tr>
+          <td>#101</td>
+          <td>Land dispute case</td>
+          <td>John Doe</td>
+          <td><span class="status open">Open</span></td>
+          <td>2025-08-20</td>
+          <td>2025-08-22</td>
+        </tr>
+        <tr>
+          <td>#102</td>
+          <td>Fraud investigation</td>
+          <td>Jane Smith</td>
+          <td><span class="status progress">In Progress</span></td>
+          <td>2025-08-19</td>
+          <td>2025-08-23</td>
+        </tr>
+        <tr>
+          <td>#103</td>
+          <td>Property ownership</td>
+          <td>Michael Lee</td>
+          <td><span class="status closed">Closed</span></td>
+          <td>2025-08-10</td>
+          <td>2025-08-15</td>
+        </tr>
+        <tr>
+          <td>#101</td>
+          <td>Land dispute case</td>
+          <td>John Doe</td>
+          <td><span class="status open">Open</span></td>
+          <td>2025-08-20</td>
+          <td>2025-08-22</td>
+        </tr>
+        <tr>
+          <td>#102</td>
+          <td>Fraud investigation</td>
+          <td>Jane Smith</td>
+          <td><span class="status progress">In Progress</span></td>
+          <td>2025-08-19</td>
+          <td>2025-08-23</td>
+        </tr>
+        <tr>
+          <td>#103</td>
+          <td>Property ownership</td>
+          <td>Michael Lee</td>
+          <td><span class="status closed">Closed</span></td>
+          <td>2025-08-10</td>
+          <td>2025-08-15</td>
+        </tr>
+        <tr>
+          <td>#101</td>
+          <td>Land dispute case</td>
+          <td>John Doe</td>
+          <td><span class="status open">Open</span></td>
+          <td>2025-08-20</td>
+          <td>2025-08-22</td>
+        </tr>
+        <tr>
+          <td>#102</td>
+          <td>Fraud investigation</td>
+          <td>Jane Smith</td>
+          <td><span class="status progress">In Progress</span></td>
+          <td>2025-08-19</td>
+          <td>2025-08-23</td>
+        </tr>
+        <tr>
+          <td>#103</td>
+          <td>Property ownership</td>
+          <td>Michael Lee</td>
+          <td><span class="status closed">Closed</span></td>
+          <td>2025-08-10</td>
+          <td>2025-08-15</td>
+        </tr>
+        <tr>
+          <td>#101</td>
+          <td>Land dispute case</td>
+          <td>John Doe</td>
+          <td><span class="status open">Open</span></td>
+          <td>2025-08-20</td>
+          <td>2025-08-22</td>
+        </tr>
+        <tr>
+          <td>#102</td>
+          <td>Fraud investigation</td>
+          <td>Jane Smith</td>
+          <td><span class="status progress">In Progress</span></td>
+          <td>2025-08-19</td>
+          <td>2025-08-23</td>
+        </tr>
+        <tr>
+          <td>#103</td>
+          <td>Property ownership</td>
+          <td>Michael Lee</td>
+          <td><span class="status closed">Closed</span></td>
+          <td>2025-08-10</td>
+          <td>2025-08-15</td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <button class="prev">Previous</button>
+    <span>Page 1 of 10</span>
+    <button class="next">Next</button>
+  </div>
+</div>
+
+
+
+<style>
+  .track-cases-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.track-cases-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Search & Filter */
+.case-filters {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.case-filters input,
+.case-filters select {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Table Styling */
+.cases-table-wrapper {
+  overflow-x: auto;
+}
+
+.cases-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.cases-table th, .cases-table td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.cases-table th {
+  background: #f5f5f5;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #fff;
+}
+.status.open { background: #28a745; }
+.status.progress { background: #ffc107; color: #333; }
+.status.closed { background: #dc3545; }
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  gap: 10px;
+}
+.pagination button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+.pagination button:hover {
+  background: #0056b3;
+}
+
+input{
+  outline: none;
+}
+
+/* ✅ Mobile Responsive */
+@media (max-width: 768px) {
+  .case-filters {
+    flex-direction: column;
+  }
+
+  .cases-table, .cases-table thead, .cases-table tbody, .cases-table th, .cases-table td, .cases-table tr {
+    display: block;
+    width: 100%;
+  }
+
+  .cases-table tr {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 10px;
+    background: #fff;
+  }
+
+  .cases-table td {
+    border: none;
+    padding: 6px 0;
+  }
+
+  .cases-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    display: block;
+    color: #555;
+  }
+}
+
+</style>

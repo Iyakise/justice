@@ -1,0 +1,165 @@
+<div class="card">
+    <h3>Activities Overview</h3>
+    <p>Manage all system records including staff, cases, departments, and overall system operations from this dashboard.</p>
+</div>
+
+
+
+
+
+<div class="activity-container">
+    <div class="activity-header">
+      <h2>Activity Log</h2>
+      <div class="activity-search">
+        <input type="text" placeholder="Search activity...">
+      </div>
+    </div>
+
+    <ul class="activity-log">
+      <li class="activity-item">
+        <div class="activity-left">
+          <div class="activity-icon icon-add">+</div>
+          <div class="activity-text">
+            <span>New staff added</span>
+            <small>Admin added John Doe</small>
+          </div>
+        </div>
+        <div class="activity-time">2 mins ago</div>
+      </li>
+
+      <li class="activity-item">
+        <div class="activity-left">
+          <div class="activity-icon icon-edit">✎</div>
+          <div class="activity-text">
+            <span>Staff profile updated</span>
+            <small>Jane Smith's details were edited</small>
+          </div>
+        </div>
+        <div class="activity-time">15 mins ago</div>
+      </li>
+
+      <li class="activity-item">
+        <div class="activity-left">
+          <div class="activity-icon icon-delete">✕</div>
+          <div class="activity-text">
+            <span>Staff removed</span>
+            <small>Michael Johnson was deleted</small>
+          </div>
+        </div>
+        <div class="activity-time">1 hour ago</div>
+      </li>
+
+      <li class="activity-item">
+        <div class="activity-left">
+          <div class="activity-icon icon-login">⮕</div>
+          <div class="activity-text">
+            <span>User login</span>
+            <small>Admin logged in from Chrome</small>
+          </div>
+        </div>
+        <div class="activity-time">3 hours ago</div>
+      </li>
+    </ul>
+  </div>
+
+
+  <style>
+    /* General Reset */
+
+
+
+
+
+
+
+
+
+.activity-container {
+      max-width: 900px;
+      margin: 30px auto;
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    }
+
+    .activity-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .activity-header h2 {
+      font-size: 1.5rem;
+      color: #333;
+    }
+
+    .activity-search input {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      outline: none;
+    }
+
+    .activity-log {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 10px;
+      border-bottom: 1px solid #eee;
+      transition: background 0.2s;
+    }
+
+    .activity-item:hover {
+      background: #f9fafc;
+    }
+
+    .activity-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .activity-icon {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: #fff;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .icon-add { background: #28a745; }
+    .icon-edit { background: #ffc107; }
+    .icon-delete { background: #dc3545; }
+    .icon-login { background: #007bff; }
+
+    .activity-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .activity-text span {
+      font-weight: 500;
+      color: #333;
+    }
+
+    .activity-text small {
+      color: #666;
+    }
+
+    .activity-time {
+      font-size: 0.85rem;
+      color: #888;
+    }
+  </style>

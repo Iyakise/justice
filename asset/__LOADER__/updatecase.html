@@ -1,0 +1,187 @@
+<div class="card">
+  <h3>Update case information</h3>
+  <p>Manage all system records including staff, cases, departments, and overall system operations from this dashboard.</p>
+</div>
+
+<!-- Update Case Screen -->
+<div class="update-case-container">
+  <!-- Update Form -->
+  <div class="update-case-form">
+    <h2>Update Case</h2>
+    <form>
+      <div class="form-group">
+        <label for="caseTitle">Case Title</label>
+        <input type="text" id="caseTitle" placeholder="Enter case title">
+      </div>
+
+      <div class="form-group">
+        <label for="caseType">Case Type</label>
+        <select id="caseType">
+          <option value="">Select type</option>
+          <option>Criminal</option>
+          <option>Civil</option>
+          <option>Appeal</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="assignedTo">Assigned To</label>
+        <input type="text" id="assignedTo" placeholder="Enter staff name">
+      </div>
+
+      <div class="form-group">
+        <label for="caseDescription">Case Description</label>
+        <textarea id="caseDescription" rows="4" placeholder="Enter case details"></textarea>
+      </div>
+
+      <button type="submit" class="btn-update">Update Case</button>
+    </form>
+  </div>
+
+  <!-- Recent Cases -->
+  <div class="recent-cases">
+    <div class="inpcasesearch">
+      <input type="search" class="search" id="search" placeholder="Search case... (Name, ID)">
+    </div>
+    <h2>Recent Cases</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Case Title</th>
+          <th>Type</th>
+          <th>Assigned To</th>
+          <th>Date Created</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>State vs John Doe</td>
+          <td>Criminal</td>
+          <td>Mr. Okon</td>
+          <td>Aug 20, 2025</td>
+        </tr>
+        <tr>
+          <td>Jane vs XYZ Ltd</td>
+          <td>Civil</td>
+          <td>Mrs. Grace</td>
+          <td>Aug 19, 2025</td>
+        </tr>
+        <tr>
+          <td>Appeal on Land Dispute</td>
+          <td>Appeal</td>
+          <td>Mr. Smith</td>
+          <td>Aug 18, 2025</td>
+        </tr>
+        <!-- Repeat until you have 10–15 sample cases -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+<style>
+.update-case-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 20px;
+}
+
+.update-case-form, .recent-cases {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.update-case-form h2, .recent-cases h2 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: #333;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.btn-update {
+  background: #2563eb;
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  width: 100%;
+  transition: background 0.3s;
+}
+
+.btn-update:hover {
+  background: #1e40af;
+}
+
+.recent-cases table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.recent-cases th, .recent-cases td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.recent-cases th {
+  background: #f8f9fa;
+  font-weight: bold;
+}
+
+.recent-cases tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.inpcasesearch{
+  margin: 1rem 0;
+}
+
+.inpcasesearch input{
+  width: 100%;
+  height: auto;
+  padding: .5rem;
+  border: 1px solid #ddd;
+  border-radius: .4rem;
+  outline: none;
+}
+
+
+
+/* Responsive */
+@media (min-width: 768px) {
+  .update-case-container {
+    flex-direction: row;
+  }
+  .update-case-form, .recent-cases {
+    flex: 1;
+  }
+}
+
+</style>

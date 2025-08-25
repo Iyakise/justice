@@ -1,0 +1,118 @@
+<div class="commissioner-profile-container">
+  <h2 class="profile-title">Manage Profile</h2>
+
+  <form class="profile-form">
+    <div class="form-group">
+      <label for="fullname">Full Name</label>
+      <input type="text" id="fullname" placeholder="Enter full name" />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" placeholder="Enter email address" />
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input type="text" id="phone" placeholder="Enter phone number" />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Change Password</label>
+      <input type="password" id="password" placeholder="Enter new password" />
+    </div>
+
+    <div class="form-group">
+      <label for="confirm-password">Confirm Password</label>
+      <input type="password" id="confirm-password" placeholder="Re-enter new password" />
+    </div>
+
+    <button type="submit" class="btn-update">Update Profile</button>
+  </form>
+</div>
+
+
+<style>
+    /* Commissioner Profile Container */
+.commissioner-profile-container {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.profile-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #333;
+  text-align: center;
+}
+
+/* Form */
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  color: #444;
+}
+
+.form-group input {
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Update Button */
+.btn-update {
+  background: #007bff;
+  color: #fff;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-update:hover {
+  background: #0056b3;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .commissioner-profile-container {
+    padding: 1.2rem;
+  }
+
+  .profile-title {
+    font-size: 1.3rem;
+  }
+
+  .btn-update {
+    padding: 0.8rem;
+    font-size: 0.95rem;
+  }
+}
+
+</style>

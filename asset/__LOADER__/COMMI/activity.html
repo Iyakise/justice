@@ -1,0 +1,83 @@
+<!-- Commissioner Activity Log Template -->
+<section class="commissioner-activity-log">
+  <h2>Commissioner Activity Log</h2>
+  <div class="activity-log-list">
+    <div class="activity-log-item">
+      <p><strong>Case #1024</strong> status changed to <span class="status updated">Updated</span></p>
+      <small>5 mins ago</small>
+    </div>
+    <div class="activity-log-item">
+      <p><strong>Department</strong> "Litigation" was modified by Commissioner</p>
+      <small>20 mins ago</small>
+    </div>
+    <div class="activity-log-item">
+      <p><strong>Profile</strong> information updated</p>
+      <small>Yesterday, 3:15 PM</small>
+    </div>
+    <div class="activity-log-item">
+      <p><strong>Case #1008</strong> was viewed</p>
+      <small>2 days ago</small>
+    </div>
+  </div>
+</section>
+
+
+
+
+<style>
+.commissioner-activity-log {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  margin-top: 1.5rem;
+}
+
+.commissioner-activity-log h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #333;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 0.5rem;
+}
+
+.activity-log-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.activity-log-item {
+  padding: 0.9rem 1rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #fafafa;
+  transition: background 0.2s ease;
+}
+
+.activity-log-item:hover {
+  background: #f5f5f5;
+}
+
+.activity-log-item p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.activity-log-item small {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.status {
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  font-size: 0.85rem;
+}
+
+.status.updated {
+  background: #e0f3ff;
+  color: #0077b6;
+}
+</style>

@@ -1,0 +1,256 @@
+<div class="commissioner-dashboard">
+  <!-- Header -->
+  <!-- <div class="dashboard-header">
+    <h2>Commissioner Dashboard</h2>
+    <p>Welcome back, Commissioner</p>
+  </div> -->
+
+  <!-- Quick Stats -->
+  <div class="dashboard-stats">
+    <div class="stat-card">
+      <h3>Total Cases</h3>
+      <p>154</p>
+    </div>
+    <div class="stat-card">
+      <h3>Pending Cases</h3>
+      <p>37</p>
+    </div>
+    <div class="stat-card">
+      <h3>Resolved Cases</h3>
+      <p>117</p>
+    </div>
+    <div class="stat-card">
+      <h3>Activity Logs</h3>
+      <p>482</p>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="dashboard-actions">
+    <button class="action-btn">View All Cases</button>
+    <button class="action-btn">View Activity Log</button>
+    <button class="action-btn">Manage Profile</button>
+    <button class="action-btn logout">Logout</button>
+  </div>
+
+  <!-- RECENT ACTIVITY -->
+    <!-- Recent Activity Screen -->
+<div class="recent-activity-container">
+  <h2>Recent Activity</h2>
+  <div class="search-bar">
+    <input type="text" id="searchActivity" placeholder="Search activity...">
+  </div>
+
+  <div class="activity-list" id="activityList">
+    <div class="activity-card">
+      <p><strong>Case #101</strong> was updated by Admin John</p>
+      <span class="time">2 mins ago</span>
+    </div>
+    <div class="activity-card">
+      <p><strong>Department of Justice</strong> was created</p>
+      <span class="time">10 mins ago</span>
+    </div>
+    <div class="activity-card">
+      <p><strong>Case #95</strong> was assigned to Commissioner Grace</p>
+      <span class="time">25 mins ago</span>
+    </div>
+    <div class="activity-card">
+      <p><strong>User Sarah</strong> updated her profile</p>
+      <span class="time">1 hour ago</span>
+    </div>
+    <div class="activity-card">
+      <p><strong>Case #92</strong> was closed successfully</p>
+      <span class="time">2 hours ago</span>
+    </div>
+  </div>
+</div>
+  <!-- RECENT ACTIVITY END HERE -->
+
+  <!-- Chart Section -->
+  <div class="dashboard-chart">
+    <h3>Cases Overview</h3>
+    <canvas id="casesChart"></canvas>
+  </div>
+</div>
+
+
+<style>
+  .commissioner-dashboard {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.dashboard-header h2 {
+  font-size: 24px;
+  margin-bottom: 5px;
+  color: #222;
+}
+
+.dashboard-header p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Stats Grid */
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.stat-card h3 {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.stat-card p {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Actions */
+.dashboard-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.action-btn {
+  background: #0066cc;
+  color: #fff;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 14px;
+}
+
+.action-btn:hover {
+  background: #004c99;
+}
+
+.action-btn.logout {
+  background: #d9534f;
+}
+
+.action-btn.logout:hover {
+  background: #b52b27;
+}
+
+/* Chart Section */
+.dashboard-chart {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.dashboard-chart h3 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 18px;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .dashboard-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .action-btn {
+    width: 100%;
+  }
+}
+
+
+.recent-activity-container {
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin: 20px;
+}
+
+.recent-activity-container h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.search-bar {
+  margin-bottom: 15px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.activity-card {
+  padding: 15px;
+  border: 1px solid #eee;
+  border-left: 5px solid #3b82f6;
+  background: #fafafa;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.activity-card:hover {
+  background: #f0f4ff;
+}
+
+.activity-card p {
+  margin: 0;
+  font-size: 15px;
+  color: #333;
+}
+
+.activity-card .time {
+  display: block;
+  font-size: 12px;
+  color: #777;
+  margin-top: 5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .recent-activity-container {
+    margin: 10px;
+    padding: 15px;
+  }
+  .activity-card {
+    font-size: 14px;
+    padding: 12px;
+  }
+}
+
+</style>

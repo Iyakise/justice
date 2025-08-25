@@ -1,0 +1,309 @@
+<div class="card">
+  <h3>Department Overview</h3>
+  <p>Manage all system records including staff, cases, departments, and overall system operations from this screen.</p>
+</div>
+
+<div class="add-department-container">
+  <h2>Add New Department</h2>
+
+  <form class="add-department-form">
+    <div class="form-group">
+      <label for="deptName">Department Name</label>
+      <input type="text" id="deptName" name="deptName" placeholder="Enter department name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="deptDesc">Description</label>
+      <textarea id="deptDesc" name="deptDesc" placeholder="Enter department description"></textarea>
+    </div>
+
+    <button type="submit" class="btn-submit">Add Department</button>
+  </form>
+
+  <div class="recent-departments">
+    <h3>Recent Departments</h3>
+    <ul class="dept-list">
+      <li>
+        <span class="dept-name">Litigation</span>
+        <span class="dept-time">Created: Aug 20, 2025 - 2:15 PM</span>
+      </li>
+      <li>
+        <span class="dept-name">Prosecution</span>
+        <span class="dept-time">Created: Aug 19, 2025 - 10:00 AM</span>
+      </li>
+      <li>
+        <span class="dept-name">Drafting</span>
+        <span class="dept-time">Created: Aug 18, 2025 - 5:30 PM</span>
+      </li>
+      <!-- Repeat up to 20 -->
+    </ul>
+  </div>
+</div>
+
+
+
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("addDepartmentForm");
+  const recentList = document.getElementById("recentDepartments");
+
+  // Mock recent departments (replace later with API call)
+  let departments = [
+    { name: "Legal", created: "2025-08-22 14:32" },
+    { name: "Criminal", created: "2025-08-22 14:20" },
+    { name: "Civil", created: "2025-08-22 13:55" },
+  ];
+
+  // Render function
+  function renderDepartments() {
+    recentList.innerHTML = "";
+    departments.slice(0, 20).forEach(dept => {
+      const li = document.createElement("li");
+      li.innerHTML = `<span>${dept.name}</span><small>${dept.created}</small>`;
+      recentList.appendChild(li);
+    });
+  }
+
+  renderDepartments();
+
+  // Handle form submission
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("deptName").value.trim();
+    const desc = document.getElementById("deptDesc").value.trim();
+
+    if (!name) {
+      alert("Please enter department name");
+      return;
+    }
+
+    const newDept = {
+      name,
+      created: new Date().toLocaleString()
+    };
+
+    departments.unshift(newDept); // Add to beginning
+    renderDepartments();
+
+    form.reset();
+    alert("Department added successfully!");
+  });
+});
+
+</script>
+
+<style>
+  .add-department-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.add-department-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.add-department-form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.btn-submit {
+  display: inline-block;
+  width: 100%;
+  padding: 12px;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-submit:hover {
+  background: #1d4ed8;
+}
+
+/* Recent departments */
+.recent-departments {
+  background: #fafafa;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.recent-departments h3 {
+  margin-bottom: 15px;
+}
+
+.dept-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dept-list li {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.dept-list li:last-child {
+  border-bottom: none;
+}
+
+.dept-name {
+  font-weight: 600;
+}
+
+.dept-time {
+  font-size: 13px;
+  color: #666;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .dept-list li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dept-time {
+    margin-top: 5px;
+  }
+}
+
+
+
+
+.add-department-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 15px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+h2 {
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.department-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+input, textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.btn {
+  background: #007bff;
+  color: #fff;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #0056b3;
+}
+
+.recent-title {
+  margin-top: 25px;
+  font-size: 1.3rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 5px;
+}
+
+.recent-list {
+  margin-top: 10px;
+  list-style: none;
+  padding: 0;
+}
+
+.recent-list li {
+  padding: 10px;
+  border-bottom: 1px solid #f1f1f1;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+}
+
+.recent-list li span {
+  font-weight: 500;
+  color: #333;
+}
+
+.recent-list li small {
+  color: #777;
+}
+
+@media (max-width: 600px) {
+  .add-department-container {
+    padding: 12px;
+  }
+  h2 {
+    font-size: 1.4rem;
+  }
+  .btn {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+}
+
+
+</style>

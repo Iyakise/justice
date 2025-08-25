@@ -1,0 +1,237 @@
+<!-- new case page start here -->
+<div class="__new__case__screen__">
+
+  <div class="content-header">
+    <h2>New Case</h2>
+    <p>Fill in the details to create a new case record.</p>
+  </div>
+
+<div class="create-case-container">
+  <!-- Left Side: Case Form -->
+  <div class="case-form">
+    <h2>Create New Case</h2>
+    <form>
+      <div class="form-group">
+        <label for="case-title">Case Title</label>
+        <input type="text" id="case-title" placeholder="Enter case title" />
+      </div>
+
+      <div class="form-group">
+        <label for="case-number">Case Number</label>
+        <input type="text" id="case-number" placeholder="Enter case number" />
+      </div>
+
+      <div class="form-group">
+        <label for="assigned-lawyer">Assigned Lawyer</label>
+        <input type="text" id="assigned-lawyer" placeholder="Enter lawyer's name" />
+      </div>
+
+      <div class="form-group">
+        <label for="case-description">Case Description</label>
+        <textarea id="case-description" rows="5" placeholder="Enter case details"></textarea>
+      </div>
+
+      <button type="submit" class="btn">Create Case</button>
+    </form>
+  </div>
+
+  <!-- Right Side: Recent Cases -->
+  <div class="recent-cases">
+    <h2>Recent Cases</h2>
+    <ul>
+      <li><strong>Case A001:</strong> Land dispute - Lawyer John Doe</li>
+      <li><strong>Case A002:</strong> Theft case - Lawyer Jane Smith</li>
+      <li><strong>Case A003:</strong> Contract breach - Lawyer Mike Johnson</li>
+      <li><strong>Case A004:</strong> Family settlement - Lawyer Sarah Lee</li>
+      <li><strong>Case A005:</strong> Accident claim - Lawyer David Brown</li>
+      <li><strong>Case A006:</strong> Criminal defense - Lawyer Anna Kim</li>
+      <li><strong>Case A007:</strong> Property dispute - Lawyer Paul Adams</li>
+      <li><strong>Case A008:</strong> Corporate fraud - Lawyer Grace White</li>
+      <li><strong>Case A009:</strong> Divorce case - Lawyer Mark Taylor</li>
+      <li><strong>Case A010:</strong> Tax evasion - Lawyer Emily Green</li>
+    </ul>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+  
+</div>
+<!-- new case page end here -->
+
+<style>
+/* Container */
+.__new__case__screen__ {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  max-width: 900px;
+  margin: auto;
+}
+
+/* Header */
+.content-header h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+}
+.content-header p {
+  margin: 4px 0 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Form Grid */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Form Group */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+.form-group label {
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #007BFF;
+}
+
+/* Full Width */
+.full-width {
+  grid-column: span 2;
+}
+
+/* Actions */
+.form-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+.btn-primary {
+  padding: 10px 16px;
+  background: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background: #0056b3;
+}
+.btn-secondary {
+  padding: 10px 16px;
+  background: #f1f1f1;
+  color: #333;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-secondary:hover {
+  background: #ddd;
+}
+
+
+
+
+
+/* second style */
+
+.create-case-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  padding: 20px;
+}
+
+.case-form, .recent-cases {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.case-form h2,
+.recent-cases h2 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #444;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #0066cc;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn:hover {
+  background: #004999;
+}
+
+.recent-cases ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recent-cases li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  color: #555;
+}
+
+.recent-cases li:last-child {
+  border-bottom: none;
+}
+
+</style>

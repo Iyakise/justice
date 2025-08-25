@@ -1,0 +1,99 @@
+<div class="card">
+    <h3>Confirm logout request</h3>
+    <p>Please confirm if you realy want to logout from the platform.</p>
+</div>
+
+<div class="logout-container">
+  <div class="logout-box">
+    <h2>Logout</h2>
+    <p>Are you sure you want to log out from the Case Management System?</p>
+    <div class="logout-actions">
+      <button class="btn cancel">Cancel</button>
+      <button class="btn confirm">Yes, Logout</button>
+    </div>
+  </div>
+</div>
+
+
+<style>
+    .logout-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background: #f4f6f9;
+  padding: 1rem;
+}
+
+.logout-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.logout-box h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.8rem;
+  color: #333;
+}
+
+.logout-box p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: #555;
+}
+
+.logout-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.btn {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn.cancel {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.btn.cancel:hover {
+  background: #d6d6d6;
+}
+
+.btn.confirm {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.btn.confirm:hover {
+  background: #c0392b;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .logout-box {
+    padding: 1.5rem;
+  }
+
+  .logout-actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
+
+</style>

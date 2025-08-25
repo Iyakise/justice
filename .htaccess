@@ -1,0 +1,22 @@
+AddType application/x-httpd-php .html
+
+
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+
+# Uncomment the above lines to force HTTPS
+# Make sure your server supports mod_rewrite and that it is enabled
+# This will redirect all HTTP requests to HTTPS
+# Ensure you have a valid SSL certificate installed
+# and that your server is configured to handle HTTPS requests.
+# If you encounter issues, check your server's error logs for more details.
+# If you are using a shared hosting environment, you may need to contact your hosting provider for assistance.
+# Remember to test your site after making changes to ensure everything works as expected.
+# If you are using a CMS or framework, ensure that it is compatible with the changes made
+# and that any necessary configurations are updated accordingly.
+# Always backup your .htaccess file before making changes to avoid any potential issues.
+# If you are using a content management system (CMS) like WordPress, Joomla, or Drupal,
+# ensure that the CMS's settings are also configured to use HTTPS if you enable the rewrite
+# rules for HTTPS redirection.          
