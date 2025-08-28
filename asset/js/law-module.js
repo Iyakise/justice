@@ -14,9 +14,6 @@ export function getProjectUrl() {
 // Root constant
 export const __ROOT__ = getProjectUrl();
 
-
-// Loader function
-
 // Loader function
 export async function __LOADER__COMMI(returndata, type, pge, token, callback) {
     try {
@@ -26,7 +23,7 @@ export async function __LOADER__COMMI(returndata, type, pge, token, callback) {
         pge  == 'dashboard' ? 'index' : pge;
         if(pge === 'dashboard')pge = 'index';
 
-        const request = await fetch(`${__ROOT__}asset/__LOADER__/COMMI/${pge}${type}`, {
+        const request = await fetch(`${__ROOT__}asset/__LOADER__/LAWYER/${pge}${type}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

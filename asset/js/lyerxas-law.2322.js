@@ -1,4 +1,5 @@
-import { __ROOT__, __LOADER__COMMI, showToast, selector, selectorAll } from "./com-module.js";
+// Import functions from utils.js
+import { __ROOT__, __LOADER__COMMI, showToast, selector, selectorAll } from "./law-module.js";
 
 document.addEventListener("DOMContentLoaded", function () {
     // showToast('hellow world', 'info', 4000)
@@ -20,8 +21,8 @@ document.addEventListener("DOMContentLoaded", function () {
               this.classList.add('moj-active-tab');
 
             let tool =  this.getAttribute("data-page").replace(/^\/+/, '');
-            let newUrl = window.location.hash = `${tool}/moj/${tool}`;
-                window.location.hash =  `${tool}/moj/${tool}`
+            let newUrl = window.location.hash = `${tool}/lawyer/${tool}`;
+                window.location.hash =  `${tool}/lawyer/${tool}`
 
 
             // Push state to browser history
@@ -83,3 +84,49 @@ document.addEventListener("DOMContentLoaded", function () {
       })
 
 });
+
+
+// Simulated storage for staff
+const recentStaff = [];
+
+// document.getElementById("addStaffForm").addEventListener("submit", function(e) {
+//   e.preventDefault();
+
+//   // Collect values
+//   const name = document.getElementById("staffName").value;
+//   const email = document.getElementById("staffEmail").value;
+//   const phone = document.getElementById("staffPhone").value;
+//   const dept = document.getElementById("staffDept").value;
+//   const dateAdded = new Date().toLocaleDateString();
+
+//   // Add to array (unshift for most recent first)
+//   recentStaff.unshift({ name, email, phone, dept, dateAdded });
+
+//   // Keep only 10
+//   if (recentStaff.length > 10) {
+//     recentStaff.pop();
+//   }
+
+//   // Update table
+//   updateStaffTable();
+
+//   // Reset form
+//   this.reset();
+// });
+
+function updateStaffTable() {
+  const tbody = document.querySelector("#recentStaffTable tbody");
+  tbody.innerHTML = "";
+
+  recentStaff.forEach(staff => {
+    const row = `<tr>
+      <td>${staff.name}</td>
+      <td>${staff.email}</td>
+      <td>${staff.phone}</td>
+      <td>${staff.dept}</td>
+      <td>${staff.dateAdded}</td>
+    </tr>`;
+    tbody.insertAdjacentHTML("beforeend", row);
+  });
+}
+

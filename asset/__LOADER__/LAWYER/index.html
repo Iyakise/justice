@@ -1,0 +1,145 @@
+<!-- Lawyer Dashboard Main Content -->
+<div class="lawyer-dashboard">
+  <!-- Header -->
+  <div class="dashboard-header">
+    <h2>Welcome Back, Lawyer</h2>
+    <p>Here’s a quick overview of your activities and cases.</p>
+  </div>
+
+  <!-- Quick Stats -->
+  <div class="stats-cards">
+    <div class="card">
+      <h3>12</h3>
+      <p>Assigned Cases</p>
+    </div>
+    <div class="card">
+      <h3>30</h3>
+      <p>All Cases</p>
+    </div>
+    <div class="card">
+      <h3>4</h3>
+      <p>Ongoing Hearings</p>
+    </div>
+    <div class="card">
+      <h3>8</h3>
+      <p>Closed Cases</p>
+    </div>
+  </div>
+
+  <!-- Case Progress Overview -->
+  <div class="dashboard-section">
+    <h3>Case Progress Overview</h3>
+    <canvas id="lawyerCaseChart"></canvas>
+  </div>
+
+  <!-- Recent Activities -->
+  <div class="dashboard-section">
+    <h3>Recent Activities</h3>
+    <ul class="activity-list">
+      <li><span>📂</span> Case <strong>#2025-01</strong> was assigned to you <small>2 hrs ago</small></li>
+      <li><span>⚖️</span> Attended court hearing for <strong>Case #2025-07</strong> <small>Yesterday</small></li>
+      <li><span>✅</span> Closed <strong>Case #2025-03</strong> <small>3 days ago</small></li>
+    </ul>
+  </div>
+</div>
+
+<style>
+/* Lawyer Dashboard Styles */
+.lawyer-dashboard {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.dashboard-header h2 {
+  font-size: 22px;
+  margin-bottom: 5px;
+}
+
+.dashboard-header p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.stats-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.stats-cards .card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.stats-cards .card h3 {
+  font-size: 26px;
+  margin-bottom: 8px;
+  color: #2c3e50;
+}
+
+.stats-cards .card p {
+  color: #888;
+  font-size: 14px;
+}
+
+.dashboard-section {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 25px;
+}
+
+.dashboard-section h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #2c3e50;
+}
+
+.activity-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.activity-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.activity-list li small {
+  display: block;
+  color: #999;
+  font-size: 12px;
+}
+</style>
+
+<!-- Chart.js Script -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('lawyerCaseChart').getContext('2d');
+new Chart(ctx, {
+  type: 'doughnut',
+  data: {
+    labels: ['Assigned', 'Ongoing', 'Closed'],
+    datasets: [{
+      label: 'Cases',
+      data: [12, 4, 8],
+      backgroundColor: ['#3498db', '#f1c40f', '#2ecc71']
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: 'bottom' }
+    }
+  }
+})
