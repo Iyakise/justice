@@ -1,0 +1,77 @@
+<!-- Permanent Secretary Logout Screen -->
+<div class="logout-container">
+  <div class="logout-card">
+    <h2>Logout</h2>
+    <p>Are you sure you want to log out of your account?</p>
+    <div class="logout-actions">
+      <button class="btn btn-cancel">Cancel</button>
+      <button class="btn btn-logout">Logout</button>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Logout Screen Styles */
+.logout-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  background: #f4f6f9;
+}
+
+.logout-card {
+  background: #fff;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  text-align: center;
+  max-width: 420px;
+  width: 100%;
+}
+
+.logout-card h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: #1B5638; /* Akwa Ibom dark green */
+}
+
+.logout-card p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.logout-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.logout-actions .btn {
+  padding: 0.6rem 1.4rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel {
+  background: #eaeaea;
+  color: #333;
+}
+
+.btn-cancel:hover {
+  background: #d6d6d6;
+}
+
+.btn-logout {
+  background: #F36F21; /* Akwa Ibom orange */
+  color: #fff;
+}
+
+.btn-logout:hover {
+  background: #d95f1d;
+}
+</style>

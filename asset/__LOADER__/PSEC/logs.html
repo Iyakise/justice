@@ -1,0 +1,166 @@
+<!-- Permanent Secretary Activity Log Screen -->
+<div class="ps-activity-log">
+  <h2>Activity Log</h2>
+
+  <!-- Modern Filter Section -->
+  <div class="filter-bar">
+    <div class="filter-group">
+      <label for="filter-date">Date</label>
+      <input type="date" id="filter-date">
+    </div>
+    <div class="filter-group">
+      <label for="filter-user">User</label>
+      <select id="filter-user">
+        <option value="">All Users</option>
+        <option>Permanent Secretary</option>
+        <option>Lawyer John Doe</option>
+        <option>Admin</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label for="filter-type">Activity Type</label>
+      <select id="filter-type">
+        <option value="">All Types</option>
+        <option>New Case</option>
+        <option>Profile Update</option>
+        <option>Case Reassignment</option>
+        <option>Login</option>
+      </select>
+    </div>
+    <button class="filter-btn">Apply</button>
+  </div>
+
+  <div class="log-container">
+    <div class="log-entry">
+      <span class="time">Aug 24, 2025 • 09:30 AM</span>
+      <p><strong>New Case Tracked:</strong> Case ID #AK-23456 was updated by you.</p>
+    </div>
+
+    <div class="log-entry">
+      <span class="time">Aug 23, 2025 • 03:15 PM</span>
+      <p><strong>Profile Updated:</strong> You updated your contact information.</p>
+    </div>
+
+    <div class="log-entry">
+      <span class="time">Aug 22, 2025 • 01:05 PM</span>
+      <p><strong>Case Reassigned:</strong> Case ID #AK-22987 was reassigned to Lawyer John Doe.</p>
+    </div>
+
+    <div class="log-entry">
+      <span class="time">Aug 21, 2025 • 10:20 AM</span>
+      <p><strong>Login Successful:</strong> You logged into the system.</p>
+    </div>
+  </div>
+</div>
+
+<style>
+.ps-activity-log {
+  padding: 20px;
+  background: #f8f9fa;
+  font-family: Arial, sans-serif;
+}
+
+.ps-activity-log h2 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #008751;
+  margin-bottom: 20px;
+  border-bottom: 3px solid #F7931E;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* 🚀 Redesigned Filter Bar */
+.filter-bar {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.filter-group label {
+  font-size: 13px;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.filter-group input,
+.filter-group select {
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.filter-group input:focus,
+.filter-group select:focus {
+  border-color: #008751;
+}
+
+.filter-btn {
+  background: #008751;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.filter-btn:hover {
+  background: #F7931E;
+}
+
+/* Log Section */
+.log-container {
+  background: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.log-entry {
+  padding: 12px;
+  border-left: 5px solid #008751;
+  margin-bottom: 15px;
+  background: #fefefe;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.log-entry:hover {
+  background: #f9f9f9;
+  border-left: 5px solid #F7931E;
+}
+
+.log-entry .time {
+  font-size: 12px;
+  color: #666;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.log-entry p {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.log-entry strong {
+  color: #F7931E;
+}
+</style>

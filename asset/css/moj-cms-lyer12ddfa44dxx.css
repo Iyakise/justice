@@ -1,21 +1,22 @@
+ @import url('variable.css');
  @import url('moj-fxlxlxsliexii42ffals.min.css');
  
  *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: var(--font-family);
   }
 
   body {
     display: flex;
     min-height: 100vh;
-    background: #f5f7fa;
+    background: var(--background-color);
   }
 
   .sidebar {
-    background: #2c3e50;
-    color: #fff;
+    background: var(--sidebar-bg-color);
+    color: var(--sidbar-text-color);
     padding: 20px;
     width: 250px;
     flex-shrink: 0;
@@ -36,7 +37,7 @@
   }
 
   .sidebar ul li a {
-    color: #ecf0f1;
+    color: var(--sidbar-text-color);
     text-decoration: none;
     font-size: 16px;
     display: block;
@@ -46,7 +47,7 @@
   }
 
   .sidebar ul li a:hover {
-    background: #34495e;
+    background: var(--sidebar-hover-bg-color);
   }
 
   .main-content {
@@ -61,7 +62,7 @@
   .card {
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: var(--card-shadow);
     padding: 20px;
     margin-bottom: 20px;
   }
@@ -76,8 +77,7 @@
     padding-bottom: 0 !important;
   }
 
-
-
+  
 
 
 
@@ -93,34 +93,50 @@
       }
 }
 
-    @media (max-width: 768px) {
-      body {
-        flex-direction: column;
-      }
+  @media (max-width: 768px) {
+    body {
+      flex-direction: column;
+    }
 
-      .sidebar {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        overflow-x: auto;
-      }
+    .sidebar {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+    }
 
-      .sidebar ul {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        width: 100%;
-      }
+  .sidebar ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+  }
 
-      .sidebar ul li {
-        margin: 0 10px;
-      }
+  .sidebar ul li {
+    margin: 0 10px;
+  }
 
-      .main-content {
-        padding: 15px;
-      }
+  .main-content {
+    padding: 15px;
+  }
 
-      .sidebar h2{
-        margin-bottom: 0;
-      }
+  .sidebar h2{
+    margin-bottom: 0;
+  }
+
+
+  .__MOJ_MAIN__{
+    height: 75vh;
+  }
+
+  .filter-bar{
+    /* flex-direction: column; */
+    flex-wrap: wrap;
+  }
+
+
+
+
+
+
 }

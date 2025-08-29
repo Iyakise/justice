@@ -1,0 +1,336 @@
+<!-- VIEW / TRACK CASES SCREEN -->
+
+<div class="ps-track-cases">
+  <!-- Header -->
+  <div class="ps-header">
+    <h2>View & Track Cases</h2>
+    <p>Monitor all ongoing and completed cases efficiently</p>
+  </div>
+
+  <!-- Filters -->
+  <div class="ps-filters">
+    <input type="text" placeholder="Search by Case ID, Lawyer, or Complainant...">
+    <select>
+      <option>Status (All)</option>
+      <option>Pending</option>
+      <option>In Progress</option>
+      <option>Closed</option>
+    </select>
+    <select>
+      <option>Filter by Date</option>
+      <option>Today</option>
+      <option>This Week</option>
+      <option>This Month</option>
+    </select>
+    <button class="btn-search">Search</button>
+  </div>
+
+  <!-- Cases Table -->
+  <div class="ps-cases-table">
+    <table>
+      <thead>
+        <tr>
+          <th>Case ID</th>
+          <th>Case Title</th>
+          <th>Lawyer</th>
+          <th>Status</th>
+          <th>Progress</th>
+          <th>Last Updated</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>#C1021</td>
+          <td>State vs John Doe</td>
+          <td>Mr. Johnson</td>
+          <td><span class="status pending">Pending</span></td>
+          <td>
+            <div class="progress-bar">
+              <div class="progress" style="width: 25%;"></div>
+            </div>
+          </td>
+          <td>Aug 24, 2025</td>
+          <td><button class="btn-view">Track</button></td>
+        </tr>
+        <tr>
+          <td>#C1045</td>
+          <td>Mary vs XYZ Ltd</td>
+          <td>Mrs. Akpan</td>
+          <td><span class="status in-progress">In Progress</span></td>
+          <td>
+            <div class="progress-bar">
+              <div class="progress" style="width: 60%;"></div>
+            </div>
+          </td>
+          <td>Aug 22, 2025</td>
+          <td><button class="btn-view">Track</button></td>
+        </tr>
+        <tr>
+          <td>#C1099</td>
+          <td>Government vs ABC Ltd</td>
+          <td>Mr. Udo</td>
+          <td><span class="status closed">Closed</span></td>
+          <td>
+            <div class="progress-bar">
+              <div class="progress" style="width: 100%;"></div>
+            </div>
+          </td>
+          <td>Aug 20, 2025</td>
+          <td><button class="btn-view">View</button></td>
+        </tr>
+
+        <tr>
+          <td>#C1021</td>
+          <td>State vs John Doe</td>
+          <td>Mr. Johnson</td>
+          <td><span class="status pending">Pending</span></td>
+          <td>
+            <div class="progress-bar">
+              <div class="progress" style="width: 25%;"></div>
+            </div>
+          </td>
+          <td>Aug 24, 2025</td>
+          <td><button class="btn-view">Track</button></td>
+        </tr>
+        <tr>
+          <td>#C1045</td>
+          <td>Mary vs XYZ Ltd</td>
+          <td>Mrs. Akpan</td>
+          <td><span class="status in-progress">In Progress</span></td>
+          <td>
+            <div class="progress-bar">
+              <div class="progress" style="width: 60%;"></div>
+            </div>
+          </td>
+          <td>Aug 22, 2025</td>
+          <td><button class="btn-view">Track</button></td>
+        </tr>
+        <tr>
+          <td>#C1099</td>
+          <td>Government vs ABC Ltd</td>
+          <td>Mr. Udo</td>
+          <td><span class="status closed">Closed</span></td>
+          <td>
+            <div class="progress-bar">
+              <div class="progress" style="width: 100%;"></div>
+            </div>
+          </td>
+          <td>Aug 20, 2025</td>
+          <td><button class="btn-view">View</button></td>
+        </tr>
+        <tr>
+          <td>#C1021</td>
+          <td>State vs John Doe</td>
+          <td>Mr. Johnson</td>
+          <td><span class="status pending">Pending</span></td>
+          <td>
+            <div class="progress-bar">
+              <div class="progress" style="width: 25%;"></div>
+            </div>
+          </td>
+          <td>Aug 24, 2025</td>
+          <td><button class="btn-view">Track</button></td>
+        </tr>
+        <tr>
+          <td>#C1045</td>
+          <td>Mary vs XYZ Ltd</td>
+          <td>Mrs. Akpan</td>
+          <td><span class="status in-progress">In Progress</span></td>
+          <td>
+            <div class="progress-bar">
+              <div class="progress" style="width: 60%;"></div>
+            </div>
+          </td>
+          <td>Aug 22, 2025</td>
+          <td><button class="btn-view">Track</button></td>
+        </tr>
+        <tr>
+          <td>#C1099</td>
+          <td>Government vs ABC Ltd</td>
+          <td>Mr. Udo</td>
+          <td><span class="status closed">Closed</span></td>
+          <td>
+            <div class="progress-bar">
+              <div class="progress" style="width: 100%;"></div>
+            </div>
+          </td>
+          <td>Aug 20, 2025</td>
+          <td><button class="btn-view">View</button></td>
+        </tr>
+        <tr>
+          <td>#C1021</td>
+          <td>State vs John Doe</td>
+          <td>Mr. Johnson</td>
+          <td><span class="status pending">Pending</span></td>
+          <td>
+            <div class="progress-bar">
+              <div class="progress" style="width: 25%;"></div>
+            </div>
+          </td>
+          <td>Aug 24, 2025</td>
+          <td><button class="btn-view">Track</button></td>
+        </tr>
+        <tr>
+          <td>#C1045</td>
+          <td>Mary vs XYZ Ltd</td>
+          <td>Mrs. Akpan</td>
+          <td><span class="status in-progress">In Progress</span></td>
+          <td>
+            <div class="progress-bar">
+              <div class="progress" style="width: 60%;"></div>
+            </div>
+          </td>
+          <td>Aug 22, 2025</td>
+          <td><button class="btn-view">Track</button></td>
+        </tr>
+        <tr>
+          <td>#C1099</td>
+          <td>Government vs ABC Ltd</td>
+          <td>Mr. Udo</td>
+          <td><span class="status closed">Closed</span></td>
+          <td>
+            <div class="progress-bar">
+              <div class="progress" style="width: 100%;"></div>
+            </div>
+          </td>
+          <td>Aug 20, 2025</td>
+          <td><button class="btn-view">View</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- CSS -->
+<style>
+.ps-track-cases {
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.ps-header h2 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #0072C6; /* Blue */
+}
+
+.ps-header p {
+  color: #555;
+  margin-bottom: 15px;
+}
+
+/* Filters */
+.ps-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.ps-filters input,
+.ps-filters select {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  flex: 1;
+}
+
+.ps-filters .btn-search {
+  padding: 8px 15px;
+  background: #FF8200; /* Orange */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.ps-filters .btn-search:hover {
+  background: #e66f00;
+}
+
+/* Table */
+.ps-cases-table table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.ps-cases-table th, 
+.ps-cases-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  font-size: 14px;
+}
+
+.ps-cases-table th {
+  background: #f4f4f4;
+  color: #333;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.status.pending { background: #fff4e6; color: #FF8200; }
+.status.in-progress { background: #e6f7f1; color: #008751; }
+.status.closed { background: #e6f0ff; color: #0072C6; }
+
+/* Progress Bar */
+.progress-bar {
+  width: 100px;
+  height: 8px;
+  background: #eee;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(90deg, #FF8200, #008751);
+}
+
+/* Action Button */
+.btn-view {
+  padding: 5px 12px;
+  border: none;
+  background: #0072C6;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn-view:hover {
+  background: #005fa3;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ps-filters {
+    flex-direction: column;
+  }
+  .ps-cases-table table, 
+  .ps-cases-table thead {
+    display: block;
+  }
+  .ps-cases-table tr {
+    display: block;
+    margin-bottom: 15px;
+  }
+  .ps-cases-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #eee;
+  }
+  .ps-cases-table th {
+    display: none;
+  }
+}
+</style>

@@ -1,19 +1,20 @@
+@import url('variable.css');
 @import url('moj-fxlxlxsliexii42ffals.min.css');
 * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Montserrat', sans-serif;
+      font-family: var(--font-family);
     }
 
     body {
       display: flex;
       min-height: 100vh;
-      background: #f5f7fa;
+      background: var(--background-color);
     }
 
     .sidebar {
-      background: #1b2631;
+      background: var(--sidebar-bg-color);
       color: #fff;
       padding: 20px;
       width: 250px;
@@ -45,7 +46,7 @@
     }
 
     .sidebar ul li a:hover {
-      background: #34495e;
+      background: var(--sidebar-hover-bg-color);
     }
 
     .main-content {
@@ -58,9 +59,9 @@
     }
 
     .card {
-      background: #fff;
+      background: var(--card-bg-color);
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: var(--card-shadow);
       padding: 20px;
       margin-bottom: 20px;
     }

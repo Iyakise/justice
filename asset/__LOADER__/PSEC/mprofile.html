@@ -1,0 +1,138 @@
+<!-- Manage Profile - Permanent Secretary -->
+ <?php
+  require_once dirname(__DIR__, 3) . '/asset/inc/function.php';
+ ?>
+<div class="ps-manage-profile">
+  <h2>Manage Profile</h2>
+  <p class="subtitle">Update your account information and preferences</p>
+
+  <form class="profile-form">
+    <!-- Personal Info -->
+    <div class="form-group">
+      <label for="fullName">Full Name</label>
+      <input type="text" id="fullName" value="Dr. Iyaksie Raphael" />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" value="yakiseetim24@gmail.com" />
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" value="+234 812 1369 607" />
+    </div>
+
+    <!-- Security -->
+    <div class="form-group">
+      <label for="password">Change Password</label>
+      <input type="password" id="password" placeholder="Enter new password" />
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" id="confirmPassword" placeholder="Confirm new password" />
+    </div>
+
+    <!-- Upload -->
+    <div class="form-group">
+      <label>Profile Picture</label>
+      <input type="file" />
+      <div class="preview">
+        <img src="<?=__ROOT__()?>asset/img/female-mdium.png" alt="Profile Picture" />
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button type="submit" class="btn save">Save Changes</button>
+      <button type="reset" class="btn cancel">Cancel</button>
+    </div>
+  </form>
+</div>
+
+<style>
+.ps-manage-profile {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  max-width: 650px;
+  margin: 20px auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+.ps-manage-profile h2 {
+  color: #008751;
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+.ps-manage-profile .subtitle {
+  color: #555;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.profile-form .form-group {
+  margin-bottom: 18px;
+}
+.profile-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #000;
+}
+.profile-form input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+}
+.preview {
+  margin-top: 10px;
+}
+.preview img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #F36F21;
+  object-fit: cover;
+}
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 25px;
+}
+.btn {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+.btn.save {
+  background: #008751;
+  color: #fff;
+}
+.btn.save:hover {
+  background: #006b40;
+}
+.btn.cancel {
+  background: #f36f21;
+  color: #fff;
+}
+.btn.cancel:hover {
+  background: #d85e1a;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .ps-manage-profile {
+    padding: 15px;
+  }
+  .btn {
+    flex: 1;
+  }
+}
+</style>

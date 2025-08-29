@@ -2,9 +2,10 @@
 :root {
   --primary-color: #3498db;
   --secondary-color: #2ecc71;
-    --background-color: #f5f7fa;
+    --background-color: #f5f7fa; /* Light grey background #f5f7fa*/
     --sidebar-bg-color: #2c3e50;
     --sidebar-hover-bg-color: #34495e;
+    --sidbar-text-color: #ecf0f1;
     --text-color: #333;
     --card-bg-color: #fff;
     --card-shadow: rgba(0,0,0,0.1);
