@@ -1,0 +1,93 @@
+<!-- Lawyer Logout Screen -->
+<div class="logout-container">
+  <div class="logout-card">
+    <h2>Logout</h2>
+    <p>Are you sure you want to log out of your account?</p>
+    <div class="logout-actions">
+      <button class="btn cancel">Cancel</button>
+      <button class="btn logout">Logout</button>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Container styling */
+.logout-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  padding: 1rem;
+  background: #f8f9fa;
+}
+
+/* Card styling */
+.logout-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.logout-card h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+.logout-card p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: #555;
+}
+
+/* Buttons */
+.logout-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.btn {
+  flex: 1;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn.cancel {
+  background: #e9ecef;
+  color: #333;
+}
+
+.btn.cancel:hover {
+  background: #d6d8db;
+}
+
+.btn.logout {
+  background: #d9534f;
+  color: #fff;
+}
+
+.btn.logout:hover {
+  background: #c9302c;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .logout-card {
+    padding: 1.5rem;
+  }
+
+  .logout-actions {
+    flex-direction: column;
+  }
+}
+
+</style>

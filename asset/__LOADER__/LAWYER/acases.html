@@ -1,0 +1,189 @@
+<!-- Assigned Cases - Lawyer Dashboard -->
+<div class="assigned-cases-container">
+  <h2>📂 Assigned Cases</h2>
+
+  <!-- Filter/Search Section -->
+  <div class="filters">
+    <input type="text" placeholder="Search by case title or ID...">
+    <select>
+      <option value="">Filter by Status</option>
+      <option value="open">Open</option>
+      <option value="in-progress">In Progress</option>
+      <option value="closed">Closed</option>
+    </select>
+  </div>
+
+  <!-- Cases Table -->
+  <div class="table-wrapper">
+    <table class="cases-table">
+      <thead>
+        <tr>
+          <th>Case ID</th>
+          <th>Case Title</th>
+          <th>Client</th>
+          <th>Status</th>
+          <th>Date Assigned</th>
+          <th>Deadline</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>#C1021</td>
+          <td>Land Dispute</td>
+          <td>John Doe</td>
+          <td><span class="status in-progress">In Progress</span></td>
+          <td>Aug 20, 2025</td>
+          <td>Sep 15, 2025</td>
+          <td><button class="view-btn">View</button></td>
+        </tr>
+        <tr>
+          <td>#C1022</td>
+          <td>Contract Breach</td>
+          <td>Jane Smith</td>
+          <td><span class="status open">Open</span></td>
+          <td>Aug 22, 2025</td>
+          <td>Sep 30, 2025</td>
+          <td><button class="view-btn">View</button></td>
+        </tr>
+        <tr>
+          <td>#C1023</td>
+          <td>Fraud Case</td>
+          <td>Michael Lee</td>
+          <td><span class="status closed">Closed</span></td>
+          <td>Jul 15, 2025</td>
+          <td>Aug 10, 2025</td>
+          <td><button class="view-btn">View</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+.assigned-cases-container {
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+  margin: 20px;
+}
+
+.assigned-cases-container h2 {
+  margin-bottom: 15px;
+  font-size: 1.6rem;
+  color: #2c3e50;
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.filters input, 
+.filters select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Table */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.cases-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cases-table th, 
+.cases-table td {
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.cases-table th {
+  background: #f4f6f8;
+  color: #34495e;
+  font-weight: 600;
+}
+
+/* Status Badges */
+.status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.status.open {
+  background: #eaf7ff;
+  color: #2980b9;
+}
+
+.status.in-progress {
+  background: #fff4e6;
+  color: #e67e22;
+}
+
+.status.closed {
+  background: #eafaf1;
+  color: #27ae60;
+}
+
+/* Buttons */
+.view-btn {
+  padding: 8px 14px;
+  background: #3498db;
+  border: none;
+  color: #fff;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.view-btn:hover {
+  background: #2980b9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cases-table thead {
+    display: none;
+  }
+
+  .cases-table, .cases-table tbody, .cases-table tr, .cases-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .cases-table tr {
+    margin-bottom: 15px;
+    background: #fafafa;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  .cases-table td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+  }
+
+  .cases-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 10px;
+    font-weight: bold;
+    color: #34495e;
+  }
+}
+</style>

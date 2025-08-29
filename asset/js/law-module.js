@@ -88,27 +88,24 @@ export function initialiazeFunctions(p){
             // document.addEventListener('DOMContentLoaded', function () {
   // ===== Activity Overview (Doughnut) =====
         // Chart.js setup
-        const ctx = document.getElementById('casesChart').getContext('2d');
-        const casesChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Active Cases', 'Resolved Cases', 'Pending Cases'],
-            datasets: [{
-            label: 'Cases',
-            data: [47, 89, 16],
-            backgroundColor: ['#ff6384', '#36a2eb', '#ffce56'],
-            borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-            legend: {
-                position: 'bottom'
+        const ctx = document.getElementById('lawyerCaseChart').getContext('2d');
+            new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Assigned', 'Ongoing', 'Closed'],
+                datasets: [{
+                label: 'Cases',
+                data: [12, 4, 8],
+                backgroundColor: ['#3498db', '#f1c40f', '#2ecc71']
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                legend: { position: 'bottom' }
+                }
             }
-            }
-        }
-        });
+            })
 
 
       break;

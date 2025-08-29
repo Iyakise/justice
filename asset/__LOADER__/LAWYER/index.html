@@ -1,10 +1,10 @@
 <!-- Lawyer Dashboard Main Content -->
 <div class="lawyer-dashboard">
   <!-- Header -->
-  <div class="dashboard-header">
-    <h2>Welcome Back, Lawyer</h2>
-    <p>Here’s a quick overview of your activities and cases.</p>
-  </div>
+    <div class="card">
+      <h3>Recent Updates</h3>
+      <p>This is your dashboard. Here you can manage your assigned cases, update your profile, and more.</p>
+    </div>
 
   <!-- Quick Stats -->
   <div class="stats-cards">
@@ -120,26 +120,20 @@
   color: #999;
   font-size: 12px;
 }
+
+#lawyerCaseChart{
+    width: 50% !important;
+    margin: 0 auto;
+}
+
+
+
+@media (max-width:968px){
+    #lawyerCaseChart{
+        width: 100% !important;
+    }
+}
 </style>
 
 <!-- Chart.js Script -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-const ctx = document.getElementById('lawyerCaseChart').getContext('2d');
-new Chart(ctx, {
-  type: 'doughnut',
-  data: {
-    labels: ['Assigned', 'Ongoing', 'Closed'],
-    datasets: [{
-      label: 'Cases',
-      data: [12, 4, 8],
-      backgroundColor: ['#3498db', '#f1c40f', '#2ecc71']
-    }]
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: { position: 'bottom' }
-    }
-  }
-})
+

@@ -1,0 +1,171 @@
+<!-- Lawyer - Manage Profile Screen -->
+ <?php
+    require_once dirname(__DIR__, 3) . '/asset/inc/function.php';
+
+ ?>
+<div class="lawyer-profile-container">
+  <h2 class="profile-title">Profile picture</h2>
+
+  <form class="profile-form">
+    <div class="form-group">
+      <!-- <label for="fullname">Full Name</label> -->
+       <div class="usr-img">
+        <img src="<?=__ROOT__()?>asset/img/male-mdium.png" alt="" srcset="<?=__ROOT__()?>asset/img/male-mdium.png" class="__PROV__">
+        <div class="upload-invoker">
+            <i class="fas fa-user fa-4x"></i>
+        </div>
+       </div>
+      <!-- <input type="text" id="fullname" value="Barr. John Doe"> -->
+    </div>
+
+
+
+    <div class="form-actions">
+      <button type="submit" class="btn-save">Save Changes</button>
+      <button type="reset" class="btn-cancel">Cancel</button>
+    </div>
+  </form>
+</div>
+
+
+
+<div class="lawyer-profile-container">
+  <h2 class="profile-title">Manage Profile</h2>
+
+  <form class="profile-form">
+    <div class="form-group">
+      <label for="fullname">Full Name</label>
+      <input type="text" id="fullname" value="Barr. John Doe">
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" value="johndoe@example.com">
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input type="text" id="phone" value="+234 806 123 4567">
+    </div>
+
+    <div class="form-group">
+      <label for="specialization">Specialization</label>
+      <input type="text" id="specialization" value="Criminal Law">
+    </div>
+
+    <div class="form-group">
+      <label for="password">Change Password</label>
+      <input type="password" id="password" placeholder="Enter new password">
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-save">Save Changes</button>
+      <button type="reset" class="btn-cancel">Cancel</button>
+    </div>
+  </form>
+</div>
+
+
+
+
+<style>
+.lawyer-profile-container {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  max-width: 700px;
+  margin: 20px auto;
+}
+
+.profile-title {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  color: #2c3e50;
+  text-align: center;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #34495e;
+}
+
+.form-group input {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-save {
+  background: #3498db;
+  color: #fff;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-save:hover {
+  background: #2980b9;
+}
+
+.btn-cancel {
+  background: #e74c3c;
+  color: #fff;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-cancel:hover {
+  background: #c0392b;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .lawyer-profile-container {
+    padding: 18px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .btn-save,
+  .btn-cancel {
+    width: 100%;
+    text-align: center;
+  }
+}
+</style>
