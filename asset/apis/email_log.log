@@ -1,0 +1,7 @@
+Array
+(
+    [type] => PHPMAILER FAILURE
+    [error] => SMTP Error: Could not connect to SMTP host. Failed to connect to server SMTP server error: Failed to connect to server Additional SMTP info: php_network_getaddresses: getaddrinfo failed: No such host is known. 
+    [Exception] => SMTP Error: Could not connect to SMTP host. Failed to connect to server
+    [http_code] => 401
+)

@@ -1,4 +1,9 @@
-       <!-- add staff start  -->
+   <?php
+require_once dirname(__DIR__, 1) . '/apis/auth/protect-fromFrontend.php';
+
+?> 
+    
+    <!-- add staff start  -->
         <div class="add_staff_wrap">
           <!-- Add Staff Screen -->
 
@@ -94,10 +99,16 @@
           <label for="department">Department</label>
           <select id="department" name="department" required>
             <option value="">-- Select Department --</option>
-            <option value="legal">Legal</option>
-            <option value="prosecution">Prosecution</option>
-            <option value="appeals">Appeals</option>
-            <option value="admin">Administration</option>
+            <option value="Department of legal drafting">Department of Legal Drafting</option>
+            <option value="Department of prosecution">Department of Prosecution</option>
+            <option value="Department of appeals">Department of Appeals</option>
+            <option value="Department of Civil Litigation">Department of Civil Litigation</option>
+            <option value="Department of Administration">Department of Administration</option>
+            <option value="Department of Estate Administration">Department of Estate  Administration</option>
+            <option value="Department of Gender-Based Violence">Department of Sexual and Gender-Based Violence</option>
+            <option value="Department of Account and Finance">Department of Account and Finance</option>
+            <option value="Department of Planning, Research and Statistics">Department of Planning, Research and Statistics</option>
+
           </select>
         </div>
 
@@ -106,23 +117,24 @@
           <select id="role" name="role" required>
             <option value="">-- Select Role --</option>
             <option value="lawyer">Lawyer</option>
-            <option value="clerk">Clerk</option>
-            <option value="secretary">Secretary</option>
-            <option value="admin">Admin</option>
+            <option value="Ad. staff">Administrative staff</option>
+            <option value="Psecretary">Permanent secretary </option>
+            <option value="Commissioner">Commissioner</option>
           </select>
         </div>
 
         <div class="form-group">
           <label for="status">Status</label>
           <select id="status" name="status" required>
+            <option value="">-- Select Status --</option>
             <option value="active">Active</option>
             <option value="inactive">Inactive</option>
           </select>
         </div>
 
         <div class="form-actions">
-          <button type="submit" class="btn-primary">Save Staff</button>
-          <button type="reset" class="btn-secondary">Clear</button>
+          <button type="submit" class="btn-primary" id="add-staff-btn">Save Staff</button>
+          <button type="reset" class="btn-secondary" id="clear-form-btn">Clear</button>
         </div>
       </form>
     </div>
@@ -136,7 +148,7 @@
     </div>
 
     <div class="recent-staff">
-      <table>
+      <table class="recent-staff-table" id="recentStaffTable">
         <thead>
           <tr>
             <th>Name</th>
@@ -147,7 +159,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <!-- <tr>
             <td>Jane Doe</td>
             <td>jane@example.com</td>
             <td>Legal</td>
@@ -160,12 +172,15 @@
             <td>Prosecution</td>
             <td>Clerk</td>
             <td><span class="status inactive">Inactive</span></td>
-          </tr>
+          </tr> -->
           <!-- Add up to 10 latest records dynamically -->
         </tbody>
       </table>
     </div>
   </div>
+
+
+  
 </div>
 
 
@@ -173,3 +188,33 @@
 
         </div>
        <!-- add staff end  -->
+
+      <style>
+        .recent-staff {
+  width: 100%;
+  overflow-x: auto; /* allow horizontal scroll only when needed */
+}
+
+.recent-staff-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; /* keeps table readable, but allows scroll on small screens */
+}
+
+.recent-staff-table th,
+.recent-staff-table td {
+  padding: 10px;
+  text-align: left;
+  white-space: nowrap; /* prevent text from breaking awkwardly */
+}
+
+/* Optional: make it mobile-friendly */
+@media (max-width: 600px) {
+  .recent-staff-table th,
+  .recent-staff-table td {
+    padding: 8px;
+    font-size: 14px;
+  }
+}
+
+      </style>

@@ -83,7 +83,7 @@
 <style>
 .update-case-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 2rem;
   padding: 20px;
 }
@@ -172,13 +172,17 @@
   outline: none;
 }
 
-
+@media (max-width: 1000px){
+  .update-case-container{
+    flex-direction: column;
+  }
+}
 
 /* Responsive */
 @media (min-width: 768px) {
-  .update-case-container {
+  /* .update-case-container {
     flex-direction: row;
-  }
+  } */
   .update-case-form, .recent-cases {
     flex: 1;
   }

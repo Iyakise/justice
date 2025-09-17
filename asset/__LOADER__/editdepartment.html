@@ -9,22 +9,22 @@
     <form id="editDepartmentForm">
       <div class="form-group">
         <label for="deptName">Department Name</label>
-        <input type="text" id="deptName" name="deptName" value="Finance Department">
+        <input type="text" id="deptName" name="deptName" placeholder="Department Name" aria-placeholder="Department Name">
       </div>
 
       <div class="form-group">
         <label for="deptCode">Department Code</label>
-        <input type="text" id="deptCode" name="deptCode" value="FIN001">
+        <input type="text" id="deptCode" name="deptCode" placeholder="Department Code" aria-placeholder="Department Name">
       </div>
 
       <div class="form-group">
         <label for="deptHead">Department Head</label>
-        <input type="text" id="deptHead" name="deptHead" value="John Doe">
+        <input type="text" id="deptHead" name="deptHead" placeholder="Department Head" aria-placeholder="Department Head">
       </div>
 
       <div class="form-group">
         <label for="deptDescription">Description</label>
-        <textarea id="deptDescription" name="deptDescription">Handles financial operations and budget planning.</textarea>
+        <textarea id="deptDescription" name="deptDescription" placeholder="Description" aria-placeholder="Description"></textarea>
       </div>
 
       <button type="submit" class="btn-update">Update Department</button>
@@ -133,11 +133,19 @@
   color: #222;
 }
 
+@media (max-width: 1000px) {
+    .edit-department-container {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .edit-department-container {
     grid-template-columns: 1fr;
   }
 }
+
+
 
 </style>

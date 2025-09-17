@@ -1,0 +1,78 @@
+<?php
+  require_once dirname(__DIR__) . '/asset/inc/function.php';
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="<?=__ROOT__()?>asset/img/AKS-Emblem.png?v=1&load=<?=time()?>">
+  <script type="module" src="<?=__ROOT__()?>asset/js/flo3fwf.js?load=<?=time()?>"></script>
+  <title>Admin Login - <?=__SITE_NAME__?></title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <meta name="description" content="Admin Login - <?=__SITE_NAME__?> ">
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta name="theme-color" content="#00703c">
+    <meta name="keywords" content="Admin, Login, <?=__SITE_NAME__?>">
+    <meta name="author" content="<?=__SITE_NAME__?>">
+    <meta name="robots" content="index, follow">
+    <!-- robots invite -->
+    <link rel="canonical" href="<?=__ROOT__()?>staff-ms/login.html">
+    <meta property="og:title" content="Admin Login - <?=__SITE_NAME__?>">
+    <meta property="og:description" content="Admin Login - <?=__SITE_NAME__?>">
+    <meta property="og:image" content="<?=__ROOT__()?>asset/img/AKS-Emblem.png?v=1&load=<?=time()?>">
+    <meta property="og:url" content="<?=__ROOT__()?>staff-ms/login.html">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Admin Login - <?=__SITE_NAME__?>">
+    <meta name="twitter:description" content="Admin Login - <?=__SITE_NAME__?>">
+    <meta name="twitter:image" content="<?=__ROOT__()?>asset/img/AKS-Emblem.png?v=1&load=<?=time()?>">
+    <meta name="twitter:site" content="@YourTwitterHandle">
+    <meta name="twitter:creator" content="@YourTwitterHandle">
+    <meta name="apple-mobile-web-app-title" content="<?=__SITE_NAME__?>">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="<?=__SITE_NAME__?>">
+    <meta name="msapplication-TileColor" content="#00703c">
+    <meta name="msapplication-TileImage" content="<?=__ROOT__()?>asset/img/AKS-Emblem.png?v=1&load=<?=time()?>">
+
+    <meta name="google-site-verification" content="your-google-site-verification-code">
+    <meta name="yandex-verification" content="your-yandex-verification-code">
+    <meta name="bing-site-verification" content="your-bing-site-verification-code">
+    <meta name="pinterest-site-verification" content="your-pinterest-site-verification-code">
+    <meta name="ahrefs-site-verification" content="your-ahrefs-site-verification-code">
+    <meta name="baidu-site-verification" content="your-baidu-site-verification-code">
+    <link rel="stylesheet" href="<?=__ROOT__()?>asset/css/moj-jaldkkfkasff-fssa.css?v=1&load=<?=time()?>">
+    <script type="module" src="<?=__ROOT__()?>asset/js/lndfaf343ffsda-module.js?load=<?=time()?>"></script>
+
+</head>
+<body>
+  <div class="login-container" id="login-container">
+    <h2>Admin Login</h2>
+    <form action="login.php" method="POST">
+        <div class="form-group">
+            <img class="__logo__" src="<?=__ROOT__()?>/asset/img/AKS-Emblem.png" alt="Logo" srcset="<?=__ROOT__()?>/asset/img/AKS-Emblem.png">
+        </div>
+      <div class="form-group">
+        <label for="username">Email</label>
+        <input type="email" id="username" name="username" placeholder="Enter email" required autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter password" required>
+      </div>
+      <button type="submit" class="login-btn">Login</button>
+      <div class="extra-links">
+        <p><a href="#">Forgot Password?</a></p>
+      </div>
+    </form>
+  </div>
+
+  <?php
+
+   // echo password_hash("09069053009@@AAaa", PASSWORD_BCRYPT);
+  ?>
+</body>
+</html>
