@@ -432,6 +432,10 @@ select {
   margin:8px 0;
 }
 
+.blurred{
+  overflow: hidden !important;
+}
+
 /* Desktop side by side */
 @media (min-width: 900px) {
   .form-section {

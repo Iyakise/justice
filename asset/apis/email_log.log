@@ -5,3 +5,10 @@ Array
     [Exception] => SMTP Error: Could not connect to SMTP host. Failed to connect to server
     [http_code] => 401
 )
+Array
+(
+    [type] => PHPMAILER FAILURE
+    [error] => SMTP Error: Could not connect to SMTP host. Failed to connect to server SMTP server error: Failed to connect to server SMTP code: 10061 Additional SMTP info: No connection could be made because the target machine actively refused it
+    [Exception] => SMTP Error: Could not connect to SMTP host. Failed to connect to server
+    [http_code] => 401
+)
