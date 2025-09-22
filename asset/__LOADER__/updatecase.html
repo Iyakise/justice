@@ -16,17 +16,43 @@
 
       <div class="form-group">
         <label for="caseType">Case Type</label>
-        <select id="caseType">
-          <option value="">Select type</option>
-          <option>Criminal</option>
-          <option>Civil</option>
-          <option>Appeal</option>
-        </select>
+        <input type="text" placeholder="Case type" id="caseType">
+      </div>
+
+      <div class="form-group">
+        <label for="assignedTo">File By</label>
+        <input type="text" id="fileby" placeholder="Case File by">
       </div>
 
       <div class="form-group">
         <label for="assignedTo">Assigned To</label>
         <input type="text" id="assignedTo" placeholder="Enter staff name">
+      </div>
+
+      <div class="form-group">
+        <label for="assignedTo">Case Status</label>
+        <!-- <input type="text" id="cstatus" placeholder="E.g Open or Close"> -->
+        <select class="" id="cstatus">
+          <option value="">--select status--</option>
+          <option value="Open">Open</option>
+          <option value="Closed">Closed</option>
+          <option value="In Progress">In Progress</option>
+          <option value="On Hold">On Hold</option>
+          <option value="Appealed">Appealed</option>
+        </select>
+      </div>
+
+<!-- 
+'Open','In Progress','On Hold','Closed','Appealed'      
+-->
+      <div class="form-group">
+        <label for="assignedTo">Court Date</label>
+        <input type="date" id="nextAppear" placeholder="E.g Next Apprearing">
+      </div>
+
+      <div class="form-group">
+        <label for="assignedTo">Resolution date (If Resolved)</label>
+        <input type="date" id="resolution" placeholder="E.g Open or Close">
       </div>
 
       <div class="form-group">
@@ -44,7 +70,7 @@
       <input type="search" class="search" id="search" placeholder="Search case... (Name, ID)">
     </div>
     <h2>Recent Cases</h2>
-    <table>
+    <table class="updt_tbl">
       <thead>
         <tr>
           <th>Case Title</th>

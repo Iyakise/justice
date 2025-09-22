@@ -50,22 +50,22 @@
 </head>
 <body>
   <div class="login-container" id="login-container">
-    <h2>Admin Login</h2>
+    <h2>Change Password</h2>
     <form action="login.php" method="POST">
         <div class="form-group">
             <img class="__logo__" src="<?=__ROOT__()?>/asset/img/AKS-Emblem.png" alt="Logo" srcset="<?=__ROOT__()?>/asset/img/AKS-Emblem.png">
         </div>
       <div class="form-group">
-        <label for="username">Email</label>
-        <input type="email" id="username" name="username" placeholder="Enter email" required autocomplete="email">
+        <label for="username">New password</label>
+        <input type="email" id="username" name="username" placeholder="Enter account Email" required autocomplete="email">
       </div>
       <div class="form-group">
-        <label for="password">Password</label>
+        <label for="password">Confirm password</label>
         <input type="password" id="password" name="password" placeholder="Enter password" required>
       </div>
-      <button type="submit" class="login-btn">Login</button>
+      <button type="submit" class="login-btn">Reset password</button>
       <div class="extra-links">
-        <p><a href="<?=__ROOT__()?>reset-password/?u=1&v=<?=password_hash(__PWD_RESET_ADMIN__, PASSWORD_BCRYPT)?>&r=admc">Forgot Password?</a></p>
+        <p><a href="<?=__ROOT__()?>reset-password/?u=1&v=<?=password_hash(__PWD_RESET_ADMIN__, PASSWORD_BCRYPT)?>">Return to Login</a></p>
       </div>
     </form>
   </div>

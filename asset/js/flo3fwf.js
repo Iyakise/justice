@@ -442,8 +442,8 @@ export function initialiazeFunctions(p){
                     <td>${staff.full_name}</td>
                     <td>${staff.email}</td>
                     <!--td>${staff.phone}</td-->
-                    <td>${staff.role}</td>
                     <td>${staff.department}</td>
+                    <td>${staff.role}</td>
                     <td><span class="status ${statusClass}">${staff.status}</span></td>
                 `;
                 recentStaffTableBody.appendChild(row);
@@ -979,13 +979,13 @@ const deptartSearch = selector('.search-input');
                         activityLog.innerHTML = ''; //clearout previous logs 
                         result.data.forEach((logs, i) =>{
                             let a,b,c,d,e;
-                            if(logs.action === "ADD DEPARTMENT" || logs.action === "ADD STAFF"){
+                            if(logs.action === "ADD DEPARTMENT" || logs.action === "ADD STAFF" || logs.action === "CASE ADD"){
                                 a = 'icon-add';
                                 b = '+';
                             }else if(logs.action === "DEPARTMENT UPDATED" || logs.action === "CASE UPDATED"){
                                 a = 'icon-edit';
                                 b = '✎';
-                            }else if(logs.action === "STAFF REMOVED" || logs.action === "DELETE DEPARTMENT"){
+                            }else if(logs.action === "STAFF REMOVED" || logs.action === "DELETE DEPARTMENT" || logs.action === 'STAFF ADD FAIL' || logs.action === 'CASE FAIL'){
                                 a = 'icon-delete';
                                 b = '✕';
                             }else if(logs.action === "LOGIN_SUCCESS"){
@@ -1045,7 +1045,8 @@ const deptartSearch = selector('.search-input');
                             activityLog.innerHTML = ''; //clearout previous logs 
                             result.logs.forEach((logs, i) =>{
                             let a,b,c,d,e;
-                            if(logs.action === "ADD DEPARTMENT" || logs.action === "ADD STAFF"){
+                            // console.log(logs);
+                            if(logs.action === "ADD DEPARTMENT" || logs.action === "ADD STAFF" || logs.action === "CASE ADD"){
                                 a = 'icon-add';
                                 b = '+';
                             }else if(logs.action === "DEPARTMENT UPDATED" || logs.action === "CASE UPDATED"){
@@ -1092,13 +1093,57 @@ const deptartSearch = selector('.search-input');
     break;
     
     case 'newcase':
-      (() => {
+      ( async () => {
 
         const createCase = selector('.btn');
                 createCase.addEventListener('click', (event) => {
                     event.preventDefault();
 
-                    alert('yes sir')
+                    try {
+                        let caseTitle = selector('#case-title');
+                        let case_number = selector('#case-number');
+                        let case_file_by = selector('#filed-by');
+                        let case_type = selector('#case-type');
+                        let caseAssignTo = selector('#assigned-lawyer');
+                        let casecourtDate = selector('#case-courtDte');
+                        let caseStatus = selector('#cstatus');
+
+                        let description  = selector('#case-description');
+
+
+                        //check and validate name
+                        if(!validateInput(caseTitle.value, 'text')) throw new Error("Invalid case title, it contains some unwanted character: " + caseTitle.value);
+
+                        if(!validateInput(case_number.value, 'text')) throw new Error("Invalid case Number, Check and correct it please");
+                        if(!validateInput(case_type.value, 'text')) throw new Error("Invalid case Type, Check and correct it please");
+
+                        if(!validateInput(case_file_by.value, 'text')) throw new Error("Invalid file by name, check and try again");
+                        if(!validateInput(caseAssignTo.value, 'text')) throw new Error("Invalid assigned lawyer name, check and try again");
+                        
+                        //if empty
+                        if(caseTitle.value === '') throw new Error("Enter case title " + caseTitle.value);
+                        if(case_number.value === '') throw new Error("Enter case Number");
+                        if(case_file_by.value === '') throw new Error("Enter case filer");
+                        if(caseAssignTo.value === '') throw new Error("Enter or select select lawyer assigned to this case");
+                        if(description.value === '') throw new Error("Enter case Description");
+                        if(caseStatus.value === '') throw new Error("Please Select case status");
+                        
+
+                        if(!case_file_by.hasAttribute('case_file_by')) throw new Error("Please choose who file the case");
+                        if(!caseAssignTo.hasAttribute('case_assigned_to')) throw new Error("Please Assigned this case to a Lawyer");
+                        
+
+                        let saveCase = api.addNewCase(caseTitle.value, case_number.value, case_file_by.getAttribute('case_file_by'), caseAssignTo.getAttribute('case_assigned_to'), description.value, case_type.value, casecourtDate.value);
+
+
+                            if(saveCase){
+                                showToast('You have successfully added new cases to the system', 'success');
+                            }
+
+                    } catch (error) {
+                        showToast(error || "Unexpected error occur", 'error');
+                    }
+
                 })
 
 
@@ -1106,13 +1151,76 @@ const deptartSearch = selector('.search-input');
         //from the the system can collect the user id id="filed-by"
         const filby = selector('#filed-by');
               filby.addEventListener('keyup', (event) => {
-                event.preventDefault;
+                event.preventDefault();
 
                 api.showPopup(selector('body'), 'beforeend', async () => {
 
                     const popup = selector('.popup-overlay');
                         popup.querySelector('h2').innerText = 'File-by user selection';
                         popup.querySelector('p').innerText = 'Select the user name that file the case!';
+                            // You can populate the popup with a form to edit staff details
+
+                    //get staff
+                    const allStaff = await api.staff();
+                    popup.innerHTML =  `
+                        <h2>File-by user selection</h2>
+                        <p>Select the user name that file the case!</p>
+                        <div class="spacer"></div>
+                        <div class="modal-actions">
+                            <!--[[[
+                                DUMP ALL USERS HERE
+                            ]]]--->
+                            <span class="__LOADER__">
+                                <i class="fas fa-spin fa-spinner fa-3x"></i>
+                            </span>
+                        </div>
+                        
+                    `;
+
+                    let fileup = selector('.modal-actions');
+                        let fileby = selector('#assigned-lawyer').getAttribute('case_assigned_to');
+                        let disabled;
+                        allStaff.data.forEach((stff, i) => {
+                            if(fileby === stff.id) {disabled = 'disabled';}else{disabled = ''}
+                            let h3 = newElement('h3');
+                                h3.className = '__ppopusers__';
+                                h3.innerHTML = `
+                                    ${stff.full_name}(${stff.role}) &ndash; <button ${disabled} data-id="${stff.id}" data-name="${stff.full_name}" class="btn selectuser">Select</button></h3>
+                                `;
+                            fileup.appendChild(h3);
+                        })
+                    selector('.__LOADER__').remove();
+
+
+                    //click to setup
+                    const btnSetup = selectorAll('.selectuser');
+                          btnSetup.forEach((btn, i) => {
+                            btn.addEventListener('click', function(){
+                                let fileByInput = selector('#filed-by');
+
+                                    fileByInput.value = this.getAttribute('data-name');
+                                    fileByInput.setAttribute('case_file_by', this.getAttribute('data-id'));
+
+                                    selector('.popup-container').remove();
+                                    document.body.classList.remove('blurred');
+
+                            })
+                          })
+                })
+              })
+
+
+        //make autofile for lawyere
+
+            const assigned = selector('#assigned-lawyer');
+                  assigned.addEventListener('keyup', (event) => {
+                event.preventDefault();
+
+                api.showPopup(selector('body'), 'beforeend', async () => {
+
+                    const popup = selector('.popup-overlay');
+                        popup.querySelector('h2').innerText = 'Assign case to Lawyer';
+                        popup.querySelector('p').innerText = 'Select a lawyer and assigned case';
                             // You can populate the popup with a form to edit staff details
 
                     //get staff
@@ -1126,24 +1234,201 @@ const deptartSearch = selector('.search-input');
                             <!--[[[
                                 DUMP ALL USERS HERE
                             ]]]--->
+                            <span class="__LOADER__">
+                                <i class="fas fa-spin fa-spinner fa-3x"></i>
+                            </span>
                         </div>
                         
                     `;
 
                     let fileup = selector('.modal-actions');
+                    let fileby = selector('#filed-by').getAttribute('case_file_by');
+                    let disabled;
+                    // alert(filby)
                         allStaff.data.forEach((stff, i) => {
+                            if(fileby === stff.id) {disabled = 'disabled';}else{disabled = ''}
+
+
                             let h3 = newElement('h3');
                                 h3.className = '__ppopusers__';
                                 h3.innerHTML = `
-                                    ${stff.full_name} &ndash; <button data-id="${stff.id}" class="btn selectuser">Select</button></h3>
+                                    ${stff.full_name}(${stff.role}) &ndash; <button ${disabled} data-id="${stff.id}" data-name="${stff.full_name}" class="btn selectuser">Select</button></h3>
                                 `;
                             fileup.appendChild(h3);
                         })
+                    selector('.__LOADER__').remove();
+
+
+                    //click to setup
+                    const btnSetup = selectorAll('.selectuser');
+                          btnSetup.forEach((btn, i) => {
+                            btn.addEventListener('click', function(){
+                                let assignedLawyer = selector('#assigned-lawyer');
+
+                                    assignedLawyer.value = this.getAttribute('data-name');
+                                    assignedLawyer.setAttribute('case_assigned_to', this.getAttribute('data-id'));
+                                    
+                                    selector('.popup-container').remove();
+                                    document.body.classList.remove('blurred');
+                                
+                            })
+                          })
                 })
               })
 
+
+
+    //new cases fetch out
+        let wheretoReturn   = selector('.recent-cases ul');
+        let allcase         = await api.fcase();
+        
+            if(allcase.length === 0){
+                wheretoReturn.innerHTML = '<li><strong>No case found create one now!</strong></li>';
+                return;
+            }
+            // console.log(allcase)
+            //clearout all previous cases
+            wheretoReturn.innerHTML = '';
+            allcase.forEach(c => {
+                let li = newElement('li');
+                    li.innerHTML = `
+                        <strong>Case ${c.case_number}: </strong>${c.title}
+                    `;
+                wheretoReturn.appendChild(li);
+            })
+            
+
       })();
 
+    break;
+
+    case 'updatecase':
+      ( async () => {
+        try {
+            let rcnt = await api.rcase();
+        let tbl = selector('.updt_tbl tbody');
+            if(rcnt.length === 0){
+                tbl.innerHTML = '<tr><td colspan="4">NO recent case found</td></tr>';
+                return;
+            }
+            
+            tbl.innerHTML = '';
+            rcnt.forEach((el) => {
+                // console.log(el);
+                let tr = newElement('tr');
+                    tr.innerHTML = `
+                        <td>${el.title}</td>
+                        <td>${el.case_type}</td>
+                        <td>${el.assigned_name}</td>
+                        <td>${el.created_at} <button class="btn btn-sm this.button${el.id}" data-id="${el.id}">Edit</button></td>
+                    `;
+                tbl.appendChild(tr);
+                updatecase();
+            })
+
+            //search for case data
+            selector('#search').addEventListener('input', async function(){
+                let value = this.value;
+
+                if(!validateInput(value, 'text')) return showToast('Search query is not valid', 'error');
+
+                let caseFound = await api.cSearch(value);
+                    // console.log(caseFound)
+
+                if(caseFound.length === 0){
+                tbl.innerHTML = '<tr><td colspan="4">NO recent case found</td></tr>';
+                return;
+            }
+            
+                tbl.innerHTML = '';
+                caseFound.forEach((el) => {
+                    // console.log(el);
+                    let tr = newElement('tr');
+                        tr.innerHTML = `
+                            <td>${el.title}</td>
+                            <td>${el.case_type}</td>
+                            <td>${el.assigned_name}</td>
+                            <td>${el.created_at} <button  class="btn btn-sm this.button${el.id}" data-id="${el.id}">Edit</button></td>
+                        `;
+                    tbl.appendChild(tr);
+
+                    updatecase();
+                })
+                    
+            })
+
+
+//update case information
+
+        let btnUpdate = selector('.btn-update');
+            btnUpdate.addEventListener('click', async (event) => {
+                event.preventDefault();
+
+                const caseAssignTo  = btnUpdate.getAttribute('case_assigned_to');
+                const casefileBy    = btnUpdate.getAttribute('case_file_by');
+                const caseId        = btnUpdate.getAttribute('case_data_d');
+
+                const caseNewTitle  = selector('#caseTitle');
+                const caseType      = selector('#caseType');
+                const fileby        = selector('#fileby');
+                const assignedTo    = selector('#assignedTo');
+                const cstatus       = selector('#cstatus');
+                const nextAppear    = selector('#nextAppear');
+                const resolution    = selector('#resolution');
+                const caseDescription  = selector('#caseDescription');
+
+                    if(!caseAssignTo) return showToast("Error: Cannot verify who this case is assigned to", 'error');
+                    if(!casefileBy) return showToast("Error: Cannot verify who filed this case", 'error');
+                    if(!caseId) return showToast("Error: Cannot verify the case you are trying to update", 'error');
+                    if(!validateInput(caseNewTitle.value, 'text'))return showToast('Error: Invalid case title, checked and try again!', 'error');
+                    if(!validateInput(fileby.value, 'text'))return showToast('Error: select valid user name that file this case', 'error');
+                    if(!validateInput(assignedTo.value, 'text'))return showToast('Error: select and assigned this case to a lawyer', 'error');
+                    if(!validateInput(caseType.value, 'text'))return showToast('Error: Enter a valid case type. e.g Family, Civil case etc.', 'error');
+                    if(!validateInput(caseDescription.value, 'text'))return showToast('Error: A valid case description is required before you can update.', 'error');
+                    if(cstatus.value === '')return showToast('Error: select a matching status for this case', 'error');
+
+
+                    // let formdata = new FormData();
+                    //     formdata.append('casetitle', caseNewTitle.value);
+                    //     formdata.append('caseType', caseType.value);
+                    //     formdata.append('fileby', caseNewTitle.value);
+                    //     formdata.append('assignedTo', assignedTo.value);
+                    //     formdata.append('cstatus', cstatus.value);
+                    //     formdata.append('caseDescription', caseDescription.value);
+
+                    //     formdata.append('nextDateInCourt', nextAppear.value === '' ?? null);
+                    //     formdata.append('courtresolution', resolution.value === '' ?? null);
+
+
+                    // if(nextAppear.value === '') {nextAppear = null};
+                    // if(resolution.value === '') resolution = null;
+                    
+                    let updateRequest = await api.updateCase(caseId, caseNewTitle.value, caseDescription.value, caseType.value, cstatus.value, '', casefileBy, caseAssignTo, nextAppear.value, resolution.value);
+
+                        console.log(updateRequest);
+            })
+
+
+
+
+
+
+
+
+
+        } catch (error) {
+            showToast(error || 'Unexpected error', 'error');
+        }
+    
+
+      })();
+    break;
+
+    case 'trackcase':
+      (async () => {
+        
+
+      })()
     break;
     
 }
@@ -1264,4 +1549,185 @@ function updateStaffRecord() {
 
     const years = Math.floor(days / 365);
     return `${years} year${years > 1 ? "s" : ""} ago`;
+}
+
+
+//update case invoker
+function updatecase(){
+    let caseEditBtn = selectorAll('.btn-sm');
+
+        caseEditBtn.forEach((btn, i) => {
+            btn.addEventListener('click', async () => {
+                let caseId = btn.getAttribute('data-id');
+
+                let caseobjec   = await api.cfilter(caseId);
+                let casetitle   = selector('#caseTitle');
+                let casetype    = selector('#caseType');
+                let casefileby  = selector('#fileby');
+                let caseAssign  = selector('#assignedTo');
+                let casedesc    = selector('#caseDescription');
+                let cstatus     = selector('#cstatus');
+                let nextAppear  = selector('#nextAppear');
+                let resolutionDate  = selector('#resolution');
+                let btnInvoker  = selector('.btn-update');
+
+
+
+
+                    casetitle.value = caseobjec.title;
+                    casetype.value = caseobjec.case_type;
+                    casefileby.value = caseobjec.filed_by_name;
+                    caseAssign.value = caseobjec.assigned_name;
+                    casedesc.value = caseobjec.description;
+                    btnInvoker.setAttribute('case_assigned_to', caseobjec.assigned_to);
+                    btnInvoker.setAttribute('case_file_by', caseobjec.filed_by);
+                    btnInvoker.setAttribute('case_data_d', caseobjec.id);
+
+                    caseAssign.setAttribute('case_assigned_to', caseobjec.assigned_to);
+                    casefileby.setAttribute('case_file_by', caseobjec.assigned_to);
+
+                    // cstatus.value = caseobjec.status; //case status
+                    Array.from(cstatus.options).forEach((option) => {
+                        if(option.value === caseobjec.status){
+                            option.selected = true;
+                        }
+                    })
+
+
+                    resolutionDate.value = caseobjec.resolution_date; //case resolution 
+                    nextAppear.value = caseobjec.resolution_date; //case resolution 
+
+                    // casetype.value = caseobjec.case_type;
+
+                    console.log(caseobjec);
+            })
+        })
+
+            //make pop so that admin can select the file by user name
+        //from the the system can collect the user id id="filed-by"
+        const filby = selector('#fileby');
+              filby.addEventListener('keyup', (event) => {
+                event.preventDefault();
+
+                api.showPopup(selector('body'), 'beforeend', async () => {
+
+                    const popup = selector('.popup-overlay');
+                        popup.querySelector('h2').innerText = 'File-by user selection';
+                        popup.querySelector('p').innerText = 'Select the user name that file the case!';
+                            // You can populate the popup with a form to edit staff details
+
+                    //get staff
+                    const allStaff = await api.staff();
+                    popup.innerHTML =  `
+                        <h2>File-by user selection</h2>
+                        <p>Select the user name that file the case!</p>
+                        <div class="spacer"></div>
+                        <div class="modal-actions">
+                            <!--[[[
+                                DUMP ALL USERS HERE
+                            ]]]--->
+                            <span class="__LOADER__">
+                                <i class="fas fa-spin fa-spinner fa-3x"></i>
+                            </span>
+                        </div>
+                        
+                    `;
+
+                    let fileup = selector('.modal-actions');
+                        let fileby = selector('#assignedTo').getAttribute('case_assigned_to');
+                        let disabled;
+                        allStaff.data.forEach((stff, i) => {
+                            if(fileby === stff.id) {disabled = 'disabled';}else{disabled = ''}
+                            let h3 = newElement('h3');
+                                h3.className = '__ppopusers__';
+                                h3.innerHTML = `
+                                    ${stff.full_name}(${stff.role}) &ndash; <button ${disabled} data-id="${stff.id}" data-name="${stff.full_name}" class="btn selectuser">Select</button></h3>
+                                `;
+                            fileup.appendChild(h3);
+                        })
+                    selector('.__LOADER__').remove();
+
+
+                    //click to setup
+                    const btnSetup = selectorAll('.selectuser');
+                          btnSetup.forEach((btn, i) => {
+                            btn.addEventListener('click', function(){
+                                let fileByInput = selector('#fileby');
+
+                                    fileByInput.value = this.getAttribute('data-name');
+                                    fileByInput.setAttribute('case_file_by', this.getAttribute('data-id'));
+
+                                    selector('.popup-container').remove();
+                                    document.body.classList.remove('blurred');
+                                
+                            })
+                          })
+                })
+              })
+
+
+        //make autofile for lawyere
+            const assigned = selector('#assignedTo');
+                  assigned.addEventListener('keyup', (event) => {
+                event.preventDefault();
+
+                api.showPopup(selector('body'), 'beforeend', async () => {
+
+                    const popup = selector('.popup-overlay');
+                        popup.querySelector('h2').innerText = 'Assign case to Lawyer';
+                        popup.querySelector('p').innerText = 'Select a lawyer and assigned case';
+                            // You can populate the popup with a form to edit staff details
+
+                    //get staff
+                    const allStaff = await api.staff();
+                          console.log(allStaff);
+                    popup.innerHTML =  `
+                        <h2>File-by user selection</h2>
+                        <p>Select the user name that file the case!</p>
+                        <div class="spacer"></div>
+                        <div class="modal-actions">
+                            <!--[[[
+                                DUMP ALL USERS HERE
+                            ]]]--->
+                            <span class="__LOADER__">
+                                <i class="fas fa-spin fa-spinner fa-3x"></i>
+                            </span>
+                        </div>
+                        
+                    `;
+
+                    let fileup = selector('.modal-actions');
+                    let fileby = selector('#fileby').getAttribute('case_file_by');
+                    let disabled;
+                    // alert(filby)
+                        allStaff.data.forEach((stff, i) => {
+                            if(fileby === stff.id) {disabled = 'disabled';}else{disabled = ''}
+
+
+                            let h3 = newElement('h3');
+                                h3.className = '__ppopusers__';
+                                h3.innerHTML = `
+                                    ${stff.full_name}(${stff.role}) &ndash; <button ${disabled} data-id="${stff.id}" data-name="${stff.full_name}" class="btn selectuser">Select</button></h3>
+                                `;
+                            fileup.appendChild(h3);
+                        })
+                    selector('.__LOADER__').remove();
+
+
+                    //click to setup
+                    const btnSetup = selectorAll('.selectuser');
+                          btnSetup.forEach((btn, i) => {
+                            btn.addEventListener('click', function(){
+                                let assignedLawyer = selector('#assignedTo');
+
+                                    assignedLawyer.value = this.getAttribute('data-name');
+                                    assignedLawyer.setAttribute('case_assigned_to', this.getAttribute('data-id'));
+                                    
+                                    selector('.popup-container').remove();
+                                    document.body.classList.remove('blurred');
+                                
+                            })
+                          })
+                })
+              })
 }

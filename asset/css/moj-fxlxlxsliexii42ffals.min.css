@@ -436,6 +436,28 @@ select {
   overflow: hidden !important;
 }
 
+.blurred *{
+  overflow: hidden !important;
+}
+
+.btn:disabled,
+.btn-sm:disabled{
+  cursor: not-allowed;
+  background: #ccc !important;
+}
+
+.btn-sm,
+.btn {
+    background: #2563eb;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background 0.3s;
+}
+
 /* Desktop side by side */
 @media (min-width: 900px) {
   .form-section {

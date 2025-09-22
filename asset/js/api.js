@@ -347,3 +347,142 @@ export async function activityLog(){
     const request = await fetch(`${__ROOT__}asset/apis/activitylog.php`);
     
 }
+
+//record case
+export async function addNewCase(title, case_number, filed_by, assigned_to, description, case_type, courtDte, caseStatus){
+    try {
+    const request = await fetch(`${__ROOT__}asset/apis/new.case.iyakise.php`,{
+        mode: 'same-origin',
+        method: 'POST',
+        headers: {
+            'Contents-type' : 'application/json'
+        },
+        body: JSON.stringify({title, case_number, description, filed_by, assigned_to, case_type, courtDte})
+    });
+        
+        if(!request.ok){
+            console.log(request.text());
+            throw new Error('fail to record case because of unexpected error');
+        }
+
+    const result = await request.json();
+
+    if(!result.status) throw new Error("Unexpected error: " + result.message);
+    
+    return result.status;
+    
+    } catch (error) {
+        showToast(error, 'error');
+    }
+
+}
+
+
+//get all departments
+export async function fcase(){
+    try {
+        const request = await fetch(`${__ROOT__}asset/apis/get-case.php`);
+        if (!request.ok) {
+            console.error("HTTP error:", request.status);
+            throw new Error("Failed to fetch cases");
+            // return [];
+        }
+        const data = await request.json();
+        return data.data;
+    } catch (error) {
+        console.error("Fetch error:", error);
+        showToast(error || "Network error while fetching case.", "error");
+        return []
+    }
+}
+
+//get all recent cases
+export async function rcase(){
+    try {
+        const request = await fetch(`${__ROOT__}asset/apis/recent-case.php`);
+        if (!request.ok) {
+            console.error("HTTP error:", request.status);
+            throw new Error("Failed to fetch cases");
+            // return [];
+        }
+        const data = await request.json();
+        return data.data;
+    } catch (error) {
+        console.error("Fetch error:", error);
+        showToast(error || "Network error while fetching case.", "error");
+        return []
+    }
+}
+
+
+//cases search
+export async function cSearch(d){
+    try {
+        const request = await fetch(`${__ROOT__}asset/apis/search/searchQ.php?query=${d}`);
+        if (!request.ok) {
+            console.error("HTTP error:", request.status);
+            throw new Error("Failed to fetch cases");
+            // return [];
+        }
+        const data = await request.json();
+        return data.data;
+    } catch (error) {
+        console.error("Fetch error:", error);
+        showToast(error || "Network error while fetching case.", "error");
+        return []
+    }
+}
+
+
+//cases filter
+export async function cfilter(d){
+    try {
+        const request = await fetch(`${__ROOT__}asset/apis/search/filter-case.php?case_id=${d}`);
+        if (!request.ok) {
+            console.error("HTTP error:", request.status);
+            throw new Error("Failed to fetch cases");
+            // return [];
+        }
+        const data = await request.json();
+        return data.data;
+    } catch (error) {
+        console.error("Fetch error:", error);
+        showToast(error || "Network error while fetching case.", "error");
+        return []
+    }
+}
+
+
+//update cases
+export async function updateCase(id, title, description, case_type, status, priority, filed_by, assigned_to, court_date, resolution_date) {
+/**
+ * @param id case id
+ * @param title = "case title"
+ * @param description = "case description"
+ * @param returns booleans
+ */
+    try{
+    const req = await fetch(`${__ROOT__}asset/apis/update-case.php`, {
+        method: 'post',
+        cache: 'default',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify({id, title, description, case_type, status, priority, filed_by, assigned_to, court_date, resolution_date})
+    })
+
+    if(!req.ok){
+        let rst = await req.text();
+        console.log(rst);
+        throw new Error("Case update fail, server responded with: " +rst);
+    }
+    console.log(req.json());
+    return true;
+
+    }catch(error){
+        showToast(error || 'Unexpected error occure', 'error');
+
+        return false
+    }
+
+}

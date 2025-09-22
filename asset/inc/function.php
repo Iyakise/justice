@@ -29,7 +29,8 @@ function __ROOT__(){
 }
 
 define('__SITE_NAME__', 'Akwa Ibom State Ministry of Justice (AKS-MOJ)');
-
+define('__PWD_RESET_KEY__', 'CASE_CMS_IYakise');
+define('__PWD_RESET_ADMIN__', 'CASE_CMS_IYakiseADMIN');
 
 
 /**

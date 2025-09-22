@@ -21,8 +21,31 @@
         <input type="text" id="case-number" placeholder="Enter case number" />
       </div>
 
+      <div class="form-group">
+        <label for="case-type">Case Type</label>
+        <input type="text" id="case-type" placeholder="e.g Criminal, Civil, Family, Commercial, custom (Add yours)" />
+      </div>
+
+      <div class="form-group">
+        <label for="cstatus">Case Status</label>
+        <!-- <input type="text" id="cstatus" placeholder="E.g Open or Close"> -->
+        <select class="" id="cstatus">
+          <option value="">--select status--</option>
+          <option value="Open">Open</option>
+          <option value="Closed">Closed</option>
+          <option value="In Progress">In Progress</option>
+          <option value="On Hold">On Hold</option>
+          <option value="Appealed">Appealed</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="case-courtDte">Court Date</label>
+        <input type="date" id="case-courtDte" placeholder="e.g Criminal, Civil, Family, Commercial, custom (Add yours)" />
+      </div>
+
        <div class="form-group">
-        <label for="assigned-lawyer">Filed By</label>
+        <label for="filed-by">Filed By</label>
         <input type="text" id="filed-by" placeholder="Enter file-by name" />
       </div>
 
@@ -46,14 +69,7 @@
     <ul>
       <li><strong>Case A001:</strong> Land dispute - Lawyer John Doe</li>
       <li><strong>Case A002:</strong> Theft case - Lawyer Jane Smith</li>
-      <li><strong>Case A003:</strong> Contract breach - Lawyer Mike Johnson</li>
-      <li><strong>Case A004:</strong> Family settlement - Lawyer Sarah Lee</li>
-      <li><strong>Case A005:</strong> Accident claim - Lawyer David Brown</li>
-      <li><strong>Case A006:</strong> Criminal defense - Lawyer Anna Kim</li>
-      <li><strong>Case A007:</strong> Property dispute - Lawyer Paul Adams</li>
-      <li><strong>Case A008:</strong> Corporate fraud - Lawyer Grace White</li>
-      <li><strong>Case A009:</strong> Divorce case - Lawyer Mark Taylor</li>
-      <li><strong>Case A010:</strong> Tax evasion - Lawyer Emily Green</li>
+
     </ul>
   </div>
 </div>

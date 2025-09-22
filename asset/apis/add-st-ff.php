@@ -2,6 +2,8 @@
 require_once dirname(__DIR__) . '/inc/db.php'; // adjust path to your DB connection
 require_once dirname(__DIR__) . '/inc/api-key.php'; //api key file
 require_once dirname(__DIR__) . '/inc/function.php'; //add functions file
+require_once dirname(__DIR__) . '/apis/auth/libs/logger.php';
+require_once dirname(__DIR__) . '/apis/auth/session-bootstrap.php';
 header("Content-Type: application/json");
 
 // Only allow POST requests
@@ -10,6 +12,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(["status" => false, "message" => "Only POST requests allowed."]);
     exit;
 }
+
+    $adminId   = $_SESSION['sauth']['id']    ?? null;
+    $adminName = $_SESSION['sauth']['name']  ?? 'Unknown';
+    $adminMail = $_SESSION['sauth']['email'] ?? 'Unknown';
 
 // Get raw JSON input
 $data = json_decode(file_get_contents("php://input"), true);
@@ -57,6 +63,7 @@ try {
         ":status"     => trim($data['status'])
     ]);
 
+        log_activity($pdo, $adminId, 'ADD STAFF', 'successful - Add staff');
 
     // Send welcome email to the new user USING PHPMAILER AND HEREDOC SYNTAX
 $root = __ROOT__();
@@ -154,6 +161,8 @@ sendEmail(
             "status" => false,
             "message" => "The email address is already registered. Please use a different email."
         ]);
+        log_activity($pdo, $adminId ?? null, 'STAFF ADD FAIL', 'FAIL - STAFF EMAIL EXIST ALREADY');
+
     } else {
         echo json_encode([
             "status" => false,

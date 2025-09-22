@@ -50,22 +50,22 @@
 </head>
 <body>
   <div class="login-container" id="login-container">
-    <h2>Admin Login</h2>
+    <h2>Request reset link</h2>
     <form action="login.php" method="POST">
         <div class="form-group">
             <img class="__logo__" src="<?=__ROOT__()?>/asset/img/AKS-Emblem.png" alt="Logo" srcset="<?=__ROOT__()?>/asset/img/AKS-Emblem.png">
         </div>
       <div class="form-group">
         <label for="username">Email</label>
-        <input type="email" id="username" name="username" placeholder="Enter email" required autocomplete="email">
+        <input type="email" id="username" name="username" placeholder="Enter account Email" required autocomplete="email">
       </div>
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="password">Password</label>
         <input type="password" id="password" name="password" placeholder="Enter password" required>
-      </div>
-      <button type="submit" class="login-btn">Login</button>
+      </div> -->
+      <button type="submit" class="__xdfseffxs__ login-btn">Get code</button>
       <div class="extra-links">
-        <p><a href="<?=__ROOT__()?>reset-password/?u=1&v=<?=password_hash(__PWD_RESET_ADMIN__, PASSWORD_BCRYPT)?>&r=admc">Forgot Password?</a></p>
+        <p><a class="backtoLogin" href="<?=__ROOT__()?>reset-password/?u=1&v=<?=password_hash(__PWD_RESET_ADMIN__, PASSWORD_BCRYPT)?>">Return to Login</a></p>
       </div>
     </form>
   </div>
@@ -74,5 +74,44 @@
 
    // echo password_hash("09069053009@@AAaa", PASSWORD_BCRYPT);
   ?>
+
+  <script type="module">
+    import { __ROOT__, selector, showToast } from "../asset/js/flo3fwf";
+    import validateInput from "../asset/js/validateInput";
+    import load from "../asset/js/load";
+    // let requestcode = $
+    let rtnLogin = selector('.backtoLogin');
+        rtnLogin.addEventListener('click', (event) => {
+            event.preventDefault();
+            const urlParams = new URLSearchParams(window.location.search);
+            if (!urlParams.has('v')) {
+                showToast('path to login not found!', 'error');
+                return;
+            }
+
+            const path = urlParams.get('r');
+                  if(path === 'admc'){
+                    window.location.replace(__ROOT__ + 'staff-ms/');
+                    return;
+                  }
+
+                  window.location.replace(__ROOT__ + 'login.html');
+        })
+    
+    //    alert(load)
+    const btn = selector('.__xdfseffxs__');
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            const email = selector('#username');
+              if(email.value === '')return showToast('Please enter your email address');
+
+              if(!validateInput(email.value, 'email')) return showToast('Please Enter a valid email');
+
+            let loadRequest = load(`asset/apis/reset-request.php`, '', {'email':email.value});
+
+                console.log(loadRequest)
+        })
+  </script>
 </body>
 </html>
