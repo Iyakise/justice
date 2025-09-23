@@ -9,7 +9,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="<?=__ROOT__()?>asset/img/AKS-Emblem.png?v=1&load=<?=time()?>">
   <script type="module" src="<?=__ROOT__()?>asset/js/flo3fwf.js?load=<?=time()?>"></script>
-  <title>Admin Login - <?=__SITE_NAME__?></title>
+  <script type="module" src="<?=__ROOT__()?>asset/js/all.min.js?load=<?=time()?>"></script>
+  <title>Reset password code - <?=__SITE_NAME__?></title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <meta name="description" content="Admin Login - <?=__SITE_NAME__?> ">
     <meta http-equiv="X-UA-Compatible" content="IE=7">
@@ -80,10 +81,10 @@
     import validateInput from "../asset/js/validateInput";
     import load from "../asset/js/load";
     // let requestcode = $
+    const urlParams = new URLSearchParams(window.location.search);
     let rtnLogin = selector('.backtoLogin');
         rtnLogin.addEventListener('click', (event) => {
             event.preventDefault();
-            const urlParams = new URLSearchParams(window.location.search);
             if (!urlParams.has('v')) {
                 showToast('path to login not found!', 'error');
                 return;
@@ -100,17 +101,31 @@
     
     //    alert(load)
     const btn = selector('.__xdfseffxs__');
-        btn.addEventListener('click', (e) => {
+        btn.addEventListener('click', async(e) => {
             e.preventDefault();
-
+            btn.innerHTML = 'Loading... <i class="fas fa-spinner fa-spin"></i>';
+            btn.disabled = true;
             const email = selector('#username');
               if(email.value === '')return showToast('Please enter your email address');
 
               if(!validateInput(email.value, 'email')) return showToast('Please Enter a valid email');
 
-            let loadRequest = load(`asset/apis/reset-request.php`, '', {'email':email.value});
+            let loadRequest = await load(`asset/apis/reset-request.php`, '', {'email':email.value, type: urlParams.get('r')});
 
-                console.log(loadRequest)
+                // console.log(loadRequest);
+
+                if(loadRequest.status){
+                    showToast(loadRequest.message, 'success');
+                    btn.innerHTML = 'Code Sents!';
+                    btn.disabled = true;
+                    email.value = '';
+                    return;
+                }
+                showToast(loadRequest.message, 'error');
+                btn.innerHTML = 'Get code';
+                btn.disabled = false;
+
+
         })
   </script>
 </body>

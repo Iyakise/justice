@@ -1,33 +1,73 @@
 import { __ROOT__, showToast } from "./flo3fwf";
-export default async function load(d,callback,data) {
+
+export default async function load(route, callback, data = {}) {
     try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 seconds
-        // console.log(pge)
-        // pge  == 'dashboard' ? 'index' : pge;
-        // if(pge === 'dashboard')pge = 'index';
+        const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s timeout
 
-        const request = await fetch(`${__ROOT__}${d}`, {
+        const request = await fetch(`${__ROOT__}${route}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 // 'Authorization': 'Bearer ' + token
             },
             signal: controller.signal,
-            body:JSON.stringify(data)
+            body: JSON.stringify(data)
         });
 
-        if(!request.ok){throw new Error("Error: while trying to load " + d);}
+        clearTimeout(timeoutId);
+
+        if (!request.ok) {
+            throw new Error("Error: Server responded with " + (await request.text()));
+        }
 
         const result = await request.json();
 
-        if(callback)callback()
-            
-        clearTimeout(timeoutId);
+        if (callback) callback(result);
+
         return result;
 
-    }catch(e){
+    } catch (e) {
         console.error(e);
-        showToast(e || 'Error loading request', 'error');
+        showToast(e.message || 'Error loading request', 'error');
+        return {status: false, message: e.message};
+    }
+}
+
+// 1234567890AAAAaaaa@@@@
+//load get
+export async function loadGet(route, callback, data = {}) {
+    try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s timeout
+
+        // Build query string from object
+        const queryString = new URLSearchParams(data).toString();
+        const url = `${__ROOT__}${route}${queryString ? '?' + queryString : ''}`;
+// console.log(url)
+        const request = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                // 'Authorization': 'Bearer ' + token
+            },
+            signal: controller.signal
+        });
+
+        clearTimeout(timeoutId);
+
+        if (!request.ok) {
+            throw new Error("Error:  Server responded with -> " + (await request.text()));
+        }
+
+        const result = await request.json();
+
+        if (callback) callback(result);
+
+        return result;
+
+    } catch (e) {
+        console.error(e);
+        showToast(e.message || 'Error loading request', 'error');
     }
 }

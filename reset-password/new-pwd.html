@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="<?=__ROOT__()?>asset/img/AKS-Emblem.png?v=1&load=<?=time()?>">
   <script type="module" src="<?=__ROOT__()?>asset/js/flo3fwf.js?load=<?=time()?>"></script>
-  <title>Admin Login - <?=__SITE_NAME__?></title>
+  <title>Enter new password - <?=__SITE_NAME__?></title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <meta name="description" content="Admin Login - <?=__SITE_NAME__?> ">
     <meta http-equiv="X-UA-Compatible" content="IE=7">
@@ -46,7 +46,15 @@
     <meta name="baidu-site-verification" content="your-baidu-site-verification-code">
     <link rel="stylesheet" href="<?=__ROOT__()?>asset/css/moj-jaldkkfkasff-fssa.css?v=1&load=<?=time()?>">
     <script type="module" src="<?=__ROOT__()?>asset/js/lndfaf343ffsda-module.js?load=<?=time()?>"></script>
-
+<style>
+    button:disabled{
+        cursor:not-allowed;
+        background: silver;
+    }
+    button:disabled:hover{
+        background: gray;
+    }
+</style>
 </head>
 <body>
   <div class="login-container" id="login-container">
@@ -56,14 +64,14 @@
             <img class="__logo__" src="<?=__ROOT__()?>/asset/img/AKS-Emblem.png" alt="Logo" srcset="<?=__ROOT__()?>/asset/img/AKS-Emblem.png">
         </div>
       <div class="form-group">
-        <label for="username">New password</label>
-        <input type="email" id="username" name="username" placeholder="Enter account Email" required autocomplete="email">
+        <label for="pw1">New password</label>
+        <input disabled type="password" id="pw1" name="username" placeholder="Enter account passowrd" required autocomplete="email">
       </div>
       <div class="form-group">
-        <label for="password">Confirm password</label>
-        <input type="password" id="password" name="password" placeholder="Enter password" required>
+        <label for="pw2">Confirm password</label>
+        <input disabled type="password" id="pw2" name="password" placeholder="Confirm password" required>
       </div>
-      <button type="submit" class="login-btn">Reset password</button>
+      <button type="submit" class="login-btn Newpasswordupdate" disabled>Reset password</button>
       <div class="extra-links">
         <p><a href="<?=__ROOT__()?>reset-password/?u=1&v=<?=password_hash(__PWD_RESET_ADMIN__, PASSWORD_BCRYPT)?>">Return to Login</a></p>
       </div>
@@ -74,5 +82,61 @@
 
    // echo password_hash("09069053009@@AAaa", PASSWORD_BCRYPT);
   ?>
+
+  <script type="module">
+    import { __ROOT__, selector, showToast } from "../asset/js/flo3fwf";
+    import validateInput from "../asset/js/validateInput";
+    import {loadGet} from "../asset/js/load";
+    import load from "../asset/js/load";
+
+    const urlParams = new URLSearchParams(window.location.search);
+            if (!urlParams.has('token')) {
+                showToast('Reset token is missing', 'error', 'info');
+                // return;
+            }
+    const token = urlParams.get('token');
+        showToast('Validating password reset token, please wait...', 'info', 1500);
+        let verifyToken = await loadGet(`asset/apis/v-token.php`, '', {'token':token});
+
+            if(!verifyToken.status){
+                 showToast(verifyToken.message || 'Cannot verify token or expire token', 'info');
+                // return;
+            }else{
+                showToast(verifyToken.message, 'success', 4000);
+                selector('.login-btn').disabled = false;
+                selector('#pw1').disabled = false;
+                selector('#pw2').disabled = false;
+            }
+
+    const newpwd = selector('.Newpasswordupdate');
+          newpwd.addEventListener('click', async(e) => {
+            e.preventDefault();
+            try{
+                let pwd1 = selector('#pw1');
+                let pwd2 = selector('#pw2');
+
+                //check if passowrd is empty
+                if(pwd1.value === '')throw new Error("Password is required");
+                if(pwd2.value === '')throw new Error("Confirm password is required");
+                
+
+                if(!validateInput(pwd1.value, 'password'))throw new Error("Error: Not a valid password, enter a valid password1 " + pwd1.value);
+                if(!validateInput(pwd2.value, 'password'))throw new Error("Error: Not a valid password, enter a valid password2 " + pwd2.value);
+                
+                //check if password match
+                if(pwd1.value !== pwd2.value) throw new Error("Both password must be the same");
+                
+
+                let resetPwd = load('asset/apis/reset-pwd.php', '', {'token': urlParams.get('token'), 'new_password': pwd2.value});
+
+                console.log(await resetPwd)
+
+            }catch(e){
+                showToast(e || 'ERROR: Request fail, try again later!', 'error');
+            }
+            
+          })
+
+  </script>
 </body>
 </html>
