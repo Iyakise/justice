@@ -23,7 +23,7 @@ try {
     $stmt = $pdo->query("
         SELECT id, user_id, action, description, ip_address, module, user_agent, created_at
         FROM cms_activity_logs
-        ORDER BY created_at DESC
+        ORDER BY created_at DESC LIMIT 25
     ");
     $logs = $stmt->fetchAll();
 

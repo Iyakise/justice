@@ -141,7 +141,7 @@ export async function addDepartment(deptName, description) {
         const result = await response.json();
 
         if (result.status) {
-            showToast(result.message || "Department added successfully!", "success");
+            // showToast(result.message || "Department added successfully!", "success");
             return true;
         } else {
             showToast(result.message || "Failed to add department.", "error");
@@ -189,8 +189,8 @@ export function showPopup(popupAppear, position,callback) {
                 <button class="btn-close"><i title="Close" class="fas fa-xmark fa-shake"></i></button>
             </div>
             <div class="popup-overlay content-data-box">
-                <h2>Popup Title</h2>
-                <p>This is a sample popup content.</p>
+                <h2><i class="fas fa-spin fa-spinner"></i></h2>
+                <p>Content is loading... please wait</p>
             </div>
         </div>
     `;
@@ -343,10 +343,10 @@ export async function deleteDepartment(deptId){
 }
 
 //get activity logs
-export async function activityLog(){
-    const request = await fetch(`${__ROOT__}asset/apis/activitylog.php`);
+// export async function activityLog(){
+//     const request = await fetch(`${__ROOT__}asset/apis/activitylog.php`);
     
-}
+// }
 
 //record case
 export async function addNewCase(title, case_number, filed_by, assigned_to, description, case_type, courtDte, caseStatus){
@@ -485,4 +485,173 @@ export async function updateCase(id, title, description, case_type, status, prio
         return false
     }
 
+}
+
+
+export async function trackCases(){
+    try{
+        const request = await fetch(`${__ROOT__}asset/apis/cms-case.php`)
+
+            if(!request.ok){
+                let dta = await request.text();
+                throw new Error("Error: unable to fetch all case from the system" + dta);
+            }
+
+            let result = await request.json();
+
+            return result;
+
+    }catch(e){
+        showToast(e || 'Track case fail, contact system developer', 'error');
+    }
+}
+
+//search case admin
+export async function searchCase(d){
+    try{
+        const request = await fetch(`${__ROOT__}asset/apis/adm-search-case.php?q=${d}`)
+
+            if(!request.ok){
+                let dta = await request.text();
+                throw new Error("Error: unable to fetch all case from the system" + dta);
+            }
+
+            let result = await request.json();
+
+            return result;
+
+    }catch(e){
+        showToast(e || 'Search case fail, contact system developer', 'error');
+    }
+}
+
+//dashboard statistics
+export async function dashboardStats(){
+    try{
+        const request = await fetch(`${__ROOT__}asset/apis/dashboard-stats-adm.php`)
+
+            if(!request.ok){
+                let dta = await request.text();
+                throw new Error("Error: unable to fetch statics from the system" + dta);
+            }
+
+            let result = await request.json();
+
+            return result;
+
+    }catch(e){
+        showToast(e || 'Search case fail, contact system developer', 'error');
+    }
+}
+
+//admin case stats
+export async function caseStatistics(){
+    try{
+        const request = await fetch(`${__ROOT__}asset/apis/db-case-stats.php`)
+
+            if(!request.ok){
+                let dta = await request.text();
+                throw new Error("Error: unable to fetch statics from the system" + dta);
+            }
+
+            let result = await request.json();
+
+            return result.data;
+
+    }catch(e){
+        showToast(e || 'Search case fail, contact system developer', 'error');
+    }
+}
+
+//get last 5 of everything
+export async function get5all(){
+    try{
+        const request = await fetch(`${__ROOT__}asset/apis/recent-5-all.php`)
+
+            if(!request.ok){
+                let dta = await request.text();
+                throw new Error("Error: unable to fetch statics from the system" + dta);
+            }
+
+            let result = await request.json();
+
+            return result;
+
+    }catch(e){
+        showToast(e || 'Search case fail, contact system developer', 'error');
+    }
+}
+
+//update staff record
+export async function updateStaffRecord(userid, name, email, department, phone, role, status){
+    try {
+        const req = await fetch(`${__ROOT__}asset/apis/update-staff.php`, {
+            method:'POST',
+            headers: {
+                'Contents-type': 'application/json'
+            },
+            body: JSON.stringify({
+                    id: userid,
+                    full_name: name,
+                    email: email,
+                    phone: phone,
+                    // username: '',
+                    role: role,
+                    status: status,
+                    department: department,
+            })
+        });
+
+            if(!req.ok){
+                let tk = await req.text();
+                throw new Error("Error: unexpected error while trying to update user information " + tk);
+                
+            }
+
+    const result = await req.json();
+            console.log(result)
+    if(!result.success){
+        showToast(result.error || 'Error: unexpected error prevent your action from executing, logout and try again, or contact developer.', 'error');
+        return;
+    }
+
+    return true;
+
+    } catch (error) {
+        showToast(error || 'Update data fail', 'error');
+    }
+}
+
+
+
+
+
+
+/*
+    USER LOGGED IN START HERE
+*/
+
+export async function userLogin(email, password){
+    try {
+        const req = await fetch(`${__ROOT__}asset/apis/auth/`, {
+            method: 'post',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({email, password})
+
+        })
+
+        
+        if(!req.ok){
+            let tk = await req.text();
+            throw new Error("Error: log in request fail server responded with \"" + tk + "");
+        }
+
+        const result = await req.json();
+
+        console.log(result);
+    } catch (error) {
+        showToast(error, 'error')
+    }
 }

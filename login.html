@@ -9,6 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="<?=__ROOT__()?>asset/img/AKS-Emblem.png?v=1&load=<?=time()?>">
   <script type="module" src="<?=__ROOT__()?>asset/js/flo3fwf.js?load=<?=time()?>"></script>
+  <link rel="stylesheet" href="<?=__ROOT__()?>asset/css/all.min.css">
   <title>Admin Login - <?=__SITE_NAME__?></title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <meta name="description" content="Admin Login - <?=__SITE_NAME__?> ">
@@ -46,7 +47,11 @@
     <meta name="baidu-site-verification" content="your-baidu-site-verification-code">
     <link rel="stylesheet" href="<?=__ROOT__()?>asset/css/moj-jaldkkfkasff-fssa.css?v=1&load=<?=time()?>">
     <script type="module" src="<?=__ROOT__()?>asset/js/lndfaf343ffsda-module.js?load=<?=time()?>"></script>
-
+<style>
+  .__load__:disabled{
+    background: gray;
+  }
+</style>
 </head>
 <body>
   <div class="login-container" id="login-container">
@@ -63,7 +68,7 @@
         <label for="password">Password</label>
         <input type="password" id="password" name="password" placeholder="Enter password" required>
       </div>
-      <button type="submit" class="login-btn">Login</button>
+      <button type="submit" class="login-btn __load__">Login</button>
       <div class="extra-links">
         <p><a href="<?=__ROOT__()?>reset-password/?u=1&v=<?=password_hash(__PWD_RESET_KEY__, PASSWORD_BCRYPT)?>">Forgot Password?</a></p>
       </div>
@@ -74,5 +79,49 @@
 
    // echo password_hash("09069053009@@AAaa", PASSWORD_BCRYPT);
   ?>
+
+  <script type="module">
+    import * as loader from './asset/js/load';
+    import { selector, __ROOT__, showToast } from './asset/js/flo3fwf';
+    import validateInput from './asset/js/validateInput';
+
+    const isAuth = await loader.loadGet('asset/apis/auth/IsAuth.php', '', '');
+
+    if(isAuth.logged_in){
+          const user = isAuth.user.role;
+        window.location.replace(__ROOT__ + await loader.path(user));
+      // console.log(user);
+      // console.log(await loader.path(user))
+      // return;
+    }
+
+    selector('.__load__').addEventListener('click', async(e) => {
+      e.preventDefault();
+      let email     = selector('#username')?.value ?? null;
+      let password  = selector('#password')?.value ?? null;
+      let clickable = selector('.__load__');
+
+      if(!validateInput(email, 'email')) return showToast('Error: Please Enter a valid Email Adress', 'error');
+      // if(!validateInput(password, 'password')) return showToast('Error: Please Enter a valid password', 'error');
+
+        clickable.innerHTML = 'Loading... <i class="fas fa-spin fa-spinner"></i>';
+        clickable.disabled = true;
+
+
+  const LoginRequest = await loader.load('asset/apis/auth/', function(){
+
+        }, {email, password});
+
+        console.log(LoginRequest);
+        if(!LoginRequest.success){clickable.disabled=false;clickable.innerHTML='Login'; return showToast(LoginRequest.message, 'error')}
+
+        showToast(`${LoginRequest.message}, Please wait while system redirect you do dashboard`, 'success');
+        
+    })
+
+    
+
+  </script>
+  <script src="<?=__ROOT__()?>asset/js/all.min.js"></script>
 </body>
 </html>

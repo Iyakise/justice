@@ -23,7 +23,7 @@ export default async function load(route, callback, data = {}) {
 
         const result = await request.json();
 
-        if (callback) callback(result);
+        if (callback) callback();
 
         return result;
 
@@ -35,6 +35,7 @@ export default async function load(route, callback, data = {}) {
 }
 
 // 1234567890AAAAaaaa@@@@
+// whatsapp: +2349069053009
 //load get
 export async function loadGet(route, callback, data = {}) {
     try {
@@ -70,4 +71,22 @@ export async function loadGet(route, callback, data = {}) {
         console.error(e);
         showToast(e.message || 'Error loading request', 'error');
     }
+}
+
+
+// file path
+export async function path(p) {
+    const routes = {
+        lawyer: '/staff-ms/lawyer/',
+        commissioner: '/staff-ms/commissioner/',
+        psecretary: '/staff-ms/psecretary/'
+    };
+
+    const url = routes[p];
+
+    if (!url) {
+        throw new Error(`Unknown user path type: ${p}`);
+    }
+
+    return url;
 }

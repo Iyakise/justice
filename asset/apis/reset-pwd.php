@@ -61,7 +61,7 @@ try {
 
     // First try updating in cms_admins
     $stmt = $pdo->prepare("UPDATE super_admins SET password = :pwd WHERE id = :id");
-    $stmt->execute([":pwd" => $hashedPassword, ":id" => $reset['user_id']]);
+    $stmt->execute([":pwd" => $hashedPassword, ":id" => $reset['admin_id']]);
 
     if ($stmt->rowCount() === 0) {
         // If not admin, update cms_users

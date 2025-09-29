@@ -1,7 +1,8 @@
 // import saveStaff from './api.js';
 //import all functions from api.js
-import * as api from './api.js';
+import * as api from './api';
 import validateInput from './validateInput.js';
+import { loadGet } from './load';
 // import updateStaffRecord from './updateStaffRecord.js';
 // import delDept from './selector.js';
 // import delDept from './selector.js';
@@ -39,7 +40,6 @@ export async function __LOADER__(returndata, type, pge, token, callback) {
             },
             signal: controller.signal
         });
-
         clearTimeout(timeoutId);
 
         
@@ -248,7 +248,121 @@ export function initialiazeFunctions(p){
     p = p.toLowerCase();
     switch(p){
       case 'index':
-        
+        ( async () =>{
+        try{
+            const rcstf = selector('#rs3ffasff1');
+            const rcase = selector('#rc232232ffs');
+            const rcDep = selector('#rd34aaff3');
+            const rcLog = selector('#ralfa334ff34f');
+
+            const all5 = await api.get5all();
+            // console.log(all5);
+
+            //recent start
+            if(!'recent_users' in all5 && all5.recent_users.length ===0){
+                rcstf.innerHTML = `<li>No recent staff found</li>`;
+                
+            }else{
+                rcstf.innerHTML = ''; //clearout previous data
+                all5.recent_users.forEach((user, i) => {
+                    let li = newElement('li');
+                        li.innerHTML = `
+                            ${user.full_name}
+                        `;
+                    rcstf.appendChild(li); //return to parent element
+                })
+            }
+
+            //recent cases
+            if(!'recent_cases' in all5 && all5.recent_cases.length ===0){
+                rcase.innerHTML = `<li>No recent case found</li>`;
+                
+            }else{
+                rcase.innerHTML = ''; //clearout previous data
+                all5.recent_cases.forEach((cs, i) => {
+                    let li = newElement('li');
+                        li.innerHTML = `
+                            ${cs.case_number}
+                        `;
+                    rcase.appendChild(li); //return to parent element
+                })
+            }
+
+            //recent departments
+            if(!'recent_departments' in all5 && all5.recent_departments.length ===0){
+                rcDep.innerHTML = `<li>No recent case found</li>`;
+                
+            }else{
+                rcDep.innerHTML = ''; //clearout previous data
+                all5.recent_departments.forEach((dp, i) => {
+                    let li = newElement('li');
+                        li.innerHTML = `
+                            ${dp.title}
+                        `;
+                    rcDep.appendChild(li); //return to parent element
+                })
+            }
+
+
+            //recent logs activity
+            if(!'recent_activity_logs' in all5 && all5.recent_activity_logs.length ===0){
+                rcLog.innerHTML = `<li>No recent case found</li>`;
+                
+            }else{
+                rcLog.innerHTML = ''; //clearout previous data
+                all5.recent_activity_logs.forEach((log, i) => {
+                    let li = newElement('li');
+                        li.innerHTML = `
+                            ${log.action}
+                        `;
+                    rcLog.appendChild(li); //return to parent element
+                })
+            }
+
+
+    let QuickLink = selectorAll('#quickLink');
+        QuickLink.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                // if(link.getAttribute('data-action') === )
+                const action = link.getAttribute("data-action");
+
+   // Remove highlight from all sidebar links
+//    console.log(document.querySelectorAll(".sdbar"))
+    selectorAll(".sdbar").forEach(link => {
+        link.classList.remove("moj-active-tab");
+
+        if(link.getAttribute('data-page') === action)link.classList.add('moj-active-tab');
+    });
+
+            window.location.hash = `${link.getAttribute('data-action')}/moj/${link.getAttribute('data-action')}`;
+
+
+                __LOADER__(selector('.__MOJ_MAIN__'),
+                '.html', 
+                link.getAttribute('data-action'),
+                '',
+                function(){
+                    // alert('Loaded')
+                    showToast('Quick link successfully load ' + link.getAttribute('data-action'))
+                })
+
+        // selectorAll('.sdbar').for
+
+
+
+
+            })
+        })
+
+
+        }catch(e){
+            showToast(e || 'Dashboard statistics fail to load, Logout and try again', 'info');
+        }
+
+
+            const dbstats = await api.dashboardStats();
+
             // document.addEventListener('DOMContentLoaded', function () {
   // ===== Activity Overview (Doughnut) =====
         const actCtx = document.getElementById('activityChart').getContext('2d');
@@ -257,7 +371,7 @@ export function initialiazeFunctions(p){
             data: {
             labels: ['Staff Added', 'Cases Registered', 'Departments Created', 'Case Updates', 'Logins'],
             datasets: [{
-                data: [5, 8, 3, 4, 10], // <- replace with your real counts
+                data: [dbstats.total_users, dbstats.cases_registered, dbstats.total_departments, dbstats.cases_updated, dbstats.total_logins], // <- replace with your real counts
                 backgroundColor: ['#2563eb', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6'],
                 borderWidth: 0
             }]
@@ -273,41 +387,43 @@ export function initialiazeFunctions(p){
         });
 
   // ===== Cases Per Month (Line) =====
+   const cStats = await api.caseStatistics();
+//    console.log(cStats.1)
   const casesCtx = document.getElementById('casesChart').getContext('2d');
   // Smooth gradient fill under the line
   const gradient = casesCtx.createLinearGradient(0, 0, 0, 300);
         gradient.addColorStop(0, 'rgba(37, 99, 235, 0.35)');
         gradient.addColorStop(1, 'rgba(37, 99, 235, 0.00)');
 
-  new Chart(casesCtx, {
-    type: 'line',
-    data: {
-      labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-      datasets: [{
-        label: 'Cases',
-        data: [12, 19, 8, 15, 20, 14, 10, 18, 22, 17, 25, 19], // <- replace with your monthly counts
-        borderColor: '#2563eb',
-        backgroundColor: gradient,
-        fill: true,
-        tension: 0.55,
-        pointRadius: 3,
-        pointHoverRadius: 1
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false, // canvas height from your CSS will be respected
-      scales: {
-        y: { beginAtZero: true, ticks: { stepSize: 5 } },
-        x: { grid: { display: false } }
-      },
-      plugins: {
-        legend: { display: false },
-        tooltip: { mode: 'index', intersect: false }
-      }
-    }
-  });
-// });
+        new Chart(casesCtx, {
+            type: 'line',
+            data: {
+            labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+            datasets: [{
+                label: 'Cases',
+                data: [cStats.Jan, cStats.Feb, cStats.Mar, cStats.Apr, cStats.May, cStats.Jun, cStats.Jul, cStats.Aug, cStats.Sep, cStats.Oct, cStats.Nov, cStats.Dec], // <- replace with your monthly counts
+                borderColor: '#2563eb',
+                backgroundColor: gradient,
+                fill: true,
+                tension: 0.55,
+                pointRadius: 3,
+                pointHoverRadius: 1
+            }]
+            },
+            options: {
+            responsive: true,
+            maintainAspectRatio: false, // canvas height from your CSS will be respected
+            scales: {
+                y: { beginAtZero: true, ticks: { stepSize: 5 } },
+                x: { grid: { display: false } }
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: { mode: 'index', intersect: false }
+            }
+            }
+        });
+})();
 
       break;
 
@@ -324,8 +440,6 @@ export function initialiazeFunctions(p){
 
 
         //return where to update ui
-
-
 
         //Handle cancel request then load dashboard
         cancel.addEventListener('click', () => {
@@ -528,7 +642,8 @@ export function initialiazeFunctions(p){
                         // popup.querySelector('p').innerText = 'Edit functionality is under development.';
                         // You can populate the popup with a form to edit staff details
                         let singleStaffData = await api.singleStaff(staffId);
-                        console.log(singleStaffData);
+                        let allDept         = await api.allDepartments();
+                       
 
                         //check and match selected option in role and department
                         let roleOptions = '';
@@ -598,15 +713,7 @@ export function initialiazeFunctions(p){
                                         <label for="edit-department">Department</label>
                                         <select id="edit-department" name="department" required>
                                             <option value="">-- Select Department --</option>
-                                            <option value="Department of legal">Department of Legal Drafting</option>
-                                            <option value="Department of prosecution">Department of Prosecution</option>
-                                            <option value="Department of appeals">Department of Appeals</option>
-                                            <option value="Department of Litigation">Department of Civil Litigation</option>
-                                            <option value="Department of Administration">Department of Administration</option>
-                                            <option value="Department of Estate Administration">Department of Estate  Administration</option>
-                                            <option value="Department of Gender-Based Violence">Department of Sexual and Gender-Based Violence</option>
-                                            <option value="Department of Account and Finance">Department of Account and Finance</option>
-                                            <option value="Department of Planning, Research and Statistics">Department of Planning, Research and Statistics</option>
+                                            
                                         </select>
                                     </div>
 
@@ -634,16 +741,44 @@ export function initialiazeFunctions(p){
                                     </div>
 
                                     <div class="form-actions">
-                                    <button type="button" class="btn-primary __update_user__">Update Staff</button>
-                                    <button type="button" class="btn-secondary">Cancel</button>
+                                    <button type="button" class="btn-primary __update_user__ btn">Update Staff</button>
+                                    <button type="button" class="btn-secondary __cancel__">Cancel</button>
                                     </div>
                                 </form>
                             </div>
                         `;
+                        popup.dispatchEvent(new Event('popupAdded'));
+                        let select          = selector('#edit-department');
+                        // let selectOption    = select.options
+                        let currentUserDept = singleStaffData.data.department;
+                        // console.log(currentUserDept)
+                            allDept.forEach(opt => {
+                                let option = newElement('option');
+                                    option.value = opt.title;
+                                    option.innerHTML = opt.title;
+                                    if(opt.title === currentUserDept){
+                                        option.setAttribute('selected', 'selected');
+                                    }
+                                select.appendChild(option);
+                            })
                     });
 
                     //
-                    updateStaffRecord();
+                    /*
+                    <option value="Department of legal">Department of Legal Drafting</option>
+                    <option value="Department of prosecution">Department of Prosecution</option>
+                    <option value="Department of appeals">Department of Appeals</option>
+                    <option value="Apex Reel sports">Apex Reel sports</option>
+                    <option value="Department of Litigation">Department of Civil Litigation</option>
+                    <option value="Department of Administration">Department of Administration</option>
+                    <option value="Department of Estate Administration">Department of Estate  Administration</option>
+                    <option value="Department of Gender-Based Violence">Department of Sexual and Gender-Based Violence</option>
+                    <option value="Department of Account and Finance">Department of Account and Finance</option>
+                    <option value="Department of Planning, Research and Statistics">Department of Planning, Research and Statistics</option>
+                    
+                    
+                    */
+                    updateStaffRecord(staffId);
                     // updateStaffRecord(staffId, singleStaffData.data.full_name, singleStaffData.data.email, singleStaffData.data.phone, singleStaffData.data.department, singleStaffData.data.role, singleStaffData.data.status);
                 });
             });
@@ -674,8 +809,8 @@ export function initialiazeFunctions(p){
             // Call the API to add the department
             const success = await api.addDepartment(deptName.value, deptDesc.value);
             if (success) {
-                deptName.value = 'dxd';
-                deptDesc.value = 'dxd';
+                deptName.value = '';
+                deptDesc.value = '';
                 showToast("Department added successfully!", "success");
                 // Optionally, refresh the department list here
                 deptForm.reset();
@@ -1107,6 +1242,7 @@ const deptartSearch = selector('.search-input');
                         let caseAssignTo = selector('#assigned-lawyer');
                         let casecourtDate = selector('#case-courtDte');
                         let caseStatus = selector('#cstatus');
+                        let formitSelf = selector('.case-form form');
 
                         let description  = selector('#case-description');
 
@@ -1138,6 +1274,7 @@ const deptartSearch = selector('.search-input');
 
                             if(saveCase){
                                 showToast('You have successfully added new cases to the system', 'success');
+                                formitSelf.reset();
                             }
 
                     } catch (error) {
@@ -1189,7 +1326,7 @@ const deptartSearch = selector('.search-input');
                                 `;
                             fileup.appendChild(h3);
                         })
-                    selector('.__LOADER__').remove();
+                        selector('.__LOADER__').remove();
 
 
                     //click to setup
@@ -1320,7 +1457,7 @@ const deptartSearch = selector('.search-input');
                         <td>${el.title}</td>
                         <td>${el.case_type}</td>
                         <td>${el.assigned_name}</td>
-                        <td>${el.created_at} <button class="btn btn-sm this.button${el.id}" data-id="${el.id}">Edit</button></td>
+                        <td>${toDateInputFormat(el.created_at)} <button class="btn btn-sm this.button${el.id}" data-id="${el.id}">Edit</button></td>
                     `;
                 tbl.appendChild(tr);
                 updatecase();
@@ -1363,30 +1500,37 @@ const deptartSearch = selector('.search-input');
         let btnUpdate = selector('.btn-update');
             btnUpdate.addEventListener('click', async (event) => {
                 event.preventDefault();
-
+                btnUpdate.innerHTML = 'Loading... <i class="fas fa-spin fa-spinner"></i>';
                 const caseAssignTo  = btnUpdate.getAttribute('case_assigned_to');
                 const casefileBy    = btnUpdate.getAttribute('case_file_by');
                 const caseId        = btnUpdate.getAttribute('case_data_d');
+                const caseform      = selector('.update-case-form form');
 
                 const caseNewTitle  = selector('#caseTitle');
                 const caseType      = selector('#caseType');
                 const fileby        = selector('#fileby');
                 const assignedTo    = selector('#assignedTo');
                 const cstatus       = selector('#cstatus');
-                const nextAppear    = selector('#nextAppear');
-                const resolution    = selector('#resolution');
+                let nextAppear      = selector('#nextAppear')?.value ?? null;
+                let resolution      = selector('#resolution')?.value ?? null;
                 const caseDescription  = selector('#caseDescription');
+                let clickableBtn = btnUpdate;
 
-                    if(!caseAssignTo) return showToast("Error: Cannot verify who this case is assigned to", 'error');
-                    if(!casefileBy) return showToast("Error: Cannot verify who filed this case", 'error');
-                    if(!caseId) return showToast("Error: Cannot verify the case you are trying to update", 'error');
-                    if(!validateInput(caseNewTitle.value, 'text'))return showToast('Error: Invalid case title, checked and try again!', 'error');
-                    if(!validateInput(fileby.value, 'text'))return showToast('Error: select valid user name that file this case', 'error');
-                    if(!validateInput(assignedTo.value, 'text'))return showToast('Error: select and assigned this case to a lawyer', 'error');
-                    if(!validateInput(caseType.value, 'text'))return showToast('Error: Enter a valid case type. e.g Family, Civil case etc.', 'error');
-                    if(!validateInput(caseDescription.value, 'text'))return showToast('Error: A valid case description is required before you can update.', 'error');
-                    if(cstatus.value === '')return showToast('Error: select a matching status for this case', 'error');
+                console.log(nextAppear.value)
 
+                    if(!caseAssignTo){clickableBtn.disabled =false;clickableBtn.innerText='Update Case'; return showToast("Error: Cannot verify who this case is assigned to", 'error');}
+                    if(!casefileBy){ clickableBtn.disabled =false;clickableBtn.innerText='Update Case';  return showToast("Error: Cannot verify who filed this case", 'error');}
+                    if(!caseId){ clickableBtn.disabled =false;clickableBtn.innerText='Update Case';  return showToast("Error: Cannot verify the case you are trying to update", 'error');}
+                    if(!validateInput(caseNewTitle.value, 'text')){clickableBtn.disabled =false;clickableBtn.innerText='Update Case';  return showToast('Error: Invalid case title, checked and try again!', 'error');}
+                    if(!validateInput(fileby.value, 'text')){clickableBtn.disabled =false;clickableBtn.innerText='Update Case';  return showToast('Error: select valid user name that file this case', 'error');}
+                    if(!validateInput(assignedTo.value, 'text')){clickableBtn.disabled =false;clickableBtn.innerText='Update Case';  return showToast('Error: select and assigned this case to a lawyer', 'error');}
+                    if(!validateInput(caseType.value, 'text')){clickableBtn.disabled =false;clickableBtn.innerText='Update Case';  return showToast('Error: Enter a valid case type. e.g Family, Civil case etc.', 'error');}
+                    if(!validateInput(caseDescription.value, 'text')){clickableBtn.disabled =false;clickableBtn.innerText='Update Case';  return showToast('Error: A valid case description is required before you can update.', 'error');}
+                    if(cstatus.value === ''){clickableBtn.disabled =false;clickableBtn.innerText='Update Case';  return showToast('Error: select a matching status for this case', 'error');}
+
+                    btnUpdate.disabled = true;
+                    if(nextAppear.value === '')nextAppear = null;
+                    if(resolution.value === '')resolution = null;
 
                     // let formdata = new FormData();
                     //     formdata.append('casetitle', caseNewTitle.value);
@@ -1398,14 +1542,41 @@ const deptartSearch = selector('.search-input');
 
                     //     formdata.append('nextDateInCourt', nextAppear.value === '' ?? null);
                     //     formdata.append('courtresolution', resolution.value === '' ?? null);
+                
+                    let filed_by    = fileby.getAttribute('case_file_by');
+                    let assigned_to = assignedTo.getAttribute('case_assigned_to');
 
-
+                    console.log(caseId, 
+                        caseNewTitle.value, 
+                        caseDescription.value, 
+                        caseType.value, 
+                        cstatus.value, 
+                        filed_by, 
+                        assigned_to, 
+                        nextAppear, 
+                        resolution);
                     // if(nextAppear.value === '') {nextAppear = null};
                     // if(resolution.value === '') resolution = null;
+                    // console.log(caseId,caseAssignTo,casefileBy)
+                    // return;
                     
-                    let updateRequest = await api.updateCase(caseId, caseNewTitle.value, caseDescription.value, caseType.value, cstatus.value, '', casefileBy, caseAssignTo, nextAppear.value, resolution.value);
+                    let updateRequest = await api.updateCase(caseId, caseNewTitle.value, caseDescription.value, caseType.value, cstatus.value, '', filed_by, assigned_to, nextAppear, resolution);
 
                         console.log(updateRequest);
+
+                    if(updateRequest){
+                        btnUpdate.disabled = false;
+                        btnUpdate.innerHTML = 'Update case';
+                        showToast(`"${caseNewTitle.value}" updated successfully the Lawyer, The (Plaintiff, defendant's ) has been notify via mail..`, 'info');
+                        caseform.reset();
+                        return;
+                    }
+
+                    showToast(`"${caseNewTitle.value}" update fail because of unexpected error`, 'error');
+                    btnUpdate.disabled = false;
+                    btnUpdate.innerHTML = 'Update case';
+
+
             })
 
 
@@ -1427,7 +1598,111 @@ const deptartSearch = selector('.search-input');
     case 'trackcase':
       (async () => {
         
+            const AllCase   = await api.trackCases();
+            const caseList  = selector('#casesList');
+            let status;
+            console.log(AllCase)
+            if(!AllCase.status)return showToast(AllCase.message || 'Unable to load all cases, try logging out and logged in again!', 'error');
+            // console.log(AllCase)
 
+            if(!'cases' in AllCase) return showToast('Unexpected error: required data missing', 'error');
+
+            caseList.innerHTML = ''; //list data
+            AllCase.cases.forEach((cs, i) => {
+                if(cs.status.toLowerCase() === 'in progress'){
+                    status = 'progress';
+                }else if(cs.status.toLowerCase() === 'closed'){
+                    status = 'closed';
+                }else{status = 'open'}
+
+                let tr = newElement('tr');
+                    tr.innerHTML = `
+                        <td>#0${cs.id}</td>
+                        <td>${cs.title}</td>
+                        <td>${cs.assigned_lawyer}</td>
+                        <td><span class="status ${status}">${cs.status}</span></td>
+                        <td>${toDateInputFormat(cs.created_at)}</td>
+                        <td>${toDateInputFormat(cs.updated_at)}</td>
+                    `;
+                caseList.appendChild(tr);
+            })
+
+
+
+            //search fcor  case
+            let searchCase = selector('#searchCase');
+                searchCase.addEventListener('input', async() =>{
+                    
+                    //validate and check the what the user is typing
+                    if(!validateInput(searchCase.value, 'text'))return showToast('Enter a valid search value', 'error');
+
+                    let userSearch = await api.searchCase(searchCase.value); //search case
+
+                        if(userSearch.status === 'success' && userSearch.cases.length !== 0){
+                            caseList.innerHTML = ''; //list data
+                            userSearch.cases.forEach((cs, i) => {
+                                if(cs.status.toLowerCase() === 'in progress'){
+                                    status = 'progress';
+                                }else if(cs.status.toLowerCase() === 'closed'){
+                                    status = 'closed';
+                                }else{status = 'open'}
+
+                                let tr = newElement('tr');
+                                    tr.innerHTML = `
+                                        <td>#0${cs.id}</td>
+                                        <td>${cs.title}</td>
+                                        <td>${cs.assigned_person}</td>
+                                        <td><span class="status ${status}">${cs.status}</span></td>
+                                        <td>${toDateInputFormat(cs.created_at)}</td>
+                                        <td>${toDateInputFormat(cs.updated_at)}</td>
+                                    `;
+                                caseList.appendChild(tr);
+                            })
+                        }
+                    // )
+
+                })
+
+
+            //filter course using select
+            let filterSelect = selector('#filterStatus');
+                filterSelect.addEventListener('change', async function(){
+                    
+
+                    const load = await loadGet('asset/apis/adm-filter-case.php', '', {'status': filterSelect.value});
+
+                        console.log(load)
+                        if(load.status === 'success' && load.cases.length !== 0){
+                            caseList.innerHTML = ''; //list data
+                            load.cases.forEach((cs, i) => {
+                                if(cs.status.toLowerCase() === 'in progress'){
+                                    status = 'progress';
+                                }else if(cs.status.toLowerCase() === 'closed'){
+                                    status = 'closed';
+                                }else{status = 'open'}
+
+                                let tr = newElement('tr');
+                                    tr.innerHTML = `
+                                        <td>#0${cs.id}</td>
+                                        <td>${cs.title}</td>
+                                        <td>${cs.assigned_person}</td>
+                                        <td><span class="status ${status}">${cs.status}</span></td>
+                                        <td>${toDateInputFormat(cs.created_at)}</td>
+                                        <td>${toDateInputFormat(cs.updated_at)}</td>
+                                    `;
+                                caseList.appendChild(tr);
+                            })
+
+                            return
+                        }
+
+                        caseList.innerHTML =`
+                            <tr>
+                                <td colspan="6">No data found!</td>
+                            </tr>
+                        `
+
+                })
       })()
     break;
     
@@ -1435,16 +1710,85 @@ const deptartSearch = selector('.search-input');
 
 }
 
-function updateStaffRecord() {
-    const form = document.querySelector('.__update_user__');
-    if (!form) {
-        //show error toast
-        showToast('Edit staff form not found.', 'error');
-        console.error('Edit staff form not found.');
-        return;
-    }
-    form.preventDefault();
-    console.log('Update staff record function called' + form);
+function updateStaffRecord(staffId) {
+let popupEl = selector('.popup-overlay')
+    popupEl.addEventListener('popupAdded', (e) =>{
+        // console.log(e)
+        //remove popup
+        selector('.__cancel__').addEventListener('click', ()=> {
+            selector('.popup-container').remove();
+        })
+
+        
+// console.log(staffId)
+        //update staff record
+        selector('.__update_user__').addEventListener('click', async function() {
+            let fullName    = selector('#edit-fullname');
+            let email       = selector('#edit-email');
+            let phone       = selector('#edit-phone');
+            let dept        = selector('#edit-department');
+            let role        = selector('#edit-role');
+            let status      = selector('#edit-status');
+            // console.log(validateInput)
+            this.disabled = true;
+            let currBtn = this;
+            this.innerHTML = 'Loading... <i class="fas fa-spin fa-spinner"></i>';
+
+            if(!validateInput(fullName.value, 'text')) {
+                showToast('Error: Invalid username, please fixed and try again!', 'error')
+                currBtn.disabled = false;
+                currBtn.innerHTML = '<i class="fas fa-sync-alt"></i>Update Staff'
+                return;
+            };
+
+            if(!validateInput(email.value, 'email')){
+                currBtn.disabled = false;
+                currBtn.innerHTML = '<i class="fas fa-sync-alt"></i>Update Staff'
+                return showToast('Error: Invalid Email address try again', 'error');   
+            }
+            if(!validateInput(phone.value, 'phone')){ 
+                currBtn.disabled = false;
+                currBtn.innerHTML = '<i class="fas fa-sync-alt"></i>Update Staff'
+                return showToast('Error: Invalid phone number, try again', 'error');}
+            if(dept.value === '') {
+                currBtn.disabled = false;
+                currBtn.innerHTML = '<i class="fas fa-sync-alt"></i>Update Staff'
+                return showToast('Error: Invalid Department, Select department', 'error');}
+            if(role.value === '') {
+                currBtn.disabled = false
+                currBtn.innerHTML = '<i class="fas fa-sync-alt"></i>Update Staff'
+                return showToast('Error: Invalid user role, add a valid role for ' + fullName.value, 'error');}
+            if(status.value === '') {
+                currBtn.disabled = false;
+                currBtn.innerHTML = '<i class="fas fa-sync-alt"></i>Update Staff'
+                return showToast('Error: Status is not valid, please add a valid status', 'error');}
+
+           
+                //update record request heree
+            const updateStaffRequest = await api.updateStaffRecord(staffId, fullName.value, email.value, dept.value, phone.value, role.value, status.value);
+
+                if(updateStaffRequest){
+                    showToast('Staff Record update successfully', 'success');
+                    selector('.pop-active').remove();
+                }
+
+                currBtn.disabled = false;
+                currBtn.innerHTML = 'Update Staff';
+
+        })
+    })
+
+// setTimeout(() => {
+//         const form      = selector('.edit-staff-form');
+//     const cancelBtn = selector('.__cancel__');
+
+//     console.log('Update staff record function called' + form);
+//     console.log('Update staff record function called' + cancelBtn);
+//     cancelBtn.addEventListener('click', function(){
+//         alert('yes this is cancel btn')
+//     })
+// }, 1000)
+
 
     // const id = form.querySelector('#edit-id').value;
     // const fullname = form.querySelector('#edit-fullname').value;
@@ -1594,12 +1938,12 @@ function updatecase(){
                     })
 
 
-                    resolutionDate.value = caseobjec.resolution_date; //case resolution 
-                    nextAppear.value = caseobjec.resolution_date; //case resolution 
+                    resolutionDate.value    = toDateInputFormat(caseobjec.resolution_date); //case resolution 
+                    nextAppear.value        = toDateInputFormat(caseobjec.resolution_date); //case resolution 
 
                     // casetype.value = caseobjec.case_type;
 
-                    console.log(caseobjec);
+                    // console.log(caseobjec);
             })
         })
 
@@ -1608,7 +1952,7 @@ function updatecase(){
         const filby = selector('#fileby');
               filby.addEventListener('keyup', (event) => {
                 event.preventDefault();
-
+                filby.blur();
                 api.showPopup(selector('body'), 'beforeend', async () => {
 
                     const popup = selector('.popup-overlay');
@@ -1670,6 +2014,7 @@ function updatecase(){
             const assigned = selector('#assignedTo');
                   assigned.addEventListener('keyup', (event) => {
                 event.preventDefault();
+                    assigned.blur(true);
 
                 api.showPopup(selector('body'), 'beforeend', async () => {
 
@@ -1730,4 +2075,20 @@ function updatecase(){
                           })
                 })
               })
+}
+
+
+export function toDateInputFormat(dateTimeStr) {
+  // Example input: "2025-10-02 00:00:00"
+  if (!dateTimeStr) return "";
+
+  // Split off the date part only
+  const datePart = dateTimeStr.split(" ")[0];
+
+  // Validate it's YYYY-MM-DD
+  const parts = datePart.split("-");
+  if (parts.length === 3) {
+    return `${parts[0]}-${parts[1]}-${parts[2]}`;
+  }
+  return "";
 }

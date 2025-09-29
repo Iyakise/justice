@@ -19,7 +19,7 @@ try {
     // Fetch all departments
     $sql = "SELECT id, title, description, created_at, updated_at 
             FROM cms_departments 
-            ORDER BY created_at DESC LIMIT 20";
+            ORDER BY created_at DESC LIMIT 100";
     $stmt = $pdo->query($sql);
     $departments = $stmt->fetchAll();
 

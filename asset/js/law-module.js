@@ -1,18 +1,10 @@
 // import  Chart from "https://cdn.jsdelivr.net/npm/chart.js";
-
+// importScripts
 // Project URL Resolver
-export function getProjectUrl() {
-    let { protocol, host } = window.location;
 
-    if (host.includes("localhost")) {
-        return protocol + "//" + host + "/moj/";
-    } else {
-        return protocol + "//" + host + "/";
-    }
-}
-
-// Root constant
-export const __ROOT__ = getProjectUrl();
+import { __ROOT__, showToast, selector, selectorAll } from "./flo3fwf";
+import * as api from "./api";
+import * as loader from "./loader";
 
 // Loader function
 export async function __LOADER__COMMI(returndata, type, pge, token, callback) {
@@ -76,7 +68,7 @@ export function selector(d){
 }
 
 export function selectorAll(d){
-    return document.querySelector(d);
+    return document.querySelectorAll(d);
 }
 
 
