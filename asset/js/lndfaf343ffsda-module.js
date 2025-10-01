@@ -13,7 +13,7 @@ import validateInput from './validateInput.js';
 import {selector, selectorAll, showToast, __ROOT__} from './flo3fwf.js';
 
 // Function to initialize page-specific functions
-    const form       = selector('#login-container form');
+    const form  = selector('#login-container form');
 
         form.addEventListener('submit', async (event) => {
             event.preventDefault();

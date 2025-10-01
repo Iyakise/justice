@@ -655,3 +655,111 @@ export async function userLogin(email, password){
         showToast(error, 'error')
     }
 }
+
+
+
+export async function userLogout(){
+    try {
+        const req = await fetch(`${__ROOT__}asset/apis/auth/userLogout.php`, {
+            method: 'post',
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+        if(!req.ok){
+            let tk = await req.text();
+            throw new Error("Error: log out request fail server responded with \"" + tk + "");
+        }
+        const result = await req.json();
+
+        return result;
+    } catch (error) {
+        showToast(error, 'error')
+    }
+}
+
+//check lawyer dashboard stats api
+export async function lawyerDashboardStats(uid){
+    try{
+        const request = await fetch(`${__ROOT__}asset/apis/lawyer.stats.php?uid=${uid}`);
+            if(!request.ok){
+                let dta = await request.text();
+                throw new Error("Error: unable to fetch statics from the system" + dta);
+            }
+            let result = await request.json();
+            return result.data;
+    }catch(e){
+        showToast(e || 'Search case fail, contact system developer', 'error');
+    }
+}
+
+
+//check lawyer dashboard activitylog
+export async function lawyerActivity(uid){
+    try{
+        const request = await fetch(`${__ROOT__}asset/apis/lawyer.recent.log.php?uid=${uid}`);
+            if(!request.ok){
+                let dta = await request.text();
+                throw new Error("Error: unable to fetch statics from the system" + dta);
+            }
+            let result = await request.json();
+            return result.data;
+    }catch(e){
+        showToast(e || 'Lawyer activity logs not found', 'error');
+    }
+}
+
+
+//get lawyer assigned cases
+export async function lawyerAssignedCases(uid){
+    try{
+        const request = await fetch(`${__ROOT__}asset/apis/lawyer.case.assigned.php?uid=${uid}`);
+        if(!request.ok){
+            let dta = await request.text();
+            throw new Error("Error: unable to fetch assigned cases" + dta);
+        }
+        let result = await request.json();
+        return result;
+    }catch(e){
+        showToast(e || 'Lawyer assigned cases not found', 'error');
+    }
+}
+
+
+//get lawyer single case details
+export async function singleCaseDetails(uid){
+    try{
+        const request = await fetch(`${__ROOT__}asset/apis/lawyer.single.case.php?cid=${uid}`);
+        if(!request.ok){
+            let dta = await request.text();
+            throw new Error("Error: unable to fetch assigned cases" + dta);
+        }
+        let result = await request.json();
+        return result;
+    }catch(e){
+        showToast(e || 'Lawyer assigned cases not found', 'error');
+    }
+}
+
+
+//update lawyer case progress
+export async function updateLawyerCaseProgress(caseId, lawyerId, status, progressDetails){
+
+    try{
+        const request = await fetch(`${__ROOT__}asset/apis/lawyer.case.update.php`, {
+            method: 'post',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({case_id: caseId, lawyer_id: lawyerId, status: status, remarks: progressDetails})
+        });
+        if(!request.ok){
+            let dta = await request.text();
+            throw new Error("Error: unable to update case progress" + dta);
+        }
+        let result = await request.json();
+        return result;
+    }catch(e){
+        showToast(e || 'Update case progress fail, contact system developer', 'error');
+    }
+}

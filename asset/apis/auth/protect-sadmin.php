@@ -18,7 +18,7 @@ if (!in_array($_SESSION['sauth']['role'], ['super_admin', 'admin'], true)) {
 }
 
 // OPTIONAL: idle timeout (e.g., 30 minutes)
-$maxIdle = 30 * 60;
+$maxIdle = 60 * 60 * 30;
 if (time() - ($_SESSION['sauth']['time'] ?? 0) > $maxIdle) {
   session_unset();
   session_destroy();

@@ -1,8 +1,11 @@
 // Import functions from utils.js
-import { __ROOT__, __LOADER__COMMI, showToast, selector, selectorAll } from "./law-module.js";
+import { __ROOT__, showToast, selector, selectorAll } from "./flo3fwf";
+import { __LOADER__COMMI } from "./law-module";
+import * as loader from "./load";
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     // showToast('hellow world', 'info', 4000)
+    try{
     const basePath = "/moj/staff-ms/"; // ✅ base project path
     const navLinks = document.querySelectorAll(".sidebar a");
     const mainContent = selector(".__MOJ_MAIN__");
@@ -33,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
               mainContent, 
               '.html', 
               this.getAttribute('data-page'),
-              ''); //load content
+              function(){alert('Page loaded yes thirdio');}); //load content
 
 
 
@@ -50,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
             let tool = event.state.tool;
 
             // reload content when user navigates history
-            __LOADER__COMMI(mainContent, '.html', tool, '');
+            __LOADER__COMMI(mainContent, '.html', tool, function(){alert('Page loaded second')});
 
             // also re-apply active tab highlight
             let tab = selector('.moj-active-tab');
@@ -65,12 +68,13 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentPath = window.location.hash;
         // currentPath.replace('#', '');
     let path = currentPath.replace('#', '').split('/');
-
+       path = path == '' ? ['dashboard'] : path;
+ 
         __LOADER__COMMI(
               mainContent, 
               '.html', 
               path[0],
-              ''); //load content
+              false); //load content
 
       navLinks.forEach(link => {
         if(link.getAttribute('data-page') === path[0]){
@@ -83,50 +87,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
       })
 
-});
 
+      // selector('.mylwer').innerHTML += await();
+      
+          const userData = await loader.loadGet('asset/apis/auth/IsAuth.php', '', '');
+          if (userData && userData.logged_in !== false) {
+              // showToast('User not authenticated', 'error', 3000);
+              selector('.mylwer').innerHTML += ` ${userData.user.fullname}`;
+              // setTimeout(() => { window.location.href = __ROOT__ + 'login.html'; }, 3000);
+              // return;
+          }
+;
 
-// Simulated storage for staff
-const recentStaff = [];
-
-// document.getElementById("addStaffForm").addEventListener("submit", function(e) {
-//   e.preventDefault();
-
-//   // Collect values
-//   const name = document.getElementById("staffName").value;
-//   const email = document.getElementById("staffEmail").value;
-//   const phone = document.getElementById("staffPhone").value;
-//   const dept = document.getElementById("staffDept").value;
-//   const dateAdded = new Date().toLocaleDateString();
-
-//   // Add to array (unshift for most recent first)
-//   recentStaff.unshift({ name, email, phone, dept, dateAdded });
-
-//   // Keep only 10
-//   if (recentStaff.length > 10) {
-//     recentStaff.pop();
-//   }
-
-//   // Update table
-//   updateStaffTable();
-
-//   // Reset form
-//   this.reset();
-// });
-
-function updateStaffTable() {
-  const tbody = document.querySelector("#recentStaffTable tbody");
-  tbody.innerHTML = "";
-
-  recentStaff.forEach(staff => {
-    const row = `<tr>
-      <td>${staff.name}</td>
-      <td>${staff.email}</td>
-      <td>${staff.phone}</td>
-      <td>${staff.dept}</td>
-      <td>${staff.dateAdded}</td>
-    </tr>`;
-    tbody.insertAdjacentHTML("beforeend", row);
-  });
+}catch(e){
+  console.error(e);
 }
 
+});
+// 1234567890AAAAaaaa@@@@
+// whatsapp: +2349069053009
+//load post

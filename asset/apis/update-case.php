@@ -27,6 +27,11 @@ try {
         exit;
     }
 
+    //admin information
+    $adminId   = $_SESSION['sauth']['id']    ?? null;
+    $adminName = $_SESSION['sauth']['name']  ?? 'Unknown';
+    $adminMail = $_SESSION['sauth']['email'] ?? 'Unknown';
+
     // ===== Input =====
     $case_id     = $input['id'] ?? null;
     $title       = $input['title'] ?? null;
@@ -76,6 +81,11 @@ try {
     $sql = "UPDATE cms_cases SET " . implode(", ", $fields) . ", updated_at = NOW() WHERE id = :id";
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);
+
+    //add progeress entry
+    $case_id = $case_id;
+    $progress = new CaseProgress($pdo);
+    $progress->addProgress($case_id, $adminId, $status, 'Case updated By Admin ('.$adminName . ')');
 
     // ===== Notifications & Logs =====
     $actor_id   = $_SESSION['sauth']['id'] ?? null;

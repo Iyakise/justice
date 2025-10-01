@@ -49,6 +49,7 @@ if ($pdo && $adminId) {
         'AUTH'
     );
 }
+session_logout();
 
 
 

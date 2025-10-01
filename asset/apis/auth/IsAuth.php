@@ -8,7 +8,8 @@ if (isset($_SESSION['user_id'])) {
         "user" => [
             "id" => $_SESSION['user_id'],
             "username" => $_SESSION['username'],
-            "role" => $_SESSION['role']
+            "role" => $_SESSION['role'],
+            "fullname" => $_SESSION['name']
         ]
     ]);
 } else {

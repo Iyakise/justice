@@ -93,8 +93,12 @@ try {
     //             'CASE FAIL', 
     //             `$adminName RECORD RECORD NEW CASE $title`, 
     //             'FAILED');
+    $currentCaseid = $pdo->lastInsertId();
+    $progress = new CaseProgress($pdo);
+    $progress->addProgress($currentCaseid, $adminId, $status,'Case created By '.$adminName);
+    $progress->addProgress($currentCaseid, $adminId, $status, $adminName . ' Assigned this case to you');
 
-    $caseId = $pdo->lastInsertId();
+    $caseId = $currentCaseid;
     $appName = __SITE_NAME__;
     $root = __ROOT__();
 
@@ -139,6 +143,12 @@ try {
             define('XPERT_MAIL_CONTENT_PLAN', $body);
             define('XPERT_MAIL_CONTENT_HTML', $body);
 
+            log_activity(
+                $pdo, 
+                $assigned_to, 
+                'CASE ADD', 
+                $adminName .' ASSIGNED NEW CASE TO YOU '. $title, 'SUCCESS'
+            );
 
             sendEmail(
                 $toEmail,

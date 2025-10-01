@@ -4,19 +4,19 @@
 
   <div class="case-details-card">
     <div class="case-info">
-      <p><strong>Case ID:</strong> #C-2025-004</p>
-      <p><strong>Case Title:</strong> Land Dispute Settlement</p>
-      <p><strong>Client Name:</strong> John Doe</p>
-      <p><strong>Assigned Lawyer:</strong> You</p>
+      <p><strong>Case ID:</strong> <span class="caseID">#C-2025-004</span></p>
+      <p><strong>Case Title:</strong> <span class="caseTitle">Land Dispute Settlement</span></p>
+      <p><strong>Client Name:</strong> <span class="clientName">John Doe</span></p>
+      <p><strong>Assigned Lawyer:</strong> <span class="assignedLawyer">You</span></p>
       <p><strong>Status:</strong> <span class="status ongoing">Ongoing</span></p>
-      <p><strong>Created On:</strong> January 12, 2025</p>
-      <p><strong>Last Updated:</strong> February 20, 2025</p>
+      <p><strong>Created On:</strong> <span class="createdOn">January 12, 2025</span></p>
+      <p><strong>Last Updated:</strong> <span class="lastUpdated">February 20, 2025</span></p>
     </div>
   </div>
 
   <div class="case-description">
     <h3>Case Description</h3>
-    <p>
+    <p class="caseDesc">
       This case involves a property dispute between John Doe and XYZ Ltd. The matter
       concerns ownership rights and encroachment issues on a piece of land located
       in Uyo, Akwa Ibom State. Documentation has been provided by both parties.
@@ -66,8 +66,14 @@
   border-radius: 6px;
   font-size: 13px;
 }
+.status.open{
+  background: #e0ffe0;
+  color: #28a745;
+}
 
-.status.ongoing {
+
+.status.ongoing,
+.status.in-progress {
   background: #e0f3ff;
   color: #007bff;
 }
@@ -141,6 +147,12 @@
   font-weight: 600;
   color: #000;
   margin-right: 8px;
+}
+
+
+.btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
 }
 
 @media (max-width: 768px) {

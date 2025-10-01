@@ -8,7 +8,7 @@ if (!defined('SESSION_NAME'))      define('SESSION_NAME', 'SAUTH');
 if (!defined('SESSION_IDLE'))      define('SESSION_IDLE', 30 * 60);      // seconds of inactivity (30 minutes)
 if (!defined('SESSION_ABSOLUTE'))  define('SESSION_ABSOLUTE', 8 * 3600); // absolute lifetime (8 hours)
 // Default redirect for require_login(); override when calling.
-if (!defined('LOGIN_REDIRECT'))    define('LOGIN_REDIRECT', '/moj/staff-ms/admin/login.php');
+if (!defined('LOGIN_REDIRECT'))    define('LOGIN_REDIRECT', '/staff-ms/login.html');
 // --------------------------------------------------
 
 // Detect "secure" (supports reverse proxies that set forwarded proto)

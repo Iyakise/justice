@@ -40,7 +40,7 @@ try {
             $stmtUser->execute([':id' => $userId]);
             $row = $stmtUser->fetch();
             if ($row) {
-                $name = $row['name'];
+                $name = $row['full_name'];
             } else {
                 // Fallback check in super_admins
                 $stmtAdmin->execute([':id' => $userId]);

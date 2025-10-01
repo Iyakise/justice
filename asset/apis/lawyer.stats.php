@@ -8,32 +8,53 @@ try {
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
     ]);
 
-    $lawyerId = $_GET['lawyer_id'] ?? null; // optional filter
+    $lawyerId = isset($_GET['uid']) ? (int) $_GET['uid'] : 0;
 
-    // total cases
-    $totalCases = $pdo->query("SELECT COUNT(*) AS total FROM cms_cases")->fetch()['total'];
-
-    // cases assigned to a lawyer (if lawyer_id provided)
-    $casesAssigned = 0;
-    if ($lawyerId) {
-        $stmt = $pdo->prepare("SELECT COUNT(*) AS total FROM cms_cases WHERE assigned_to = :lawyerId");
-        $stmt->execute([":lawyerId" => $lawyerId]);
-        $casesAssigned = $stmt->fetch()['total'];
+    if ($lawyerId <= 0) {
+        http_response_code(400);
+        echo json_encode([
+            "success" => false,
+            "message" => "Missing or invalid parameter: uid"
+        ]);
+        exit;
     }
 
-    // ongoing hearings
-    $ongoingCases = $pdo->query("SELECT COUNT(*) AS total FROM cms_cases WHERE status = 'In Court' OR status = 'Ongoing'")->fetch()['total'];
+    // 🔹 All cases in the system (regardless of lawyer)
+    $stmt = $pdo->query("SELECT COUNT(*) FROM cms_cases");
+    $allCases = (int) $stmt->fetchColumn();
 
-    // closed cases
-    $closedCases = $pdo->query("SELECT COUNT(*) AS total FROM cms_cases WHERE status = 'Resolved' OR status = 'Closed'")->fetch()['total'];
+    // 🔹 Total cases assigned to this lawyer
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM cms_cases WHERE assigned_to = :lawyerId");
+    $stmt->execute([":lawyerId" => $lawyerId]);
+    $assignedCases = (int) $stmt->fetchColumn();
+
+    // 🔹 Ongoing cases handled by this lawyer
+    $stmt = $pdo->prepare("
+        SELECT COUNT(*) 
+        FROM cms_cases 
+        WHERE assigned_to = :lawyerId 
+          AND (status = 'In Court' OR status = 'Ongoing' OR status = 'In Progress')
+    ");
+    $stmt->execute([":lawyerId" => $lawyerId]);
+    $ongoingCases = (int) $stmt->fetchColumn();
+
+    // 🔹 Closed cases handled by this lawyer
+    $stmt = $pdo->prepare("
+        SELECT COUNT(*) 
+        FROM cms_cases 
+        WHERE assigned_to = :lawyerId 
+          AND (status = 'Resolved' OR status = 'Closed')
+    ");
+    $stmt->execute([":lawyerId" => $lawyerId]);
+    $closedCases = (int) $stmt->fetchColumn();
 
     echo json_encode([
         "success" => true,
         "data" => [
-            "total_cases" => (int)$totalCases,
-            "cases_assigned_to_lawyer" => (int)$casesAssigned,
-            "ongoing_cases" => (int)$ongoingCases,
-            "closed_cases" => (int)$closedCases
+            "all_cases" => $allCases,
+            "assigned_cases" => $assignedCases,
+            "ongoing_cases" => $ongoingCases,
+            "closed_cases" => $closedCases
         ]
     ]);
 

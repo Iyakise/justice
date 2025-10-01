@@ -70,6 +70,7 @@ export async function loadGet(route, callback, data = {}) {
     } catch (e) {
         console.error(e);
         showToast(e.message || 'Error loading request', 'error');
+        return {status: false, message: e.message};
     }
 }
 

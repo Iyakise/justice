@@ -91,40 +91,40 @@ export async function __LOADER__(returndata, type, pge, token, callback) {
 }
 
 // Loader function
-export async function __LOADER__COMMI(returndata, type, pge, token, callback) {
-    try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 seconds
-        // console.log(pge)
-        pge  == 'dashboard' ? 'index' : pge;
-        if(pge === 'dashboard')pge = 'index';
+// export async function __LOADER__COMMI(returndata, type, pge, token, callback) {
+//     try {
+//         const controller = new AbortController();
+//         const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 seconds
+//         // console.log(pge)
+//         pge  == 'dashboard' ? 'index' : pge;
+//         if(pge === 'dashboard')pge = 'index';
 
-        const request = await fetch(`${__ROOT__}asset/__LOADER__/COMMI/${pge}${type}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token
-            },
-            signal: controller.signal
-        });
+//         const request = await fetch(`${__ROOT__}asset/__LOADER__/COMMI/${pge}${type}`, {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'Authorization': 'Bearer ' + token
+//             },
+//             signal: controller.signal
+//         });
 
-        clearTimeout(timeoutId);
+//         clearTimeout(timeoutId);
 
-        if (!request.ok) {
-            throw new Error(`Server Error while loading ${pge}: ${request.status}`);
-        }
+//         if (!request.ok) {
+//             throw new Error(`Server Error while loading ${pge}: ${request.status}`);
+//         }
 
-        const response = await request.text();
-        returndata.innerHTML = response;
+//         const response = await request.text();
+//         returndata.innerHTML = response;
 
-        initialiazeFunctionsComm(pge);
+//         initialiazeFunctionsComm(pge);
 
-        if (callback) callback();
+//         if (callback) callback();
 
-    } catch (e) {
-        showToast(e.err.message || e, "error", 3000);
-    }
-}
+//     } catch (e) {
+//         showToast(e.err.message || e, "error", 3000);
+//     }
+// }
 
 
 
@@ -1129,6 +1129,9 @@ const deptartSearch = selector('.search-input');
                             }else if(logs.action === "LOGOUT"){
                                 a = 'icon-login';
                                 b = '⮟';
+                            }else{
+                                a = 'icon-delete';
+                                b = '✕';
                             }
 
                             let li = newElement('li');
@@ -2091,4 +2094,49 @@ export function toDateInputFormat(dateTimeStr) {
     return `${parts[0]}-${parts[1]}-${parts[2]}`;
   }
   return "";
+}
+
+//function get from storage
+export function getFromStorage(key) {
+    if(!key) return null;
+    
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : [];
+}
+
+
+export function upsertToStorage(key, newObj) {
+    let data = getFromStorage(key);
+
+    // Ensure it's always an array
+    if (!Array.isArray(data)) {
+        data = [];
+    }
+
+    const newKey = Object.keys(newObj)[0]; // e.g. "case" or "lawyer"
+
+    // Find existing object with same key
+    const index = data.findIndex(item => Object.keys(item)[0] === newKey);
+
+    if (index !== -1) {
+        // Update existing
+        data[index] = newObj;
+    } else {
+        // Add new
+        data.push(newObj);
+    }
+
+    localStorage.setItem(key, JSON.stringify(data));
+}
+
+
+export function urlSplitter(){
+    const url = window.location.hash;
+    const parts = url.split("/");
+    const lastNumber = parts[parts.length - 1]; // "8"
+    //check if last part is a number
+    if(isNaN(lastNumber)) return null;
+
+    return lastNumber;
+
 }

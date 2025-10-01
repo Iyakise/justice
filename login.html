@@ -46,7 +46,7 @@
     <meta name="ahrefs-site-verification" content="your-ahrefs-site-verification-code">
     <meta name="baidu-site-verification" content="your-baidu-site-verification-code">
     <link rel="stylesheet" href="<?=__ROOT__()?>asset/css/moj-jaldkkfkasff-fssa.css?v=1&load=<?=time()?>">
-    <script type="module" src="<?=__ROOT__()?>asset/js/lndfaf343ffsda-module.js?load=<?=time()?>"></script>
+    <!-- <script type="module" src="<?=__ROOT__()?>asset/js/lndfaf343ffsda-module.js?load=<?=time()?>"></script> -->
 <style>
   .__load__:disabled{
     background: gray;
@@ -68,7 +68,7 @@
         <label for="password">Password</label>
         <input type="password" id="password" name="password" placeholder="Enter password" required>
       </div>
-      <button type="submit" class="login-btn __load__">Login</button>
+      <button type="button" class="login-btn __load__">Login</button>
       <div class="extra-links">
         <p><a href="<?=__ROOT__()?>reset-password/?u=1&v=<?=password_hash(__PWD_RESET_KEY__, PASSWORD_BCRYPT)?>">Forgot Password?</a></p>
       </div>
@@ -86,8 +86,10 @@
     import validateInput from './asset/js/validateInput';
 
     const isAuth = await loader.loadGet('asset/apis/auth/IsAuth.php', '', '');
+  // console.log(selector('.__load__'));
 
-    if(isAuth.logged_in){
+
+    if ('logged_in' in isAuth && isAuth.logged_in) {
           const user = isAuth.user.role;
         window.location.replace(__ROOT__ + await loader.path(user));
       // console.log(user);
@@ -95,8 +97,11 @@
       // return;
     }
 
+  // console.log(loader.default().load('asset/apis/auth/IsAuth.php', '', false));
+
     selector('.__load__').addEventListener('click', async(e) => {
       e.preventDefault();
+      // alert('Login clicked');
       let email     = selector('#username')?.value ?? null;
       let password  = selector('#password')?.value ?? null;
       let clickable = selector('.__load__');
@@ -108,7 +113,7 @@
         clickable.disabled = true;
 
 
-  const LoginRequest = await loader.load('asset/apis/auth/', function(){
+  const LoginRequest = await loader.default('asset/apis/auth/', function(){
 
         }, {email, password});
 
@@ -116,6 +121,11 @@
         if(!LoginRequest.success){clickable.disabled=false;clickable.innerHTML='Login'; return showToast(LoginRequest.message, 'error')}
 
         showToast(`${LoginRequest.message}, Please wait while system redirect you do dashboard`, 'success');
+
+        setTimeout(async() => {
+          // window.location.replace(__ROOT__ + LoginRequest.redirect);
+          window.location.replace(__ROOT__ + await loader.path(LoginRequest.user.role));
+        }, 2000);
         
     })
 

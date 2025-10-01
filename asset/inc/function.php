@@ -111,3 +111,53 @@ function sendEmail(
 }
 
 }
+
+
+
+
+
+
+class CaseProgress {
+
+    private $pdo;
+
+    public function __construct($pdo) {
+        $this->pdo = $pdo;
+    }
+
+    /**
+     * Add a progress entry to a case timeline
+     * 
+     * @param int $caseId - The case ID
+     * @param int $updatedBy - The user ID who updated
+     * @param string $status - Progress status (Created, Assigned, Hearing, etc.)
+     * @param string $remarks - Additional remarks/details
+     * @return array
+     */
+    public function addProgress($caseId, $updatedBy, $status, $remarks = '') {
+        try {
+            $sql = "INSERT INTO cms_case_progress (case_id, updated_by, status, remarks, created_at) 
+                    VALUES (:case_id, :updated_by, :status, :remarks, NOW())";
+            $stmt = $this->pdo->prepare($sql);
+
+            $stmt->execute([
+                ':case_id'    => $caseId,
+                ':updated_by' => $updatedBy,
+                ':status'     => $status,
+                ':remarks'    => $remarks
+            ]);
+
+            return [
+                "success" => true,
+                "message" => "Case progress added successfully",
+                "id"      => $this->pdo->lastInsertId()
+            ];
+
+        } catch (Exception $e) {
+            return [
+                "success" => false,
+                "message" => "Error: " . $e->getMessage()
+            ];
+        }
+    }
+}
