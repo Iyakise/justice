@@ -23,6 +23,15 @@
     </p>
   </div>
 
+   <div class="case-description">
+    <h3>Case Documents</h3>
+    <ul class="caseDocuments">
+      <li><strong>Property Deed.pdf:</strong>  <button class="btn">View</button></li>
+      <li><strong>Survey Report.pdf:</strong>  <button class="btn">View</button></li>
+      <li><strong>Correspondence.docx:</strong>  <button class="btn">View</button></li>
+    </ul>
+  </div>
+
   <div class="case-actions">
     <button class="btn primary">Update Progress</button>
     <button class="btn secondary">Upload Document</button>
@@ -126,16 +135,19 @@
   opacity: 0.9;
 }
 
-.case-timeline {
+.case-timeline,
+.caseDocuments {
   margin-top: 20px;
 }
 
-.case-timeline ul {
+.case-timeline ul
+.caseDocuments ul {
   list-style: none;
   padding: 0;
 }
 
-.case-timeline li {
+.case-timeline li,
+.caseDocuments li {
   margin: 10px 0;
   padding-left: 15px;
   border-left: 3px solid #007bff;
@@ -143,7 +155,8 @@
   color: #555;
 }
 
-.case-timeline span {
+.case-timeline span,
+.caseDocuments strong {
   font-weight: 600;
   color: #000;
   margin-right: 8px;

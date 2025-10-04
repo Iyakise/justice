@@ -71,7 +71,7 @@ try {
         FROM cms_case_progress p
         LEFT JOIN cms_users u ON p.updated_by = u.id
         WHERE p.case_id = :caseId
-        ORDER BY p.created_at ASC
+        ORDER BY p.created_at DESC
     ");
     $stmt->execute([":caseId" => $caseId]);
     $timeline = $stmt->fetchAll();

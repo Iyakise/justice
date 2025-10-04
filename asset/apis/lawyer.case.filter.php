@@ -9,6 +9,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $lawyer_id = isset($_GET['lawyer_id']) ? intval($_GET['lawyer_id']) : 0;
     $status    = isset($_GET['status']) ? trim($_GET['status']) : '';
 
+$pdo = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD, [
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    ]);
+
     if ($lawyer_id <= 0 || empty($status)) {
         echo json_encode([
             "success" => false,
@@ -24,18 +29,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 c.case_number,
                 c.title,
                 c.status,
-                c.client_id,
                 u.full_name AS client_name,
                 c.assigned_to,
                 l.full_name AS lawyer_name,
-                c.date_assigned,
-                c.deadline
+                c.created_at AS date_assigned,
+                c.created_at,
+                c.court_date AS deadline
             FROM cms_cases c
-            LEFT JOIN cms_users u ON c.client_id = u.id
+            LEFT JOIN cms_users u ON c.filed_by = u.id
             LEFT JOIN cms_users l ON c.assigned_to = l.id
             WHERE c.assigned_to = ? AND c.status = ?
-            ORDER BY c.date_assigned DESC
+            ORDER BY c.created_at DESC
         ");
+
         $stmt->execute([$lawyer_id, $status]);
         $cases = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

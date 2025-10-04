@@ -97,6 +97,12 @@ document.addEventListener("DOMContentLoaded", async function () {
               // setTimeout(() => { window.location.href = __ROOT__ + 'login.html'; }, 3000);
               // return;
           }
+
+          if(!userData || userData.logged_in === false){
+            showToast('User not authenticated', 'error', 3000);
+            setTimeout(() => { window.location.replace( __ROOT__ + 'login.html'); }, 3000);
+            return;
+          }
 ;
 
 }catch(e){

@@ -10,7 +10,7 @@
   <link rel="icon" type="image/x-icon" href="<?=__ROOT__()?>asset/img/AKS-Emblem.png?v=1&load=<?=time()?>">
   <script type="module" src="<?=__ROOT__()?>asset/js/flo3fwf.js?load=<?=time()?>"></script>
   <link rel="stylesheet" href="<?=__ROOT__()?>asset/css/all.min.css">
-  <title>Admin Login - <?=__SITE_NAME__?></title>
+  <title>Lawyer, commissioner, p secretary Login - <?=__SITE_NAME__?></title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <meta name="description" content="Admin Login - <?=__SITE_NAME__?> ">
     <meta http-equiv="X-UA-Compatible" content="IE=7">
@@ -91,7 +91,7 @@
 
     if ('logged_in' in isAuth && isAuth.logged_in) {
           const user = isAuth.user.role;
-        window.location.replace(__ROOT__ + await loader.path(user));
+        window.location.replace(__ROOT__ + await loader.path(user.toLowerCase()));
       // console.log(user);
       // console.log(await loader.path(user))
       // return;
@@ -124,7 +124,7 @@
 
         setTimeout(async() => {
           // window.location.replace(__ROOT__ + LoginRequest.redirect);
-          window.location.replace(__ROOT__ + await loader.path(LoginRequest.user.role));
+          window.location.replace(__ROOT__ + await loader.path(LoginRequest.user.role.toLowerCase()));
         }, 2000);
         
     })

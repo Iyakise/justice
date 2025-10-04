@@ -1,6 +1,9 @@
-<?php
+<?php session_start();
   require_once dirname(__DIR__, 2) . '/asset/inc/function.php';
-
+  if(!isset($_SESSION['isAuthenticated']) || $_SESSION['isAuthenticated'] !== true){
+      header('Location: ' . __ROOT__() . 'login.html');
+      exit;
+  } 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,23 +13,53 @@
   <title>Commissioner Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<?=__ROOT__()?>asset/css/moj-cmsllf3fasdda3ffaxcms.min.css">
+  <link rel="stylesheet" href="<?=__ROOT__()?>asset/css/all.min.css">
   <link rel="shortcut icon" href="<?=__ROOT__()?>/asset/img/AKS-Emblem.png" type="image/x-icon">
+  <!-- <script src="<?=__ROOT__()?>asset/js/tp.min.js"></script> -->
   <script type="module" src="<?=__ROOT__()?>asset/js/com-module.js"></script>
+  <!-- load chart js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta name="description" content="Commissioner Dashboard - <?=__SITE_NAME__?>">
+  <meta name="keywords" content="Commissioner, Dashboard, <?=__SITE_NAME__?>">
+  <meta name="author" content="<?=__SITE_NAME__?>">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#00703c">
+  <meta http-equiv="X-UA-Compatible" content="IE=7">
+  <link rel="canonical" href="<?=__ROOT__()?>staff-ms/commissioner/index.html">
+  <meta property="og:title" content="Commissioner Dashboard - <?=__SITE_NAME__?>">
+  <meta property="og:description" content="Commissioner Dashboard - <?=__SITE_NAME__?>">
+  <meta property="og:image" content="<?=__ROOT__()?>asset/img/AKS-Emblem.png?v=1&load=<?=time()?>">
+  <meta property="og:url" content="<?=__ROOT__()?>staff-ms/commissioner/index.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Commissioner Dashboard - <?=__SITE_NAME__?>">
+  <meta name="twitter:description" content="Commissioner Dashboard - <?=__SITE_NAME__?>">
+  <meta name="twitter:image" content="<?=__ROOT__()?>asset/img/AKS-Emblem.png?v=1&load=<?=time()?>">
+  <meta name="twitter:site" content="@akwaibomstategov">
+  <meta name="twitter:creator" content="@akwaibomstategov">
+  <meta name="apple-mobile-web-app-title" content="<?=__SITE_NAME__?>">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="<?=__SITE_NAME__?>">
+  <meta name="msapplication-TileColor" content="#00703c">
+  <meta name="msapplication-TileImage" content="<?=__ROOT__()?>asset/img/AKS-Emblem.png?v=1&load=<?=time()?>">
+  
 </head>
 <body>
   <div class="sidebar">
     <h2>Comm. Panel</h2>
     <ul>
-      <li><a data-page="dashboard" href="#Dashboard">Dashboard</a></li>
-      <li><a data-page="allcase" href="#AllCases">View All Cases</a></li>
-      <li><a data-page="activity" href="#VActivity">View Activity Log</a></li>
-      <li><a data-page="profile" href="#MProfile">Manage Profile</a></li>
-      <li><a data-page="logout" href="#Logout">Logout</a></li>
+      <li><a class="sdbar" data-page="dashboard" href="#Dashboard">Dashboard</a></li>
+      <li><a class="sdbar" data-page="allcase" href="#AllCases">View All Cases</a></li>
+      <li><a class="sdbar" data-page="activity" href="#VActivity">View Activity Log</a></li>
+      <li><a class="sdbar" data-page="profile" href="#MProfile">Manage Profile</a></li>
+      <li><a class="sdbar" data-page="logout" href="#Logout">Logout</a></li>
     </ul>
   </div>
 
   <div class="main-content">
-    <h1>Welcome, Commissioner</h1>
+    <h1 class="mylwer">Welcome, Comr</h1>
     <div class="__MOJ_MAIN__"></div>
 
 
@@ -37,5 +70,6 @@
 
 
   <script type="module" src="<?=__ROOT__()?>asset/js/cms-dtajso3of3of.min.js"></script>
+  <script type="module" src="<?=__ROOT__()?>asset/js/all.min.js"></script>
 </body>
 </html>

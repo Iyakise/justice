@@ -3,17 +3,24 @@ import { __ROOT__, showToast } from "./flo3fwf";
 export default async function load(route, callback, data = {}) {
     try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s timeout
+        const timeoutId = setTimeout(() => controller.abort(), 15000);
 
-        const request = await fetch(`${__ROOT__}${route}`, {
+        let options = {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                // 'Authorization': 'Bearer ' + token
-            },
             signal: controller.signal,
-            body: JSON.stringify(data)
-        });
+        };
+
+        if (data instanceof FormData) {
+            // ✅ File upload
+            options.body = data; 
+            // Don't set Content-Type, fetch will handle it
+        } else {
+            // ✅ Normal JSON request
+            options.headers = { 'Content-Type': 'application/json' };
+            options.body = JSON.stringify(data);
+        }
+
+        const request = await fetch(`${__ROOT__}${route}`, options);
 
         clearTimeout(timeoutId);
 
@@ -45,7 +52,7 @@ export async function loadGet(route, callback, data = {}) {
         // Build query string from object
         const queryString = new URLSearchParams(data).toString();
         const url = `${__ROOT__}${route}${queryString ? '?' + queryString : ''}`;
-// console.log(url)
+        
         const request = await fetch(url, {
             method: 'GET',
             headers: {
@@ -78,9 +85,9 @@ export async function loadGet(route, callback, data = {}) {
 // file path
 export async function path(p) {
     const routes = {
-        lawyer: '/staff-ms/lawyer/',
-        commissioner: '/staff-ms/commissioner/',
-        psecretary: '/staff-ms/psecretary/'
+        lawyer: 'staff-ms/lawyer/',
+        commissioner: 'staff-ms/commissioner/',
+        psecretary: 'staff-ms/psecretary/'
     };
 
     const url = routes[p];

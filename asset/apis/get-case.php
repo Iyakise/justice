@@ -17,7 +17,7 @@ try {
     ]);
 
     // Fetch all departments
-    $sql = "SELECT title, case_number, description, created_at, updated_at 
+    $sql = "SELECT title, case_number, id, status, description, created_at, updated_at 
             FROM cms_cases 
             ORDER BY created_at DESC LIMIT 25";
     $stmt = $pdo->query($sql);

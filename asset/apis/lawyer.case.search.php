@@ -28,6 +28,8 @@ try {
             c.status,
             c.priority,
             c.court_date,
+            c.created_at AS date_assigned,
+            c.court_date AS deadline,
             u.full_name AS client_name
         FROM cms_cases c
         LEFT JOIN cms_users u ON c.filed_by = u.id
@@ -38,6 +40,8 @@ try {
           )
         ORDER BY c.created_at DESC
     ");
+
+
     $stmt->execute([
         ":lawyerId" => $lawyerId,
         ":search"   => "%" . $query . "%"

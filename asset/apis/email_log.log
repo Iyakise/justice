@@ -68,3 +68,10 @@ Array
     [Exception] => SMTP Error: Could not connect to SMTP host.
     [http_code] => 401
 )
+Array
+(
+    [type] => PHPMAILER FAILURE
+    [error] => SMTP Error: Could not connect to SMTP host.
+    [Exception] => SMTP Error: Could not connect to SMTP host.
+    [http_code] => 401
+)

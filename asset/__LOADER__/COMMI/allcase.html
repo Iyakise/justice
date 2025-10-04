@@ -1,10 +1,19 @@
 <!-- Commissioner All Cases Screen -->
+ <?php
+require_once dirname(__DIR__, 2) . '/inc/function.php';
+ ?>
+  <div class="card">
+     <h3>All Cases</h3>
+     <p>View All cases, track, search for any case in the <?=__SITE_NAME__?></p>
+  </div>
+
 <div class="commissioner-cases-container">
+
   <h2>All Cases</h2>
 
   <!-- Search + Filter -->
   <div class="cases-controls">
-    <input type="text" placeholder="Search by case title or ID..." class="search-input">
+    <input type="text" placeholder="Search by case title or case Number..." class="search-input">
     <select class="filter-dropdown">
       <option value="">Filter by Status</option>
       <option value="open">Open</option>
@@ -18,20 +27,22 @@
     <div class="cases-header">
       <span>Case ID</span>
       <span>Title</span>
+      <!-- <span>Lawyer</span> -->
       <span>Status</span>
       <span>Date Created</span>
       <span>Actions</span>
     </div>
 
-    <div class="case-row">
-      <span>#1001</span>
-      <span>Land Dispute in Uyo</span>
-      <span class="status open">Open</span>
-      <span>Aug 15, 2025</span>
-      <button class="view-btn">View</button>
+    <div class="cases-table" id="case-table">
+      <div class="case-row">
+        <span>#1001</span>
+        <span>Land Dispute in Uyo</span>
+        <span class="status open">Open</span>
+        <span>Aug 15, 2025</span>
+        <button class="view-btn">View</button>
     </div>
 
-    <div class="case-row">
+    <!-- <div class="case-row">
       <span>#1002</span>
       <span>Fraud Investigation</span>
       <span class="status progress">In Progress</span>
@@ -69,6 +80,9 @@
       <span class="status closed">Closed</span>
       <span>Aug 20, 2025</span>
       <button class="view-btn">View</button>
+    </div> -->
+
+
     </div>
 
     

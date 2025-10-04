@@ -10,9 +10,13 @@
     <div class="form-group">
       <!-- <label for="fullname">Full Name</label> -->
        <div class="usr-img">
-        <img src="<?=__ROOT__()?>asset/img/male-mdium.png" alt="" srcset="<?=__ROOT__()?>asset/img/male-mdium.png" class="__PROV__">
+        <img src="<?=__ROOT__()?>asset/img/male-mdium.png" alt="Profile Avatar" srcset="<?=__ROOT__()?>asset/img/male-mdium.png" class="__PROV__">
         <div class="upload-invoker">
-            <i class="fas fa-user fa-4x"></i>
+          <input type="file" name="profile_pic" id="profile_pic" style="display: none;" class="d-none" id="profile_pic" accept="image/*">
+            <label for="profile_pic" class="upload-label" style="width: 180px;display: flex;flex-direction: column;align-items: center;cursor: pointer;">
+              <i class="fas fa-camera fa-4x" style="display: block;"></i>
+                Change Photo
+            </label>
         </div>
        </div>
       <!-- <input type="text" id="fullname" value="Barr. John Doe"> -->
@@ -21,7 +25,7 @@
 
 
     <div class="form-actions">
-      <button type="submit" class="btn-save">Save Changes</button>
+      <button type="submit" class="btn-save __proceed__">Save Changes</button>
       <button type="reset" class="btn-cancel">Cancel</button>
     </div>
   </form>
@@ -35,22 +39,32 @@
   <form class="profile-form">
     <div class="form-group">
       <label for="fullname">Full Name</label>
-      <input type="text" id="fullname" value="Barr. John Doe">
+      <input type="text" disabled aria-disabled="true" id="fullname" placeholder="Barr. Iyakise Raphael">
     </div>
 
     <div class="form-group">
       <label for="email">Email Address</label>
-      <input type="email" id="email" value="johndoe@example.com">
+      <input type="email" disabled aria-disabled="true" id="email" placeholder="Yakiseetim24@gmail.com">
     </div>
 
     <div class="form-group">
       <label for="phone">Phone Number</label>
-      <input type="text" id="phone" value="+234 806 123 4567">
+      <input type="text" id="phone" placeholder="+234 9069053009">
     </div>
 
     <div class="form-group">
       <label for="specialization">Specialization</label>
-      <input type="text" id="specialization" value="Criminal Law">
+      <input type="text" id="specialization" disabled aria-disabled="true" placeholder="Criminal Law, Family Law">
+    </div>
+
+    <div class="form-group">
+      <label for="role">Role</label>
+      <input type="text" disabled aria-disabled="true" id="role" placeholder="E.g Lawyer, Permanent Secretary">
+    </div>
+
+    <div class="form-group">
+      <label for="status">Account Status</label>
+      <input type="text" disabled aria-disabled="true" id="status" placeholder="E.g Active, Inactive">
     </div>
 
     <div class="form-group">
@@ -59,8 +73,8 @@
     </div>
 
     <div class="form-actions">
-      <button type="submit" class="btn-save">Save Changes</button>
-      <button type="reset" class="btn-cancel">Cancel</button>
+      <button type="submit" disabled aria-disabled="true" class="btn-save btn">Save Changes</button>
+      <button type="reset" disabled aria-disabled="true" class="btn-cancel btn">Cancel</button>
     </div>
   </form>
 </div>

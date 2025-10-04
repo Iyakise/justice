@@ -13,28 +13,33 @@
   <div class="dashboard-stats">
     <div class="stat-card">
       <h3>Total Cases</h3>
-      <p>154</p>
+      <p id="totalCases">154</p>
     </div>
     <div class="stat-card">
       <h3>Pending Cases</h3>
-      <p>37</p>
+      <p id="pendingCases">37</p>
     </div>
     <div class="stat-card">
       <h3>Resolved Cases</h3>
-      <p>117</p>
+      <p id="resolvedCases">117</p>
     </div>
     <div class="stat-card">
       <h3>Activity Logs</h3>
-      <p>482</p>
+      <p id="activityLogs">482</p>
+    </div>
+
+        <div class="stat-card">
+      <h3>Users</h3>
+      <p id="totalUsers">482</p>
     </div>
   </div>
 
   <!-- Actions -->
   <div class="dashboard-actions">
-    <button class="action-btn">View All Cases</button>
-    <button class="action-btn">View Activity Log</button>
-    <button class="action-btn">Manage Profile</button>
-    <button class="action-btn logout">Logout</button>
+    <button data-action="allcase" class="action-btn">View All Cases</button>
+    <button data-action="activity" class="action-btn">View Activity Log</button>
+    <button data-action="profile" class="action-btn">Manage Profile</button>
+    <button data-action="logout" class="action-btn logout">Logout</button>
   </div>
 
   <!-- RECENT ACTIVITY -->
@@ -64,6 +69,11 @@
     </div>
     <div class="activity-card">
       <p><strong>Case #92</strong> was closed successfully</p>
+      <span class="time">2 hours ago</span>
+    </div>
+
+      <div class="activity-card">
+        <p><strong>Case #92</strong> was closed successfully</p>
       <span class="time">2 hours ago</span>
     </div>
   </div>
@@ -175,7 +185,27 @@
   font-size: 18px;
 }
 
+#casesChart{
+  max-width: 50%;
+  height: 400px !important;
+  margin: 0 auto;
+  border: 2px solid #eee;
+}
+
+/* #casesChart{} */
+
 /* Mobile */
+@media (max-width: 768px) {
+  .dashboard-stats {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+
+  #casesChart{
+    max-width: 100%;
+    height: auto !important;
+  }
+}
+
 @media (max-width: 600px) {
   .dashboard-actions {
     flex-direction: column;

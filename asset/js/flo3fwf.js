@@ -347,10 +347,6 @@ export function initialiazeFunctions(p){
                     showToast('Quick link successfully load ' + link.getAttribute('data-action'))
                 })
 
-        // selectorAll('.sdbar').for
-
-
-
 
             })
         })

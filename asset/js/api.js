@@ -179,6 +179,10 @@ export async function addDepartment(deptName, description) {
 /**
  * popup and blur background
 */
+function invokePopup(){
+    alert('Hello');
+}
+
 
 export function showPopup(popupAppear, position,callback) {
     const popCnt = newElement('div');
@@ -732,7 +736,7 @@ export async function singleCaseDetails(uid){
         const request = await fetch(`${__ROOT__}asset/apis/lawyer.single.case.php?cid=${uid}`);
         if(!request.ok){
             let dta = await request.text();
-            throw new Error("Error: unable to fetch assigned cases" + dta);
+            throw new Error("Error: unable to fetch case data" + dta);
         }
         let result = await request.json();
         return result;
@@ -761,5 +765,115 @@ export async function updateLawyerCaseProgress(caseId, lawyerId, status, progres
         return result;
     }catch(e){
         showToast(e || 'Update case progress fail, contact system developer', 'error');
+    }
+}
+
+
+//lawyer try to close case
+export async function lawyerCloseCase(caseId, lawyerId, remark, role){
+    try{
+
+        const req = await fetch(`${__ROOT__}asset/apis/lawyer.close.case.php`, {
+            method: 'post',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({case_id: caseId, lawyer_id: lawyerId, remarks: remark, role: role})
+        });
+        if(!req.ok){
+            let tk = await req.text();
+            throw new Error("Error: close case request fail server responded with \"" + tk + "");
+        }
+        const result = await req.json();
+
+        return result;
+    } catch (error) {
+        showToast(error, 'error');
+    }
+}
+
+
+//signle user record
+export async function singleUserRecord(uid){
+    try{
+        const request = await fetch(`${__ROOT__}asset/apis/signle.user.record.php?uid=${uid}`);
+        if(!request.ok){
+            let dta = await request.text();
+            throw new Error("Error: unable to fetch user record" + dta);
+        }
+
+        let result = await request.json();
+        return result;
+
+    }catch(e){
+        showToast(e || 'User record not found', 'error');
+    }
+}
+
+export async function lawyerSearchCase(uid, qry){
+    try{
+        const request = await fetch(`${__ROOT__}asset/apis/lawyer.case.search.php?uid=${uid}&q=${qry}`);
+        if(!request.ok){
+            let dta = await request.text();
+            throw new Error("Error: Search case failed" + dta);
+        }
+        let result = await request.json();
+        return result;
+    }catch(e){
+        showToast(e || 'Search case failed contact developer', 'error');
+        return [];
+    }
+}
+
+
+
+//commisioner api endpoint query astart here
+export async function commissionerDashboardStats(uid){
+    try{
+        const request = await fetch(`${__ROOT__}asset/apis/recent.log.activity.php?uid=${uid}`);
+        if(!request.ok){
+            let dta = await request.text();
+            throw new Error("Error: unable to fetch commissioner dashboard stats" + dta);
+        }
+        let result = await request.json();
+        return result;
+    }catch(e){
+        showToast(e || 'Commissioner dashboard stats not found', 'error');
+    }
+}
+//commisioner activity log
+export async function commissionerActivity(uid){
+    try{
+        const request = await fetch(`${__ROOT__}asset/apis/db.stats.all.php?uid=${uid}`);
+        if(!request.ok){
+            let dta = await request.text();
+            throw new Error("Error: unable to fetch commissioner activity log" + dta);
+        }
+        let result = await request.json();
+        return result;
+    }catch(e){
+        showToast(e || 'Commissioner activity log not found', 'error');
+    }
+}
+
+//commisioner search for activity logs
+export async function commisionerlogs(q, limit){
+    try{
+        const request = await fetch(`${__ROOT__}asset/apis/logs.filter.search.php`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({search: q, limit: limit})
+        });
+        
+        if(!request.ok){
+            let dta = await request.text();
+            throw new Error("Error: unable to fetch activity log" + dta);
+        }
+        let result = await request.json();
+        return result;
+    }catch(e){
+        showToast(e || 'Activity log not found', 'error');
     }
 }

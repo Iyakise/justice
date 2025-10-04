@@ -1,6 +1,9 @@
-<?php
+<?php session_start();
   require_once dirname(__DIR__, 2) . '/asset/inc/function.php';
-
+  if(!isset($_SESSION['isAuthenticated']) || $_SESSION['isAuthenticated'] !== true){
+      header('Location: ' . __ROOT__() . 'login.html');
+      exit;
+  } 
 ?>
 
 <!DOCTYPE html>
