@@ -216,7 +216,7 @@ export function initialiazeFunctions(p){
                 btn.addEventListener('click', function(){
                     const caseId = this.getAttribute('data-id');
                     const keydata = getFromStorage('__cms_cData__');
-                    console.log(keydata);
+                    // console.log(keydata);
                     if(!caseId)return showToast('Case ID not found', 'error', 3000);
 
                     // alert('View details for case ID: ' + caseId);
@@ -359,6 +359,38 @@ status in-progress, closed, pending, open closed
                 `;
                 caseListBody.appendChild(row);
             });
+
+            // view button start here
+            //select all view buttons after search
+                const viewButtons = selectorAll('.view-btn');
+                viewButtons.forEach(btn => {
+                    btn.addEventListener('click', function(){
+                        const caseId = this.getAttribute('data-id');
+                        const keydata = getFromStorage('__cms_cData__');
+                        // console.log(keydata);
+                        if(!caseId)return showToast('Case ID not found', 'error', 3000);
+
+                        // alert('View details for case ID: ' + caseId);
+                        // You can implement a modal or redirect to a detailed case page here
+                        // find if caseId already exists
+                        // let data = getFromStorage(key);
+
+                        upsertToStorage('__cms_cData__', {caseId: caseId});
+                        __LOADER__COMMI(selector(".__MOJ_MAIN__"), '.html', 'vcase', '', function(){
+                            showToast('Case data loaded', 'success', 2000);
+                        });
+
+                        
+                        // Also update the URL hash
+                        // history.pushState(null, '', `#vcase/lawyer/vcase/${caseId}`);
+                        // Redirect to case detail page with hash
+                        location.hash = `vcase/lawyer/vcase/${caseId}`;
+
+                        
+
+                    });
+                });
+            // view button end
         }
 
 
@@ -1062,7 +1094,12 @@ justify-self: flex-start !important;
 
 }
 
-
+window.closePopup = function() {
+        const popup = selector('.popup-container');
+        if (popup) popup.remove();
+        selector('body').classList.remove('blurred');
+        
+    };
 
 // Handle form submission
                     // const form = document.getElementById('uploadForm');
@@ -1073,7 +1110,3 @@ justify-self: flex-start !important;
                     //     alert('Form submitted. Implement AJAX upload logic here.');
                     // });
                     // Close popup function
-    window.closePopup = function() {
-        const popup = selector('.popup-container');
-        if (popup) popup.remove();
-    };

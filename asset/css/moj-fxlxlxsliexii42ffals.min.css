@@ -381,7 +381,6 @@ select {
 .main-content{
   padding-right: 0 !important;
   width: 100%;
-  border: 2px dashed blue;
 }
 
 .__UPDATE__SECTION__{
@@ -462,6 +461,11 @@ select {
 .cases-table-wrapper
 {
   height: 400px;
+}
+
+.__IYAKISE_LOGO__{
+  width: 70px;
+  height: 70px;
 }
 
 /* Desktop side by side */

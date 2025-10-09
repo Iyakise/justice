@@ -1,0 +1,71 @@
+*,:before, 
+:after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.__lnd__{
+    width: 60px;
+    height: 60px;
+}
+
+.show-border{
+    border: 4px dashed red !important;
+}
+
+h2.force{
+    color: var(--secondary-color2) !important;
+    font-size: 37px ;
+}
+
+.swing{
+    transform-origin: top center; /* pivot point for swinging */
+    animation: swing 20s ease-in-out infinite;
+    z-index: 10;
+
+}
+
+.hero-image-wrap{
+    border: 6px solid var(--secondary-color2);
+}
+
+.swiper-wrapper .hero{
+    width: 100% !important;
+    flex: 0 0 100%;
+}
+
+.owl-carousel .custom-link{
+    background: transparent;
+    text-align: left;
+}
+
+
+.owl-carousel h2, .owl-carousel p {
+  animation: fadeInUp 1.2s ease forwards;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Keyframe for slow swinging motion */
+/* @keyframes swing {
+  0%   { transform: rotate(10deg); }
+  50%  { transform: rotate(-10deg); }
+  100% { transform: rotate(10deg); }
+} */
+
+.overlayimg
+{
+    width: 105%;
+    height: 80px;
+    background: linear-gradient(var(--secondary-color) );
+    bottom: -250px;
+    clip-path: ellipse();
+    right: -88px;
+    position: absolute;
+    /* border: 2px solid red; */
+    z-index: 300;
+}

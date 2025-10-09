@@ -43,7 +43,7 @@ try {
         WHERE l.action LIKE :search
            OR l.description LIKE :search
         ORDER BY l.created_at DESC
-        LIMIT 50
+        LIMIT $limit
     ");
     $stmt->execute([":search" => "%" . $search . "%"]);
     $logs = $stmt->fetchAll();
@@ -53,6 +53,7 @@ try {
         "search" => $search,
         "count" => count($logs),
         "logs" => $logs
+        // "limit" => $limit,
     ]);
 
 } catch (Exception $e) {

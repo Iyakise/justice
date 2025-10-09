@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     try {
         if (!isset($_POST['user_id']) || empty($_POST['user_id'])) {
             http_response_code(400);
-            echo json_encode(["error" => "User ID is required"]);
+            echo json_encode(["error" => "User ID is required "]);
             exit;
         }
 

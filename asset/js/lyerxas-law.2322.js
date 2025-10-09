@@ -102,8 +102,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             showToast('User not authenticated', 'error', 3000);
             setTimeout(() => { window.location.replace( __ROOT__ + 'login.html'); }, 3000);
             return;
-          }
-;
+          };
 
 }catch(e){
   console.error(e);

@@ -49,6 +49,16 @@
       background: var(--sidebar-hover-bg-color);
     }
 
+    .btn-update:disabled{
+      background: #ccc;
+    }
+
+    .btn-update:disabled:hover{
+      background: #ccc;
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     .main-content {
       flex-grow: 1;
       /* padding: 30px; */

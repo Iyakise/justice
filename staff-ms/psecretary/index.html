@@ -1,10 +1,13 @@
-<?php
+<?php session_start();
   require_once dirname(__DIR__, 2) . '/asset/inc/function.php';
-
+  if(!isset($_SESSION['isAuthenticated']) || $_SESSION['isAuthenticated'] !== true){
+      header('Location: ' . __ROOT__() . 'login.html');
+      exit;
+  } 
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="yes">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,10 +17,14 @@
   <link rel="shortcut icon" href="<?=__ROOT__()?>/asset/img/AKS-Emblem.png" type="image/x-icon">
   <script type="module" src="<?=__ROOT__()?>asset/js/secr-module.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+  <link rel="stylesheet" href="<?=__ROOT__()?>asset/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 <body>
   <div class="sidebar">
-    <h2>P. Sec. Panel</h2>
+    <h2>
+      <img src="<?=__ROOT__()?>asset/img/AKS-Emblem.png" class="__IYAKISE_LOGO__" title="<?=__SITE_NAME__?>" translate="yes">
+    </h2>
     <ul>
       <li><a data-page="dashboard" href="#Dashboard">Dashboard</a></li>
       <li><a data-page="tcases" href="#Register">Track Cases</a></li>
@@ -28,12 +35,13 @@
   </div>
 
   <div class="main-content">
-    <h1>Welcome, Secretary</h1>
+    <h1 class="mylwer">Welcome, Secretary </h1>
     
     <div class="__MOJ_MAIN__"></div>
 
   </div>
 
   <script type="module" src="../../asset/js/steger.min.js"></script>
+  <script src="<?=__ROOT__()?>asset/js/all.min.js"></script>
 </body>
 </html>

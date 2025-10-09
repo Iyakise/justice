@@ -2,6 +2,7 @@
  <?php
   require_once dirname(__DIR__, 3) . '/asset/inc/function.php';
  ?>
+
 <div class="ps-manage-profile">
   <h2>Manage Profile</h2>
   <p class="subtitle">Update your account information and preferences</p>
@@ -37,7 +38,7 @@
     <!-- Upload -->
     <div class="form-group">
       <label>Profile Picture</label>
-      <input type="file" />
+      <input type="file" id="Uploader"/>
       <div class="preview">
         <img src="<?=__ROOT__()?>asset/img/female-mdium.png" alt="Profile Picture" />
       </div>
@@ -46,7 +47,7 @@
     <!-- Actions -->
     <div class="actions">
       <button type="submit" class="btn save">Save Changes</button>
-      <button type="reset" class="btn cancel">Cancel</button>
+      <button type="reset" disabled class="btn cancel">Cancel</button>
     </div>
   </form>
 </div>

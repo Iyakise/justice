@@ -1,7 +1,7 @@
 // import saveStaff from './api.js';
 //import all functions from api.js
 import * as api from './api';
-import validateInput from './validateInput.js';
+import validateInput from './validateInput';
 import { loadGet } from './load';
 // import updateStaffRecord from './updateStaffRecord.js';
 // import delDept from './selector.js';
@@ -214,8 +214,6 @@ export function showToast(message, type = "info", duration = 3000) {
         setTimeout(() => toast.remove(), 400);
     }
 }
-
-
 
 export function selector(d){
     /*
@@ -1861,9 +1859,6 @@ let popupEl = selector('.popup-overlay')
           });
           });
  }
-
-
-
  //function to check how many minute pass
  export default function timeAgo(dateString) {
     const now = new Date();
@@ -1893,7 +1888,6 @@ let popupEl = selector('.popup-overlay')
     const years = Math.floor(days / 365);
     return `${years} year${years > 1 ? "s" : ""} ago`;
 }
-
 
 //update case invoker
 function updatecase(){

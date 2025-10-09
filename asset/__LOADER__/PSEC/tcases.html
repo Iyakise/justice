@@ -1,5 +1,8 @@
 <!-- VIEW / TRACK CASES SCREEN -->
-
+<div class="card">
+  <h3>Track all cases</h3>
+  <p>This screen here allowed youl to track and view case progress over time</p>
+</div>
 <div class="ps-track-cases">
   <!-- Header -->
   <div class="ps-header">
@@ -9,20 +12,21 @@
 
   <!-- Filters -->
   <div class="ps-filters">
-    <input type="text" placeholder="Search by Case ID, Lawyer, or Complainant...">
-    <select>
-      <option>Status (All)</option>
-      <option>Pending</option>
-      <option>In Progress</option>
-      <option>Closed</option>
+    <input type="text" placeholder="Search by Case ID, Lawyer, or Complainant..." id="Sffx-kkkeud">
+    <select id="CaseFilter">
+      <option>--- Select Status ---</option>
+      <option value="Pending">Pending</option>
+      <option value="In progress">In Progress</option>
+      <option value="Open">Open</option>
+      <option value="Closed">Closed</option>
     </select>
-    <select>
+    <!-- <select>
       <option>Filter by Date</option>
       <option>Today</option>
       <option>This Week</option>
       <option>This Month</option>
     </select>
-    <button class="btn-search">Search</button>
+    <button class="btn-search">Search</button> -->
   </div>
 
   <!-- Cases Table -->
@@ -34,12 +38,12 @@
           <th>Case Title</th>
           <th>Lawyer</th>
           <th>Status</th>
-          <th>Progress</th>
+          <!-- <th>Progress</th> -->
           <th>Last Updated</th>
           <th>Action</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="caseTbody">
         <tr>
           <td>#C1021</td>
           <td>State vs John Doe</td>
@@ -281,6 +285,7 @@
 .status.pending { background: #fff4e6; color: #FF8200; }
 .status.in-progress { background: #e6f7f1; color: #008751; }
 .status.closed { background: #e6f0ff; color: #0072C6; }
+.status.open { background: #17e790; color: #dce5eb; }
 
 /* Progress Bar */
 .progress-bar {
@@ -293,7 +298,7 @@
 
 .progress {
   height: 100%;
-  background: linear-gradient(90deg, #FF8200, #008751);
+  background: linear-gradient(90deg, #FF8200);
 }
 
 /* Action Button */

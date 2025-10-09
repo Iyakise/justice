@@ -127,9 +127,13 @@
                 if(pwd1.value !== pwd2.value) throw new Error("Both password must be the same");
                 
 
-                let resetPwd = load('asset/apis/reset-pwd.php', '', {'token': urlParams.get('token'), 'new_password': pwd2.value});
+                let resetPwd = await load('asset/apis/reset-pwd.php', '', {'token': urlParams.get('token'), 'new_password': pwd2.value});
 
-                console.log(await resetPwd)
+                console.log(resetPwd)
+                if(!resetPwd.status) return showToast(resetPwd.message || 'Unexpected error prevent password reset request from executing...', 'error');
+                showToast(resetPwd.message + ', Return back to login now', 'success');
+
+                
 
             }catch(e){
                 showToast(e || 'ERROR: Request fail, try again later!', 'error');

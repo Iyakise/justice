@@ -59,11 +59,11 @@ export function initialiazeFunctions(p){
   // ===== Activity Overview (Doughnut) =====
         // Chart.js setup
         const userData      = await loader.loadGet('asset/apis/auth/IsAuth.php', '', false);
-        console.log(userData);
+        // console.log(userData);
         let activity        = await api.commissionerActivity();
         let dashboardStats  = await api.commissionerDashboardStats(userData.user.id);
         // console.log(dashboardStats);
-        console.log(activity);
+        // console.log(activity);
         let totatalCase = activity.success ? activity.data.total_cases : 0;
         // let activeCase = activity.success ? activity.data.active_cases : 0;
         let resolvedCase = activity.success ? activity.data.resolved_cases : 0;
@@ -187,8 +187,6 @@ export function initialiazeFunctions(p){
                 `;
                 activityContainer.appendChild(activityCard);
             });}
-
-       
        
         });
 
@@ -251,8 +249,6 @@ export function initialiazeFunctions(p){
                 if(!validateInput(searchParam,'text')) return showToast('Error: invalid search parameter', 'error');
 
                 const searchResult = await api.searchCase(searchParam);
-                console.log(searchResult);
-
                 //search data not foun
                 if(!searchResult || searchResult.cases.length === 0){
                     caseRtn.innerHTML = `
@@ -312,6 +308,92 @@ export function initialiazeFunctions(p){
 
 
 
+    break;
+
+    
+    case 'activity':
+        (async () => {
+            const isAuth      = await loader.loadGet('asset/apis/auth/IsAuth.php', '', false);
+        
+                if(!isAuth || !isAuth.logged_in){
+                    showToast('User is not Authenticated', 'error',  2000);
+                    setTimeout(()=> window.location.href = __ROOT__ + 'login.html', 2000);
+                    return;
+                }
+
+            loader.loadGet('asset/apis/activit-log.php', (result)=>{
+                // console.log(result);
+                if(!result.status)return showToast('Error: failed to retrieve activity logs', 'error');
+
+                let logscontainer = selector('.activity-log-list');
+                    logscontainer.innerHTML = '';
+
+                if(result.data.length === 0){
+                    logscontainer.innerHTML = `
+                            <p>
+                                <strong>No recent logs found</strong>
+                                
+                            </p>
+                            <small>Nothing to see here.</small>
+                    `;
+                }
+                result.data.forEach(log => {
+                    let logwrap = newElement('div');
+                        logwrap.className = 'activity-log-item';
+                        logwrap.innerHTML =  `
+                            <p>
+                                <strong>${log.action}</strong>
+                                ${log.description}
+                            </p>
+                            <small>
+                                ${timeAgo(toDateInputFormat(log.created_at))}
+                            </small>
+                        `;
+                    logscontainer.appendChild(logwrap);
+                })
+
+
+            }, {});
+
+
+        })();
+    break;
+
+
+    case 'profile':
+        (async ()=> {
+                const isAuth      = await loader.loadGet('asset/apis/auth/IsAuth.php', '', false);
+                if(!isAuth || !isAuth.logged_in){
+                    showToast('User is not Authenticated', 'error',  2000);
+                    setTimeout(()=> window.location.href = __ROOT__ + 'login.html', 2000);
+                    return;
+                }
+
+            loader.loadGet('asset/apis/signle.user.record.php', (result) => {
+                // console.log(result)
+                let nm = selector('#fullname');
+                let em = selector('#email');
+                let ph = selector('#phone');
+                let pw1= selector('#password');
+                let pw2= selector('#confirm-password');
+                let btn = selector('.btn-update');
+
+                nm.value = result.user.full_name;
+                em.value = result.user.email;
+                ph.value = result.user.phone;
+
+                nm.disabled = true;
+                ph.disabled = true;
+                em.disabled = true;
+                btn.disabled = true;
+                pw1.disabled = true;
+                pw2.disabled = true;
+
+
+
+            }, {uid: isAuth.user.id});
+
+        })();
     break;
 
 
@@ -618,4 +700,5 @@ window.viewCase = viewCase;
 window.closePopup = function() {
     const popup = selector('.popup-container');
     if (popup) popup.remove();
+    selector('body').classList.remove('blurred');
 };

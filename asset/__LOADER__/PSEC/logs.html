@@ -3,8 +3,8 @@
   <h2>Activity Log</h2>
 
   <!-- Modern Filter Section -->
-  <div class="filter-bar">
-    <div class="filter-group">
+  <div class="filter-bar ">
+    <!-- <div class="filter-group">
       <label for="filter-date">Date</label>
       <input type="date" id="filter-date">
     </div>
@@ -20,14 +20,16 @@
     <div class="filter-group">
       <label for="filter-type">Activity Type</label>
       <select id="filter-type">
-        <option value="">All Types</option>
-        <option>New Case</option>
-        <option>Profile Update</option>
-        <option>Case Reassignment</option>
-        <option>Login</option>
-      </select>
+        <option value="">--- Select Type ---</option>
+        <option value="All types">All Types</option>
+        <option value="CASE ADD">New Case</option>
+        <option value="PROFILE_IMAGE_UPLOAD">Profile Update</option>
+        <option value="Case Reassigned">Case Reassignment</option>
+        <option value="LOGIN_SUCCESS">Login</option>
+      </select> -->
+      <input type="text" id="m_sld_fxtc" class="search" placeholder="Enter search data" aria-placeholder="Search" translate="yes">
     </div>
-    <button class="filter-btn">Apply</button>
+    <!-- <button class="filter-btn">Apply</button> -->
   </div>
 
   <div class="log-container">
@@ -162,5 +164,17 @@
 
 .log-entry strong {
   color: #F7931E;
+}
+
+.filter-bar input{
+  width:100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #007bff;
+}
+
+input:focus{
+  border: none;
+  outline: 1px solid #007bff;
 }
 </style>
